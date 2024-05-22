@@ -60,11 +60,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     redirect('login');
   }
-
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +76,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   <section class="signup">
     <div class="container">
       <div class="row">
-        <form action="" method="post" class="form signup-form" style="display: flex; flex-direction: column;align-items:center;">
+        <form method="post" class="form signup-form" style="display: flex; flex-direction: column;align-items:center;">
           <a href="<?=ROOT?>/home" class="form__logo">
             <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="page logo">
           </a>

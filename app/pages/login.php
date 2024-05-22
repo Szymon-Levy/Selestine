@@ -1,3 +1,40 @@
+<?php
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+  //get login form values
+  $email = trim($_POST['email']);
+  $password = trim($_POST['password']);
+
+  //validate
+  $errors = [];
+
+  if (empty($email)) {
+    $errors['email'] = 'Email cannot be empty!';
+  }
+  else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors['email'] = 'Wrong email format!';
+  }
+
+  if (empty($password)) {
+    $errors['password'] = 'Password cannot be empty!';
+  }
+
+  if(empty($errors)) {
+    //save new user to database
+    $data = [];
+    $data['user_name']    = $user_name;
+    $data['email']        = $email;
+    $data['pass']         = password_hash($password, PASSWORD_DEFAULT);
+    $data['account_type'] = 'user';
+    $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
+    query($query, $data);
+    
+    redirect('login');
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +47,21 @@
   <section class="login">
     <div class="container">
       <div class="row">
-        <form action="" class="form login-form">
+        <form method="post" class="form login-form" style="display: flex; flex-direction: column;align-items:center;">
           <a href="<?=ROOT?>/home" class="form__logo">
             <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="page logo">
           </a>
-          <input type="text" name="email" id="email" placeholder="email">
+          <input value="<?= $email ?? ''; ?>" type="text" name="email" id="email" placeholder="email">
+
+          <?php if (!empty($errors['email'])) { ?>
+            <div class="form_error"> <?= $errors['email']; ?> </div>
+          <?php } ?>
+
           <input type="password" name="password" id="password" placeholder="password">
+
+          <?php if (!empty($errors['password'])) { ?>
+            <div class="form_error"> <?= $errors['password']; ?> </div>
+          <?php } ?>
 
           
           <label>
