@@ -30,3 +30,11 @@ function redirect (string $page) {
   header('Location: ' . $page);
   die();
 }
+
+/**
+ * Login user into page.
+ * @param array $db_user_row Row from the database of user to login.
+ */
+function authenticate_user (array $db_user_row) {
+  $_SESSION['USER'] = $db_user_row;
+}

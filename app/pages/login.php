@@ -20,16 +20,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   if(empty($errors)) {
-    //save new user to database
-    $data = [];
-    $data['user_name']    = $user_name;
-    $data['email']        = $email;
-    $data['pass']         = password_hash($password, PASSWORD_DEFAULT);
-    $data['account_type'] = 'user';
-    $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
-    query($query, $data);
-    
-    redirect('login');
+    $query = 'SELECT * FROM users WHERE email = :email limit 1;';
+    $found_user_row = query($query, ['email' => $email]);
+
+    if ($found_user_row && password_verify($password, $found_user_row[0]['pass'])) {
+      //login into session
+      authenticate_user($found_user_row[0]);
+
+      redirect('admin');
+    }
+    else {
+      $errors['email'] = 'Wrong user data!';
+      $errors['password'] = 'Wrong user data!';
+    }
   }
 }
 
