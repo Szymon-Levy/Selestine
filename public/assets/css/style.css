@@ -13,6 +13,7 @@
   --clr-black: #000;
   --clr-white: #ffffff;
   --clr-grey: #555555;
+  --clr-placeholder: #979797;
   --clr-footer: #212121;
   --clr-body-text: #444444;
   --clr-error: rgb(176, 28, 28);
@@ -42,7 +43,7 @@
   /* CONTAINER */
 
   --container-400: 1170px;
-  --side-space: 15px;
+  --side-space: 1.5rem;
   --section-block-space-400: 10rem;
 }
 
@@ -88,6 +89,10 @@ textarea{
   border: none;
 }
 
+input {
+  outline: none;
+}
+
 html {
   font-size: var(--fs-base);
   scroll-behavior: smooth;
@@ -98,6 +103,7 @@ body{
   color: var(--clr-body-text);
   font-size: var(--fs-body-400);
   line-height: var(--lh-body-400);
+  font-weight: 400;
   font-family: var(--ff-body);
   overflow-x: hidden;
 }
@@ -128,7 +134,6 @@ b {
   height: 1px;
   width: 1px;
   overflow: hidden;
-  clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
   white-space: nowrap;
@@ -138,12 +143,117 @@ b {
 
 /* BUTTONS */
 
+/* FORMS */
+
+.form input {
+  height: 3rem;
+  padding: 0 1.4rem;
+  border: 1px solid var(--clr-border);
+}
+
+.form input,
+.form textarea {
+  border: 1px solid var(--clr-border);
+  transition: box-shadow .2s;
+}
+
+.form input::placeholder,
+.form textarea::placeholder {
+  color: var(--clr-placeholder);
+}
+
+.form input:focus,
+.form textarea:focus {
+  box-shadow: 1px 1px 1px var(--clr-black);
+}
+
 
 /* === HEADER === */
+.header {
+  padding: 2rem 0;
+}
+
 .header .row {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
+
+.header__socials {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+}
+
+.header__logo {
+  margin: 1.8rem 0 2.4rem;
+  max-width: 170px;
+}
+
+.header__search .form__field {
+  display: flex;
+  position: relative;
+}
+
+.header__search input {
+  padding-right: 4.5rem;
+}
+
+.header__search .form__submit {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
+  padding: 0 1rem;
+  font-size: 1.4rem;
+  transition: background-color .4s;
+}
+
+.header__search .form__submit:hover,
+.header__search .form__submit:focus-visible {
+  background-color: var(--clr-accent-alt);
+}
+
+/* === NAVIGATION BAR === */
+.nav {
+  padding: 2rem 0;
+  border-top: 1px solid var(--clr-line);
+}
+
+.nav__toggle {
+  margin-left: auto;
+  display: block;
+  font-size: 2rem;
+  transition: color .4s;
+}
+
+.nav__toggle:hover,
+.nav__toggle:focus-visible {
+  color: var(--clr-accent);
+}
+
+.nav__list {
+  position: absolute;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+
+.nav__list.active {
+  position: static;
+  height: unset;
+  width: auto;
+  opacity: 1;
+}
+
+.nav__list a {
+  font-size: var(--fs-body-300);
+  text-transform: uppercase;
+  letter-spacing: .2em;
+}
+
 
 /* === FOOTER & BOTTOM GALLERY === */
 .bottom-gallery {
@@ -195,10 +305,50 @@ b {
 
 /* === BREAKPOINTS === */
 
-/* //ANCHOR 767px */
-/* 767px */
+/* //ANCHOR 768px */
+/* 768px */
 
-@media screen and (min-width: 767px) {
+@media screen and (min-width: 768px) {
+  /* === VARIABLES === */
+  :root {
+
+    /* CONTAINER */
+
+    --side-space: 3rem;
+  }
+
+  /* === HEADER === */
+  .header {
+    --logo-width: 170px;
+
+    padding: 3rem 0;
+  }
+
+  .header .row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .header__logo {
+    margin: 0;
+    max-width: unset;
+    flex: 0 0 var(--logo-width);
+  }
+
+  .header__socials,
+  .header__search {
+    flex-basis: calc((100% - var(--logo-width)) / 2);
+  }
+
+  .header__socials {
+    justify-content: flex-start;
+  }
+
+  .header__search {
+    display: flex;
+    justify-content: flex-end;
+  }
+
   /* === FOOTER & BOTTOM GALLERY === */
   .footer__socials li {
     margin: 0 1rem;
@@ -208,5 +358,53 @@ b {
     width: 5.5rem;
     height: 5.5rem;
     font-size: 1.6rem;
+  }
+}
+
+
+/* //ANCHOR 992px */
+/* 992px */
+
+@media screen and (min-width: 992px) {
+  /* === HEADER === */
+  .nav {
+    padding: 3rem 0;
+  }
+
+  .nav__toggle {
+    display: none;
+  }
+
+  .nav__list {
+    display: flex;
+    justify-content: center;
+    gap: 4.5rem;
+    position: static;
+    height: unset;
+    width: auto;
+    opacity: 1;
+  }
+ }
+
+
+/* //ANCHOR 1200px */
+/* 1200px */
+
+@media screen and (min-width: 1200px) {
+  /* === HEADER === */
+  .header {
+    --logo-width: 325px;
+
+    padding: 7rem 0;
+  }
+
+  .header__search input {
+    width: 260px;
+  }
+
+  /* === FOOTER & BOTTOM GALLERY === */
+  .footer {
+    padding-top: 22rem;
+    margin-top: -15rem;
   }
 }

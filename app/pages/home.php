@@ -20,14 +20,38 @@
 </head>
 <body>
 
-
+  <!-- === HEADER === -->
   <header class="header">
     <div class="container">
       <div class="row">
         <ul class="header__socials">
           <li>
-            <a href="" aria-label="twitter">
+            <a href="https://twitter.com/" aria-label="twitter link" target="_blank">
               <i class="ri-twitter-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://instagram.com/" aria-label="instagram link" target="_blank">
+              <i class="ri-instagram-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://pinterest.com/" aria-label="pinterest link" target="_blank">
+              <i class="ri-pinterest-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://facebook.com/" aria-label="facebook link" target="_blank">
+              <i class="ri-facebook-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://www.behance.net/" aria-label="behance link" target="_blank">
+              <i class="ri-behance-fill" aria-hidden="true"></i>
             </a>
           </li>
         </ul>
@@ -36,20 +60,37 @@
           <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="Selestine logo">
         </a>
 
-        <form action="" class="header__search">
-          <input type="text" name="" id="">
+        <form action="" class="header__search form">
+          <div class="form__field">
+            <input type="text" name="" id="" placeholder="search on blog">
+            <button type="submit" class="form__submit">
+              <span class="visually-hidden">Submit blog search form</span>
+              <i class="ri-search-line"></i>
+            </button>
+          </div>
         </form>
       </div>
     </div>
   </header>
 
-  <nav class="toolbar">
+  <!-- === NAVIGATION BAR === -->
+  <div class="nav" role="navigation">
     <div class="container">
       <div class="row">
+        <button class="nav__toggle js-nav-toggler" aria-hidden="true">
+          <i class="js-nav-toggler-icon ri-menu-3-line"></i>
+        </button>
 
+        <ul class="nav__list js-nav-list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Works</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
       </div>
     </div>
-  </nav>
+  </div>
 
   <!-- === BOTTOM GALLERY === -->
   <section class="bottom-gallery">
