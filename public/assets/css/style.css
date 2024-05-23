@@ -7,8 +7,8 @@
   /* COLORS */
   
   --clr-primary: #000000;
-  --clr-accent: #0000ff;
-  --clr-accent-alt: #0a0a66;
+  --clr-accent: #2054cd;
+  --clr-accent-alt: #0a2e81;
   --clr-bg-light: #f8f8f8;
   --clr-black: #000;
   --clr-white: #ffffff;
@@ -86,7 +86,6 @@ button,
 textarea{
   font-family: inherit;
   border: none;
-  outline: none;
 }
 
 html {
@@ -105,7 +104,7 @@ body{
 
 .swiper-wrapper,
 .swiper-slide{
-  height: unset;
+  height: unset !important;
 }
 
 strong,
@@ -146,3 +145,68 @@ b {
   align-items: center;
 }
 
+/* === FOOTER & BOTTOM GALLERY === */
+.bottom-gallery {
+  position: relative;
+  z-index: 1;
+}
+
+.footer {
+  padding-top: 14rem;
+  padding-bottom: var(--section-block-space-400);
+  margin-top: -8rem;
+  background-color: var(--clr-footer);
+  color: var(--clr-white);
+  text-align: center;
+}
+
+.footer__socials {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.footer__socials li {
+  margin: 0 .5rem;
+}
+
+.footer__socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #2e2e2e;
+  font-size: 1.2rem;
+  transition: background-color .4s;
+}
+
+.footer__socials a:hover,
+.footer__socials a:focus-visible {
+  background-color: var(--clr-white);
+}
+
+.footer__copy {
+  font-size: 1.4rem;
+}
+
+/* //ANCHOR BREAKPOINTS */
+
+/* === BREAKPOINTS === */
+
+/* //ANCHOR 767px */
+/* 767px */
+
+@media screen and (min-width: 767px) {
+  /* === FOOTER & BOTTOM GALLERY === */
+  .footer__socials li {
+    margin: 0 1rem;
+  }
+
+  .footer__socials a {
+    width: 5.5rem;
+    height: 5.5rem;
+    font-size: 1.6rem;
+  }
+}

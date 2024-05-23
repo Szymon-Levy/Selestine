@@ -38,3 +38,19 @@ function redirect (string $page) {
 function authenticate_user (array $db_user_row) {
   $_SESSION['USER'] = $db_user_row;
 }
+
+/**
+ * Get images from a certain directory and creates slider items to bottom slider gallery.
+ */
+function generate_bottom_gallery () {
+  $directory = 'assets/images/bottom-gallery';
+  $images = array_diff(scandir($directory), array('..', '.'));
+
+  if (!empty($images)) {
+    foreach ($images as $i => $src) {
+      echo '<div class="swiper-slide">';
+      echo '<img src="' . ROOT . '/assets/images/bottom-gallery/' . $src . '" alt="gallery image ' . $i . '">';
+      echo '</div>';
+    }
+  }
+}
