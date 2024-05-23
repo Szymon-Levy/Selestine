@@ -47,6 +47,14 @@
     </div>
   </nav>
 
+  <section class="bottom-gallery">
+    <div class="container">
+      <div class="row">
+        
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="container">
       <div class="row">

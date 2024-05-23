@@ -1,4 +1,50 @@
+/* === GOOGLE FONTS === */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Text:ital@0;1&display=swap');
+
 /* === VARIABLES === */
+:root {
+
+  /* COLORS */
+  
+  --clr-primary: #000000;
+  --clr-accent: #0000ff;
+  --clr-accent-alt: #0a0a66;
+  --clr-bg-light: #f8f8f8;
+  --clr-black: #000;
+  --clr-white: #ffffff;
+  --clr-grey: #555555;
+  --clr-footer: #212121;
+  --clr-body-text: #444444;
+  --clr-error: rgb(176, 28, 28);
+  --clr-success: rgb(12, 134, 12);
+  --clr-border: #cccccc;
+  --clr-line: #eeeeee;
+
+  /* TYPOGRAPHY */
+
+  /* font family */
+  --ff-body: "DM Sans", sans-serif;
+  --ff-title: "DM Serif Text", serif;
+
+  /* font size */
+  --fs-base: 62.5%;
+  --fs-body-300: 1.2rem;
+  --fs-body-400: 1.6rem;
+  --fs-h1: 4.8rem;
+  --fs-h2: 4rem;
+  --fs-h3: 3.6rem;
+  --fs-h4: 2.4rem;
+  --fs-h5: 2rem;
+
+  /* line height */
+  --lh-body-400: 1.5em;
+
+  /* CONTAINER */
+
+  --container-400: 1170px;
+  --side-space: 15px;
+  --section-block-space-400: 10rem;
+}
 
 /* === RESET === */
 *,
@@ -9,10 +55,94 @@
   box-sizing: border-box;
 }
 
-/* === GLOBAL === */
+ul{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+  color: inherit;
+  transition: color .4s;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--clr-accent);
+}
+
+img{
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+button{
+  cursor: pointer;
+  background-color: transparent;
+}
+
+input,
+button,
+textarea{
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+
+html {
+  font-size: var(--fs-base);
+  scroll-behavior: smooth;
+}
+
+body{
+  background-color: var(--clr-white);
+  color: var(--clr-body-text);
+  font-size: var(--fs-body-400);
+  line-height: var(--lh-body-400);
+  font-family: var(--ff-body);
+  overflow-x: hidden;
+}
+
+.swiper-wrapper,
+.swiper-slide{
+  height: unset;
+}
+
+strong,
+b {
+  font-weight: 700;
+}
+
+/* === REUSED STYLES === */
+.container {
+  width: 100%;
+  max-width: calc(var(--container-400) + (var(--side-space)) * 2);
+  margin: 0 auto;
+  padding: 0 var(--side-space);
+}
+
+.visually-hidden {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* === COMPONENTS === */
+
+/* BUTTONS */
+
 
 /* === HEADER === */
 .header .row {
   display: flex;
   align-items: center;
 }
+
