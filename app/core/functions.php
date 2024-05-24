@@ -39,6 +39,16 @@ function authenticate_user (array $db_user_row) {
   $_SESSION['USER'] = $db_user_row;
 }
 
+/**
+ * Converts password into hashed version.
+ * @param string $password Password to hash.
+ * @return string Hashed password.
+ */
+function hash_password (string $password) {
+  $hashed_password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
+  return $hashed_password;
+}
+
 /* === HTML FUNCTIONS === */
 
 /**

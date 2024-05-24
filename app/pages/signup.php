@@ -53,7 +53,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data = [];
     $data['user_name']    = $user_name;
     $data['email']        = $email;
-    $data['pass']         = password_hash($password, PASSWORD_DEFAULT);
+    $data['pass']         = hash_password($password);
     $data['account_type'] = 'user';
     $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
     query($query, $data);
@@ -209,10 +209,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
           <div class="form__row">
             <div class="form__field">
-              <label>
-                <input <?= !empty($terms) ? 'checked' : '' ?> type="checkbox" name="terms" id="terms" value="1">
-                Accept terms and conditions
-              </label>
+              <div class="form_checkbox">
+                <input class="form_checkbox__input" <?= !empty($terms) ? 'checked' : '' ?> type="checkbox" name="terms" id="terms" value="1">
+                <label for="terms">Accept terms and conditions</label>
+              </div>
 
               <?php if (!empty($errors['terms'])) { ?>
                 <div class="form_error"> <?= $errors['terms']; ?> </div>

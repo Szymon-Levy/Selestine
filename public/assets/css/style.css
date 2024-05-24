@@ -7,8 +7,8 @@
   /* COLORS */
   
   --clr-primary: #000000;
-  --clr-accent: #2054cd;
-  --clr-accent-alt: #0a2e81;
+  --clr-accent: #4930a5;
+  --clr-accent-alt: #281669;
   --clr-bg-light: #f8f8f8;
   --clr-black: #000;
   --clr-white: #ffffff;
@@ -212,6 +212,77 @@ b {
   font-size: var(--fs-body-300);
   line-height: 1.2;
   color: var(--clr-error);
+}
+
+/* custom checkbox & radio */
+.form_checkbox__input,
+.form_radio__input {
+  position: absolute;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0;
+  height: 0;
+  width: 0;
+  pointer-events: none;
+}
+
+.form_radio__input + label,
+.form_checkbox__input + label { 
+  user-select: none;
+  cursor: pointer;
+  line-height: 1.4;
+  display: inline-flex;
+  align-items: flex-start;
+  font-size: 1.4rem;
+}
+
+.form_radio__input + label::before,
+.form_checkbox__input + label::before { 
+  content: '';
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: var(--clr-white);
+  border: 2px solid var(--clr-border);
+  margin-right: .8rem;
+  transition: background-color .2s, border-color .2s;
+  flex-shrink: 0;
+  position: relative;
+  top: calc((1em * 1.4 - 1em) / 2);
+}
+
+.form_radio__input + label:hover::before,
+.form_checkbox__input + label:hover::before {
+  border-color: var(--clr-grey);
+  transition: all .2s;
+}
+
+.form_radio__input:focus + label::before,
+.form_checkbox__input:focus + label::before {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 .18em rgba(85, 85, 85, 20%);
+}
+
+.form_radio__input + label::before {
+  border-radius: 50%; 
+  background-size: .4em;
+}
+
+.form_radio__input:checked + label::before,
+.form_checkbox__input:checked + label::before {
+  background-color: var(--clr-accent);
+  border-color: var(--clr-accent);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.form_radio__input:checked + label::before {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cg class='nc-icon-wrapper' fill='%23ffffff'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23ffffff'%3E%3C/circle%3E%3C/g%3E%3C/svg%3E");
+}
+
+.form_checkbox__input:checked + label::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpolyline points='1 6.5 4 9.5 11 2.5' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'/%3E%3C/svg%3E");
+  background-size: .7em;
 }
 
 
