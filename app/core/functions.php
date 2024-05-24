@@ -78,3 +78,18 @@ function is_menu_item_active(string $href) {
   }
   return '';
 }
+
+/**
+ * Generates alert message of certain type.
+ * @param string $message Text of message.
+ * @param string $type Type of alert (error, success, info).
+ */
+function generate_alert (string $message, string $type) {
+  echo '<div class="alert alert--' . $type .' js-alert" role="alert">';
+  echo '<p class="alert__message">' . $message . '</p>';
+  echo '<button class="alert__close js-alert-close">';
+  echo '<span class="visually-hidden">Close alert</span>';
+  echo '<i aria-hidden="true" class="ri-close-line"></i>';
+  echo '</button>';
+  echo '</div>';
+}

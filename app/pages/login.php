@@ -230,6 +230,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
   </footer>
 
+  <?php
+    if(isset($_GET['success']) && $_GET['success'] === 'true') {
+      generate_alert('Your account has been registered, you can now log in by providing the correct credentials.', 'success');
+    }
+  ?>
+
   <!-- ----- swiper js -----  -->
   <script rel="stylesheet" src="<?=ROOT?>/assets/js/swiper-bundle.min.js"></script>
 

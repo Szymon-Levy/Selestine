@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
     query($query, $data);
     
-    redirect('login');
+    redirect('login?success=true');
   }
 }
 
