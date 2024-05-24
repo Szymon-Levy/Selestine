@@ -39,6 +39,8 @@ function authenticate_user (array $db_user_row) {
   $_SESSION['USER'] = $db_user_row;
 }
 
+/* === HTML FUNCTIONS === */
+
 /**
  * Get images from a certain directory and creates slider items to bottom slider gallery.
  */
@@ -53,4 +55,16 @@ function generate_bottom_gallery () {
       echo '</div>';
     }
   }
+}
+
+/**
+ * Returns class of active menu item if its page is currently opened.
+ * @param string $href Href to the page in the menu item link.
+ * @return string Class of menu item. If page doesn't match returns empty string.
+ */
+function is_menu_item_active(string $href) {
+  if (PAGE_NAME == $href) {
+    return 'active';
+  }
+  return '';
 }

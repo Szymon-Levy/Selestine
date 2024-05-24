@@ -62,13 +62,13 @@ ul{
 
 a{
   text-decoration: none;
-  color: inherit;
+  color: var(--clr-accent);
   transition: color .4s;
 }
 
 a:hover,
 a:focus-visible {
-  color: var(--clr-accent);
+  color: var(--clr-accent-alt);
 }
 
 img{
@@ -143,12 +143,52 @@ b {
 
 /* BUTTONS */
 
+.btn {
+  padding: 0 3rem;
+  line-height: 4rem;
+  font-size: var(--fs-body-300);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  font-weight: 400;
+  border: 1px solid;
+  transition: all .4s;
+}
+
+.btn.btn--primary {
+  color: var(--clr-grey);
+  border: 1px solid var(--clr-border);
+}
+
+.btn.btn--primary:hover,
+.btn.btn--primary:focus-visible {
+  background-color: var(--clr-accent);
+  color: white;
+  border-color: var(--clr-accent-alt);
+}
+
+.btn.btn--accent {
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
+  border: 1px solid var(--clr-accent-alt);
+}
+
+.btn.btn--accent:hover,
+.btn.btn--accent:focus-visible {
+  background-color: var(--clr-accent-alt);
+}
+
 /* FORMS */
 
-.form input {
-  height: 3rem;
+.form__row {
+  margin-bottom: 1rem;
+}
+
+.form input:not([type="checkbox"], [type="radio"]) {
   padding: 0 1.4rem;
+  width: 100%;
+  height: 3rem;
   border: 1px solid var(--clr-border);
+  background-color: var(--clr-white);
 }
 
 .form input,
@@ -162,9 +202,16 @@ b {
   color: var(--clr-placeholder);
 }
 
-.form input:focus,
+.form input:not([type="checkbox"], [type="radio"]):focus,
 .form textarea:focus {
   box-shadow: 1px 1px 1px var(--clr-black);
+}
+
+.form_error {
+  margin-top: .5rem;
+  font-size: var(--fs-body-300);
+  line-height: 1.2;
+  color: var(--clr-error);
 }
 
 
@@ -185,6 +232,15 @@ b {
   justify-content: center;
 }
 
+.header__socials a {
+  color: var(--clr-black);
+}
+
+.header__socials a:hover,
+.header__socials a:focus-visible {
+  color: var(--clr-accent);
+}
+
 .header__logo {
   margin: 1.8rem 0 2.4rem;
   max-width: 170px;
@@ -195,7 +251,7 @@ b {
   position: relative;
 }
 
-.header__search input {
+.header__search input.header__search__input {
   padding-right: 4.5rem;
 }
 
@@ -219,7 +275,9 @@ b {
 /* === NAVIGATION BAR === */
 .nav {
   padding: 2rem 0;
+  width: 100%;
   border-top: 1px solid var(--clr-line);
+  border-bottom: 1px solid var(--clr-line);
 }
 
 .nav__toggle {
@@ -252,6 +310,40 @@ b {
   font-size: var(--fs-body-300);
   text-transform: uppercase;
   letter-spacing: .2em;
+  color: var(--clr-black);
+}
+
+.nav__list a:hover,
+.nav__list a:focus-visible,
+.nav__list a.active {
+  color: var(--clr-accent);
+}
+
+/* === LOGIN & SIGNUP === */
+.authentication {
+  padding: var(--section-block-space-400) 0;
+}
+
+.authentication__form {
+  margin: 0 auto;
+  padding: 3rem var(--side-space);
+  max-width: 400px;
+  background-color: var(--clr-bg-light);
+}
+
+.authentication__form__logo {
+  display: block;
+  margin: 0 auto 2rem;
+  max-width: 70px;
+}
+
+.authentication__form .form__submit-btn {
+  width: 100%;
+}
+
+.authentication__form__question {
+  margin-top: 2rem;
+  text-align: center;
 }
 
 
@@ -289,12 +381,14 @@ b {
   border-radius: 50%;
   background-color: #2e2e2e;
   font-size: 1.2rem;
+  color: var(--clr-white);
   transition: background-color .4s;
 }
 
 .footer__socials a:hover,
 .footer__socials a:focus-visible {
   background-color: var(--clr-white);
+  color: var(--clr-accent);
 }
 
 .footer__copy {
@@ -366,6 +460,30 @@ b {
 /* 992px */
 
 @media screen and (min-width: 992px) {
+  /* === VARIABLES === */
+  :root {
+
+    /* CONTAINER */
+    --side-space: 6rem;
+  }
+
+  /* === COMPONENTS === */
+
+  /* BUTTONS */
+  .btn {
+    line-height: 5rem;
+    padding: 0 5rem;
+  }
+
+  /* FORMS */
+  .form__row {
+    margin-bottom: 1.4rem;
+  }
+
+  .form input:not([type="checkbox"], [type="radio"]) {
+    height: 4rem;
+  }
+
   /* === HEADER === */
   .nav {
     padding: 3rem 0;
@@ -384,6 +502,16 @@ b {
     width: auto;
     opacity: 1;
   }
+
+  /* === LOGIN & SIGNUP === */
+  .authentication__form {
+    padding: 5rem;
+  }
+
+  .authentication__form__logo {
+    margin: 0 auto 3rem;
+    max-width: 90px;
+  }
  }
 
 
@@ -395,10 +523,10 @@ b {
   .header {
     --logo-width: 325px;
 
-    padding: 7rem 0;
+    padding: 4rem 0;
   }
 
-  .header__search input {
+  .header__search input.header__search__input {
     width: 260px;
   }
 

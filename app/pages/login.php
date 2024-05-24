@@ -43,41 +43,197 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - <?= APP_NAME ?> </title>
+  <!-- ----- favicon -----  -->
   <link rel="icon" href="<?=ROOT?>/assets/images/logo/favicon.png" type="image/png">
+
+  <!-- ----- remix icon -----  -->
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/remixicon.css">
+
+  <!-- ----- custom css -----  -->
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css">
+
+  <!-- ----- swiper js -----  -->
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/swiper-bundle.min.css">
+
+  <title>Login - <?= APP_NAME ?> </title>
 </head>
 <body>
-  <section class="login">
+  <!-- === HEADER === -->
+  <header class="header">
     <div class="container">
       <div class="row">
-        <form method="post" class="form login-form" style="display: flex; flex-direction: column;align-items:center;">
-          <a href="<?=ROOT?>/home" class="form__logo">
+        <ul class="header__socials">
+          <li>
+            <a href="https://twitter.com/" aria-label="twitter link" target="_blank">
+              <i class="ri-twitter-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://instagram.com/" aria-label="instagram link" target="_blank">
+              <i class="ri-instagram-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://pinterest.com/" aria-label="pinterest link" target="_blank">
+              <i class="ri-pinterest-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://facebook.com/" aria-label="facebook link" target="_blank">
+              <i class="ri-facebook-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://www.behance.net/" aria-label="behance link" target="_blank">
+              <i class="ri-behance-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+
+        <a href="home" class="header__logo">
+          <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="Selestine logo">
+        </a>
+
+        <form action="" class="header__search form">
+          <div class="form__field">
+            <input type="text" name="" class="header__search__input" placeholder="search on blog">
+            <button type="submit" class="form__submit">
+              <span class="visually-hidden">Submit blog search form</span>
+              <i class="ri-search-line"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <!-- === NAVIGATION BAR === -->
+  <div class="nav" role="navigation">
+    <div class="container">
+      <div class="row">
+        <button class="nav__toggle js-nav-toggler" aria-hidden="true">
+          <i class="js-nav-toggler-icon ri-menu-3-line"></i>
+        </button>
+
+        <ul class="nav__list js-nav-list">
+          <li><a href="home" class="<?= is_menu_item_active('home'); ?>">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Works</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="login" class="<?= is_menu_item_active('login'); ?>">Login</a></li>
+          <li><a href="signup" class="<?= is_menu_item_active('signup'); ?>">signup</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- === LOGIN FORM === -->
+  <section class="login authentication">
+    <div class="container">
+      <div class="row">
+        <form method="post" class="form login__form authentication__form">
+          <a href="<?=ROOT?>/home" class="authentication__form__logo">
             <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="page logo">
           </a>
-          <input value="<?= $email ?? ''; ?>" type="text" name="email" id="email" placeholder="email">
 
-          <?php if (!empty($errors['email'])) { ?>
-            <div class="form_error"> <?= $errors['email']; ?> </div>
-          <?php } ?>
+          <div class="form__row">
+            <div class="form__field">
+              <input value="<?= $email ?? ''; ?>" type="text" name="email" id="email" placeholder="email">
+    
+              <?php if (!empty($errors['email'])) { ?>
+                <div class="form_error"> <?= $errors['email']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
 
-          <input type="password" name="password" id="password" placeholder="password">
+          <div class="form__row">
+            <input type="password" name="password" id="password" placeholder="password">
+  
+            <?php if (!empty($errors['password'])) { ?>
+              <div class="form_error"> <?= $errors['password']; ?> </div>
+            <?php } ?>
+          </div>
 
-          <?php if (!empty($errors['password'])) { ?>
-            <div class="form_error"> <?= $errors['password']; ?> </div>
-          <?php } ?>
-
+          <div class="form__row form__row--submit">
+            <button class="btn btn--accent form__submit-btn" type="submit">Sign in</button>
+          </div>
           
-          <label>
-            <input type="checkbox" name="remember" id="remember" value="1">
-            Remember me
-          </label>
-          
-          <button type="submit">Sign in</button>
 
-          <div class="form__text">Don't have an account? <a href="<?=ROOT?>/signup">Signup here.</a></div>
+          <div class="authentication__form__question">Don't have an account? <a href="<?=ROOT?>/signup">Signup here.</a></div>
         </form>
       </div>
     </div>
   </section>
+
+  <!-- === BOTTOM GALLERY === -->
+  <section class="bottom-gallery">
+    <div class="container">
+      <div class="row">
+        <div class="swiper js-bottom-gallery-swiper">
+          <div class="swiper-wrapper">
+            <?php
+              generate_bottom_gallery ();
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === FOOTER === -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <ul class="footer__socials">
+          <li>
+            <a href="https://twitter.com/" aria-label="twitter link" target="_blank">
+              <i class="ri-twitter-line" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://instagram.com/" aria-label="instagram link" target="_blank">
+              <i class="ri-instagram-line" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://pinterest.com/" aria-label="pinterest link" target="_blank">
+              <i class="ri-pinterest-line" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://facebook.com/" aria-label="facebook link" target="_blank">
+              <i class="ri-facebook-line" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://www.behance.net/" aria-label="behance link" target="_blank">
+              <i class="ri-behance-line" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+
+        <p class="footer__copy">
+          &copy;
+          <?= Date('Y') . ' ' . APP_NAME?> <br>
+          All Rights Reserved
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ----- swiper js -----  -->
+  <script rel="stylesheet" src="<?=ROOT?>/assets/js/swiper-bundle.min.js"></script>
+
+  <!-- ----- custom js -----  -->
+  <script rel="stylesheet" src="<?=ROOT?>/assets/js/script.js"></script>
 </body>
 </html>

@@ -62,7 +62,7 @@
 
         <form action="" class="header__search form">
           <div class="form__field">
-            <input type="text" name="" id="" placeholder="search on blog">
+            <input type="text" name="" class="header__search__input" placeholder="search on blog">
             <button type="submit" class="form__submit">
               <span class="visually-hidden">Submit blog search form</span>
               <i class="ri-search-line"></i>
@@ -82,11 +82,13 @@
         </button>
 
         <ul class="nav__list js-nav-list">
-          <li><a href="#">Home</a></li>
+          <li><a href="home" class="<?= is_menu_item_active('home'); ?>">Home</a></li>
           <li><a href="#">About</a></li>
           <li><a href="#">Works</a></li>
           <li><a href="#">FAQ</a></li>
           <li><a href="#">Contact</a></li>
+          <li><a href="login" class="<?= is_menu_item_active('login'); ?>">Login</a></li>
+          <li><a href="signup" class="<?= is_menu_item_active('signup'); ?>">signup</a></li>
         </ul>
       </div>
     </div>
@@ -151,7 +153,6 @@
       </div>
     </div>
   </footer>
-  
 
   <!-- ----- swiper js -----  -->
   <script rel="stylesheet" src="<?=ROOT?>/assets/js/swiper-bundle.min.js"></script>

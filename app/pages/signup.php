@@ -69,56 +69,231 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signup - <?= APP_NAME ?> </title>
+  <!-- ----- favicon -----  -->
   <link rel="icon" href="<?=ROOT?>/assets/images/logo/favicon.png" type="image/png">
+
+  <!-- ----- remix icon -----  -->
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/remixicon.css">
+
+  <!-- ----- custom css -----  -->
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css">
+
+  <!-- ----- swiper js -----  -->
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/swiper-bundle.min.css">
+
+  <title>Signup - <?= APP_NAME ?> </title>
 </head>
 <body>
-  <section class="signup">
+  <!-- === HEADER === -->
+  <header class="header">
     <div class="container">
       <div class="row">
-        <form method="post" class="form signup-form" style="display: flex; flex-direction: column;align-items:center;">
-          <a href="<?=ROOT?>/home" class="form__logo">
+        <ul class="header__socials">
+          <li>
+            <a href="https://twitter.com/" aria-label="twitter link" target="_blank">
+              <i class="ri-twitter-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://instagram.com/" aria-label="instagram link" target="_blank">
+              <i class="ri-instagram-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://pinterest.com/" aria-label="pinterest link" target="_blank">
+              <i class="ri-pinterest-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://facebook.com/" aria-label="facebook link" target="_blank">
+              <i class="ri-facebook-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://www.behance.net/" aria-label="behance link" target="_blank">
+              <i class="ri-behance-fill" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+
+        <a href="home" class="header__logo">
+          <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="Selestine logo">
+        </a>
+
+        <form action="" class="header__search form">
+          <div class="form__field">
+            <input type="text" name="" class="header__search__input" placeholder="search on blog">
+            <button type="submit" class="form__submit">
+              <span class="visually-hidden">Submit blog search form</span>
+              <i class="ri-search-line"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <!-- === NAVIGATION BAR === -->
+  <div class="nav" role="navigation">
+    <div class="container">
+      <div class="row">
+        <button class="nav__toggle js-nav-toggler" aria-hidden="true">
+          <i class="js-nav-toggler-icon ri-menu-3-line"></i>
+        </button>
+
+        <ul class="nav__list js-nav-list">
+          <li><a href="home" class="<?= is_menu_item_active('home'); ?>">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Works</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="login" class="<?= is_menu_item_active('login'); ?>">Login</a></li>
+          <li><a href="signup" class="<?= is_menu_item_active('signup'); ?>">signup</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- === SIGNUP FORM === -->
+  <section class="signup authentication">
+    <div class="container">
+      <div class="row">
+        <form method="post" class="form signup__form authentication__form">
+          <a href="<?=ROOT?>/home" class="authentication__form__logo">
             <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="page logo">
           </a>
-          <input value="<?= $user_name ?? ''; ?>" type="text" name="username" id="username" placeholder="username">
 
-          <?php if (!empty($errors['user_name'])) { ?>
-            <div class="form_error"> <?= $errors['user_name']; ?> </div>
-          <?php } ?>
+          <div class="form__row">
+            <div class="form__field">
+              <input value="<?= $user_name ?? ''; ?>" type="text" name="username" id="username" placeholder="username">
 
-          <input value="<?= $email ?? ''; ?>" type="text" name="email" id="email" placeholder="email">
+              <?php if (!empty($errors['user_name'])) { ?>
+                <div class="form_error"> <?= $errors['user_name']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
 
-          <?php if (!empty($errors['email'])) { ?>
-            <div class="form_error"> <?= $errors['email']; ?> </div>
-          <?php } ?>
+          <div class="form__row">
+            <div class="form__field">
+              <input value="<?= $email ?? ''; ?>" type="text" name="email" id="email" placeholder="email">
 
-          <input type="password" name="password" id="password" placeholder="password">
+              <?php if (!empty($errors['email'])) { ?>
+                <div class="form_error"> <?= $errors['email']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
 
-          <?php if (!empty($errors['password'])) { ?>
-            <div class="form_error"> <?= $errors['password']; ?> </div>
-          <?php } ?>
+          <div class="form__row">
+            <div class="form__field">
+              <input type="password" name="password" id="password" placeholder="password">
 
-          <input type="password" name="retype-password" id="retype-password" placeholder="retype password">
+              <?php if (!empty($errors['password'])) { ?>
+                <div class="form_error"> <?= $errors['password']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
 
-          <?php if (!empty($errors['password2'])) { ?>
-            <div class="form_error"> <?= $errors['password2']; ?> </div>
-          <?php } ?>
+          <div class="form__row">
+            <div class="form__field">
+              <input type="password" name="retype-password" id="retype-password" placeholder="retype password">
 
-          <label>
-            <input <?= !empty($terms) ? 'checked' : '' ?> type="checkbox" name="terms" id="terms" value="1">
-            Accept terms and conditions
-          </label>
+              <?php if (!empty($errors['password2'])) { ?>
+                <div class="form_error"> <?= $errors['password2']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
 
-          <?php if (!empty($errors['terms'])) { ?>
-            <div class="form_error"> <?= $errors['terms']; ?> </div>
-          <?php } ?>
+          <div class="form__row">
+            <div class="form__field">
+              <label>
+                <input <?= !empty($terms) ? 'checked' : '' ?> type="checkbox" name="terms" id="terms" value="1">
+                Accept terms and conditions
+              </label>
 
-          <button type="submit">Create account</button>
+              <?php if (!empty($errors['terms'])) { ?>
+                <div class="form_error"> <?= $errors['terms']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+          
+          <div class="form__row form__row--submit">
+            <button class="btn btn--accent form__submit-btn" type="submit">Create account</button>
+          </div>
 
-          <div class="form__text">Already have an account? <a href="<?=ROOT?>/login">Login here.</a></div>
+          <div class="authentication__form__question">Already have an account? <a href="<?=ROOT?>/login">Login here.</a></div>
         </form>
       </div>
     </div>
   </section>
+
+  <!-- === BOTTOM GALLERY === -->
+  <section class="bottom-gallery">
+    <div class="container">
+      <div class="row">
+        <div class="swiper js-bottom-gallery-swiper">
+          <div class="swiper-wrapper">
+            <?php
+              generate_bottom_gallery ();
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- === FOOTER === -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <ul class="footer__socials">
+          <li>
+            <a href="https://twitter.com/" aria-label="twitter link" target="_blank">
+              <i class="ri-twitter-line" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://instagram.com/" aria-label="instagram link" target="_blank">
+              <i class="ri-instagram-line" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://pinterest.com/" aria-label="pinterest link" target="_blank">
+              <i class="ri-pinterest-line" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://facebook.com/" aria-label="facebook link" target="_blank">
+              <i class="ri-facebook-line" aria-hidden="true"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="https://www.behance.net/" aria-label="behance link" target="_blank">
+              <i class="ri-behance-line" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>
+
+        <p class="footer__copy">
+          &copy;
+          <?= Date('Y') . ' ' . APP_NAME?> <br>
+          All Rights Reserved
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ----- swiper js -----  -->
+  <script rel="stylesheet" src="<?=ROOT?>/assets/js/swiper-bundle.min.js"></script>
+
+  <!-- ----- custom js -----  -->
+  <script rel="stylesheet" src="<?=ROOT?>/assets/js/script.js"></script>
 </body>
 </html>
