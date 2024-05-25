@@ -1,4 +1,21 @@
 /* === NAVIGATION BAR === */
+
+/* FIXED NAV WHILE SCROLLING DOWN */
+const $nav = document.querySelector('.js-nav')
+
+const fixedNav = function () {
+  if (this.scrollY > 500) {
+    $nav.classList.add('nav--fixed')
+  } else {
+    $nav.classList.remove('nav--fixed')
+  }
+}
+
+if ($nav) {
+  window.addEventListener('scroll', fixedNav)
+}
+
+/* NAV TOGGLER ON MOBILE */
 const $navToggler = document.querySelector('.js-nav-toggler');
 const $navTogglerIcon = document.querySelector('.js-nav-toggler-icon');
 const $navList = document.querySelector('.js-nav-list');
@@ -62,7 +79,7 @@ const closeAlert = () => {
 const autoHideAlert = () => {
   setTimeout(() => {
     closeAlert()
-  }, 5000);
+  }, 5000)
 }
 
 /**

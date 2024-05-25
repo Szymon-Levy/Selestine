@@ -74,7 +74,7 @@
   </header>
 
   <!-- === NAVIGATION BAR === -->
-  <div class="nav" role="navigation">
+  <div class="nav js-nav" role="navigation">
     <div class="container">
       <div class="row">
         <button class="nav__toggle js-nav-toggler" aria-hidden="true">

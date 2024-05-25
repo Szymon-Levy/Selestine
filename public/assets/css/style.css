@@ -47,7 +47,7 @@
 
   --container-400: 1170px;
   --side-space: 1.5rem;
-  --section-block-space-400: 10rem;
+  --section-block-space-400: 5rem;
 }
 
 /* === RESET === */
@@ -384,10 +384,28 @@ b {
 
 /* === NAVIGATION BAR === */
 .nav {
-  padding: 2rem 0;
+  padding: 1rem 0;
   width: 100%;
   border-top: 1px solid var(--clr-line);
   border-bottom: 1px solid var(--clr-line);
+  background-color: var(--clr-white);
+  z-index: 10;
+}
+
+.nav.nav--fixed {
+  position: fixed;
+  left: 0;
+  top: 0;
+  animation: fixed-nav .4s linear;
+}
+
+@keyframes fixed-nav {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 .nav__toggle {
@@ -575,6 +593,7 @@ b {
 
     /* CONTAINER */
     --side-space: 6rem;
+    --section-block-space-400: 10rem;
   }
 
   /* === COMPONENTS === */
