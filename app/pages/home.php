@@ -56,7 +56,7 @@
           </li>
         </ul>
 
-        <a href="home" class="header__logo">
+        <a href="<?=ROOT?>/" class="header__logo">
           <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="Selestine logo">
         </a>
 
@@ -82,14 +82,32 @@
         </button>
 
         <ul class="nav__list js-nav-list">
-          <li><a href="home" class="<?= is_menu_item_active('home'); ?>">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Works</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="login" class="<?= is_menu_item_active('login'); ?>">Login</a></li>
-          <li><a href="signup" class="<?= is_menu_item_active('signup'); ?>">signup</a></li>
+          <li><a href="home" class="nav__list__link <?= is_menu_item_active('home'); ?>">Home</a></li>
+          <li><a href="#" class="nav__list__link">About</a></li>
+          <li><a href="#" class="nav__list__link">Works</a></li>
+          <li><a href="#" class="nav__list__link">FAQ</a></li>
+          <li><a href="#" class="nav__list__link">Contact</a></li>
+
+          <?php if (!is_user_logged_in()) { ?>
+            <li>
+              <a href="login" class="nav__list__link <?= is_menu_item_active('login'); ?>">
+                <i class="ri-user-fill" aria-hidden="true"></i>
+                Login
+              </a></li>
+            <li>
+              <a href="signup" class="nav__list__link <?= is_menu_item_active('signup'); ?>">
+                <i class="ri-user-add-fill" aria-hidden="true"></i>
+                signup
+              </a>
+            </li>
+          <?php } ?>
         </ul>
+
+        <?php if (is_user_logged_in()) { ?>
+          <?php generate_nav_profile(); ?>
+        <?php } ?>
+
+        </div>
       </div>
     </div>
   </div>
@@ -154,10 +172,17 @@
     </div>
   </footer>
 
+  <?php
+    if(isset($_SESSION['LOGGED_OUT']) && $_SESSION['LOGGED_OUT'] === true) {
+      unset($_SESSION['LOGGED_OUT']);
+      generate_alert('You have been successfully logged out.', 'success');
+    }
+  ?>
+
   <!-- ----- swiper js -----  -->
-  <script rel="stylesheet" src="<?=ROOT?>/assets/js/swiper-bundle.min.js"></script>
+  <script src="<?=ROOT?>/assets/js/swiper-bundle.min.js"></script>
 
   <!-- ----- custom js -----  -->
-  <script rel="stylesheet" src="<?=ROOT?>/assets/js/script.js"></script>
+  <script src="<?=ROOT?>/assets/js/script.js"></script>
 </body>
 </html>

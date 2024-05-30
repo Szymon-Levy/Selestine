@@ -7,6 +7,13 @@
   <link rel="icon" href="assets/images/logo/favicon.png" type="image/png">
 </head>
 <body>
+
+  <?php
+    if(isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN'] === true) {
+      unset($_SESSION['LOGGED_IN']);
+      generate_alert('You have successfully logged in.', 'success');
+    }
+  ?>
   
 </body>
 </html>

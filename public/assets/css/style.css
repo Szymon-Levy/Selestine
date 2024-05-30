@@ -147,6 +147,7 @@ b {
 /* BUTTONS */
 
 .btn {
+  display: inline-block;
   padding: 0 3rem;
   line-height: 4rem;
   font-size: var(--fs-body-300);
@@ -392,6 +393,10 @@ b {
   z-index: 10;
 }
 
+.nav .row {
+  position: relative;
+}
+
 .nav.nav--fixed {
   position: fixed;
   left: 0;
@@ -421,10 +426,15 @@ b {
 }
 
 .nav__list {
+  margin-top: 1.6rem;
   position: absolute;
   height: 0;
   width: 0;
   opacity: 0;
+}
+
+.nav__list li + li {
+  margin-top: 1rem;
 }
 
 .nav__list.active {
@@ -434,17 +444,126 @@ b {
   opacity: 1;
 }
 
-.nav__list a {
+.nav__list .nav__list__link {
+  display: inline-block;
+  position: relative;
   font-size: var(--fs-body-300);
+  line-height: 1.9;
   text-transform: uppercase;
   letter-spacing: .2em;
   color: var(--clr-black);
 }
 
-.nav__list a:hover,
-.nav__list a:focus-visible,
-.nav__list a.active {
+.nav__list .nav__list__link::before {
+  content: "";
+  width: calc(100% - .2em);
+  height: 1px;
+  position: absolute;
+  transform: scaleX(0);
+  left: 0;
+  bottom: 0;
+  background-color: var(--clr-accent);
+  transition: transform .3s;
+}
+
+.nav__list .nav__list__link:hover::before,
+.nav__list .nav__list__link.active::before {
+  transform: scaleX(100%);
+}
+
+.nav__list .nav__list__link:hover,
+.nav__list .nav__list__link:focus-visible,
+.nav__list .nav__list__link.active {
   color: var(--clr-accent);
+}
+
+.nav__profile {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.nav__profile__button {
+  display: flex;
+  align-items: center;
+  transition: color .2s;
+}
+
+.nav__profile__button:hover,
+.nav__profile__button:focus-visible,
+.nav__profile__button.active {
+  color: var(--clr-accent);
+}
+
+.nav__profile__button__avatar {
+  margin-right: .4em;
+  width: 2em;
+  height: 2em;
+  font-size: 1.4rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.nav__profile__button__arrow {
+  transition: transform .3s;
+}
+
+.nav__profile__button.active .nav__profile__button__arrow {
+  transform: rotate(180deg);
+}
+
+.nav__profile__menu {
+  padding: 1.6rem;
+  position: absolute;
+  left: 0;
+  top: calc(100% + .5rem);
+  width: max-content;
+  min-width: 100%;
+  background-color: var(--clr-white);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 6%);
+  z-index: 2;
+  display: none;
+}
+
+.nav__profile__menu.active {
+  display: block;
+}
+
+.nav__profile__menu__greeting {
+  margin-bottom: .8rem;
+  padding-bottom: .8rem;
+  font-size: 1.6rem;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.nav__profile__menu__list {
+  display: grid;
+  row-gap: .4rem;
+}
+
+.nav__profile__menu__list a {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.4rem;
+  color: var(--clr-body-text);
+}
+
+.nav__profile__menu__list a:hover,
+.nav__profile__menu__list a:focus-visible {
+  color: var(--clr-accent);
+}
+
+.nav__profile__menu__list a i {
+  margin-right: .4em;
+  font-size: 1.2em;
+  color: var(--clr-accent);
+  transition: transform .1s linear;
+}
+
+.nav__profile__menu__list a:hover i,
+.nav__profile__menu__list a:focus-visible i {
+  transform: scale(1.2);
 }
 
 /* === LOGIN & SIGNUP === */
@@ -521,6 +640,19 @@ b {
 
 .footer__copy {
   font-size: 1.4rem;
+}
+
+/* === ERROR PAGE === */
+.error-page .row {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  row-gap: 2rem;
+  min-height: 100vh;
+}
+
+.error-page__image {
+  max-width: 600px;
 }
 
 /* //ANCHOR BREAKPOINTS */
@@ -620,7 +752,7 @@ b {
     right: 5rem;
   }
 
-  /* === HEADER === */
+  /* === NAVIGATION BAR === */
   .nav {
     padding: 3rem 0;
   }
@@ -632,11 +764,39 @@ b {
   .nav__list {
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 4.5rem;
+    margin-top: 0;
     position: static;
     height: unset;
     width: auto;
     opacity: 1;
+  }
+
+  .nav__list li + li {
+    margin-top: 0;
+  }
+
+  .nav__profile {
+    left: unset;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .nav__profile__button__arrow {
+    font-size: 1.7rem;
+  }
+
+  .nav__profile__button__avatar {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+  }
+
+  .nav__profile__menu {
+    left: unset;
+    right: 0;
   }
 
   /* === LOGIN & SIGNUP === */

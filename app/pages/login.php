@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if(empty($errors)) {
     $query = 'SELECT * FROM users WHERE email = :email limit 1;';
-    $found_user_row = query($query, ['email' => $email]);
+    $found_user_row = query($pdo, $query, ['email' => $email]);
 
     if ($found_user_row && password_verify($password, $found_user_row[0]['pass'])) {
       //login into session
@@ -120,14 +120,32 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </button>
 
         <ul class="nav__list js-nav-list">
-          <li><a href="home" class="<?= is_menu_item_active('home'); ?>">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Works</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="login" class="<?= is_menu_item_active('login'); ?>">Login</a></li>
-          <li><a href="signup" class="<?= is_menu_item_active('signup'); ?>">signup</a></li>
+          <li><a href="home" class="nav__list__link <?= is_menu_item_active('home'); ?>">Home</a></li>
+          <li><a href="#" class="nav__list__link">About</a></li>
+          <li><a href="#" class="nav__list__link">Works</a></li>
+          <li><a href="#" class="nav__list__link">FAQ</a></li>
+          <li><a href="#" class="nav__list__link">Contact</a></li>
+
+          <?php if (!is_user_logged_in()) { ?>
+            <li>
+              <a href="login" class="nav__list__link <?= is_menu_item_active('login'); ?>">
+                <i class="ri-user-fill" aria-hidden="true"></i>
+                Login
+              </a></li>
+            <li>
+              <a href="signup" class="nav__list__link <?= is_menu_item_active('signup'); ?>">
+                <i class="ri-user-add-fill" aria-hidden="true"></i>
+                signup
+              </a>
+            </li>
+          <?php } ?>
         </ul>
+
+        <?php if (is_user_logged_in()) { ?>
+          <?php generate_nav_profile(); ?>
+        <?php } ?>
+
+        </div>
       </div>
     </div>
   </div>
@@ -231,7 +249,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   </footer>
 
   <?php
-    if(isset($_GET['success']) && $_GET['success'] === 'true') {
+    if(isset($_SESSION['REGISTERED']) && $_SESSION['REGISTERED'] === true) {
+      unset($_SESSION['REGISTERED']);
       generate_alert('Your account has been registered, you can now log in by providing the correct credentials.', 'success');
     }
   ?>

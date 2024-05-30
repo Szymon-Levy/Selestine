@@ -6,20 +6,21 @@
  * @param array $data Values to use in the query.
  * @return array|boolean Associative array of found row/rows or false if not found.
  */
-function query (string $query, array $data = []) {
-  $dsn = 'mysql:hostname=' . DB_HOST . ';dbname=' . DB_NAME;
-  $pdo = new PDO($dsn, DB_USER, DB_PASSWORD);
+function query (object $pdo, string $query, array $data = []) {
+  try {
+    $stmt = $pdo->prepare($query);
+    $stmt->execute($data);
 
-  $stmt = $pdo->prepare($query);
-  $stmt->execute($data);
+    $restult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  $restult = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if(is_array($restult) && !empty($restult)) {
+      return $restult;
+    }
 
-  if(is_array($restult) && !empty($restult)) {
-    return $restult;
+    return false;
+  } catch (PDOException $error) {
+    echo 'Query failed: ' . $error->getMessage();
   }
-
-  return false;
 }
 
 /**
@@ -40,6 +41,28 @@ function authenticate_user (array $db_user_row) {
 }
 
 /**
+ * Checks if user is currently logged in.
+ * @return bool True - logged in, false - logged out.
+ */
+function is_user_logged_in () {
+  if (!empty($_SESSION['USER'])) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Checks if user is an admin.
+ * @return bool True - user is admin, false - user is not admin.
+ */
+function is_user_admin () {
+  if (!empty($_SESSION['USER']) && $_SESSION['USER']['account_type'] === 'admin') {
+    return true;
+  }
+  return false;
+}
+
+/**
  * Converts password into hashed version.
  * @param string $password Password to hash.
  * @return string Hashed password.
@@ -47,6 +70,21 @@ function authenticate_user (array $db_user_row) {
 function hash_password (string $password) {
   $hashed_password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
   return $hashed_password;
+}
+
+/**
+ * Creates slug from given string.
+ * @return string Converted slug.
+ */
+function generate_slug (string $string) {
+  $string = str_replace("'", '', $string);
+  $string = preg_replace('~[^\\pL0-9_]+~u', '-', $string);
+  $string = trim($string, '-');
+  $string = iconv('utf-8', 'us-ascii//TRANSLIT', $string);
+  $string = strtolower($string);
+  $string = preg_replace('~[^-a-z0-9_]+~', '', $string);
+
+  return $string;
 }
 
 /* === HTML FUNCTIONS === */
@@ -86,10 +124,38 @@ function is_menu_item_active(string $href) {
  */
 function generate_alert (string $message, string $type) {
   echo '<div class="alert alert--' . $type .' js-alert" role="alert">';
-  echo '<p class="alert__message">' . $message . '</p>';
-  echo '<button class="alert__close js-alert-close">';
-  echo '<span class="visually-hidden">Close alert</span>';
-  echo '<i aria-hidden="true" class="ri-close-line"></i>';
-  echo '</button>';
+  echo  '<p class="alert__message">' . $message . '</p>';
+  echo  '<button class="alert__close js-alert-close">';
+  echo    '<span class="visually-hidden">Close alert</span>';
+  echo    '<i aria-hidden="true" class="ri-close-line"></i>';
+  echo  '</button>';
   echo '</div>';
+}
+
+/**
+ * Generates html of nav profile dropdown with links to profile, admin panel and logout.
+ */
+function generate_nav_profile () {
+  echo '<div class="nav__profile js-nav-profile">';
+
+  echo  '<button class="nav__profile__button js-nav-profile-button" aria-expanded="false">';
+  echo    '<img class="nav__profile__button__avatar" src="' . ROOT . '/assets/images/' . htmlspecialchars($_SESSION['USER']['avatar']) . '" aria-hidden="true"            alt="Profile picture">';
+  echo    '<i class="ri-arrow-down-s-line nav__profile__button__arrow js-nav-profile-button-arrow" aria-hidden="true"></i>';
+  echo    '<span class="visually-hidden">Show profile options</span>';
+  echo  '</button>';
+
+  echo  '<div class="nav__profile__menu js-nav-profile-menu">';
+  echo    '<div class="nav__profile__menu__greeting">';
+  echo      'Hi, ';
+  echo      $_SESSION['USER']['name'] ? htmlspecialchars($_SESSION['USER']['name']) : htmlspecialchars($_SESSION['USER']['user_name']);
+  echo    '</div>';
+  echo    '<ul class="nav__profile__menu__list">';
+  echo      '<li><a href="profile-settings"><i class="ri-settings-2-fill" aria-hidden="true"></i> Profile settings</a></li>';
+  echo      is_user_admin() ? '<li><a href="admin"><i class="ri-dashboard-3-fill" aria-hidden="true"></i> Admin panel</a></li>' : '';
+  echo      '<li><a href="logout"><i class="ri-logout-box-r-fill" aria-hidden="true"></i> Logout</a></li>';
+  echo    '</ul>';
+  echo  '</div>';
+
+  echo '</div>';
+
 }

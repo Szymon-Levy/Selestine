@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   $email_query = 'SELECT id FROM users WHERE email = :email limit 1;';
-  $is_email_in_db = query($email_query, ['email' => $email]);
+  $is_email_in_db = query($pdo, $email_query, ['email' => $email]);
 
   if (empty($email)) {
     $errors['email'] = 'Email cannot be empty!';
@@ -56,9 +56,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data['pass']         = hash_password($password);
     $data['account_type'] = 'user';
     $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
-    query($query, $data);
+    query($pdo, $query, $data);
     
-    redirect('login?success=true');
+    $_SESSION['REGISTERED'] = true;
+    redirect('login');
   }
 }
 
@@ -146,14 +147,32 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </button>
 
         <ul class="nav__list js-nav-list">
-          <li><a href="home" class="<?= is_menu_item_active('home'); ?>">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Works</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="login" class="<?= is_menu_item_active('login'); ?>">Login</a></li>
-          <li><a href="signup" class="<?= is_menu_item_active('signup'); ?>">signup</a></li>
+          <li><a href="home" class="nav__list__link <?= is_menu_item_active('home'); ?>">Home</a></li>
+          <li><a href="#" class="nav__list__link">About</a></li>
+          <li><a href="#" class="nav__list__link">Works</a></li>
+          <li><a href="#" class="nav__list__link">FAQ</a></li>
+          <li><a href="#" class="nav__list__link">Contact</a></li>
+
+          <?php if (!is_user_logged_in()) { ?>
+            <li>
+              <a href="login" class="nav__list__link <?= is_menu_item_active('login'); ?>">
+                <i class="ri-user-fill" aria-hidden="true"></i>
+                Login
+              </a></li>
+            <li>
+              <a href="signup" class="nav__list__link <?= is_menu_item_active('signup'); ?>">
+                <i class="ri-user-add-fill" aria-hidden="true"></i>
+                signup
+              </a>
+            </li>
+          <?php } ?>
         </ul>
+
+        <?php if (is_user_logged_in()) { ?>
+          <?php generate_nav_profile(); ?>
+        <?php } ?>
+
+        </div>
       </div>
     </div>
   </div>
