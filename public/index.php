@@ -4,6 +4,7 @@ session_start();
 require '../app/core/init.php';
 
 $url = $_GET['url'] ?? 'home';
+$url = strtolower($url);
 $url = explode('/', $url);
 
 define('PAGE_NAME', trim($url[0]));

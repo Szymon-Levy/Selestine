@@ -173,6 +173,13 @@
   </footer>
 
   <?php
+    if(isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN'] === true) {
+      unset($_SESSION['LOGGED_IN']);
+      generate_alert('You have successfully logged in.', 'success');
+    }
+  ?>
+
+  <?php
     if(isset($_SESSION['LOGGED_OUT']) && $_SESSION['LOGGED_OUT'] === true) {
       unset($_SESSION['LOGGED_OUT']);
       generate_alert('You have been successfully logged out.', 'success');
@@ -184,5 +191,8 @@
 
   <!-- ----- custom js -----  -->
   <script src="<?=ROOT?>/assets/js/script.js"></script>
+
+  <!-- ----- general js -----  -->
+  <script src="<?=ROOT?>/assets/js/general.js"></script>
 </body>
 </html>

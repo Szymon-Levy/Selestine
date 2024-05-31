@@ -27,7 +27,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       //login into session
       authenticate_user($found_user_row[0]);
 
-      redirect('admin');
+      $_SESSION['LOGGED_IN'] = true;
+      if ($found_user_row[0]['account_type'] === 'admin') {
+        redirect('admin');
+      }
+      else {
+        redirect('home');
+      }
+
     }
     else {
       $errors['email'] = 'Wrong user data!';
@@ -260,5 +267,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   <!-- ----- custom js -----  -->
   <script rel="stylesheet" src="<?=ROOT?>/assets/js/script.js"></script>
+
+  <!-- ----- general js -----  -->
+  <script src="<?=ROOT?>/assets/js/general.js"></script>
 </body>
 </html>

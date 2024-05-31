@@ -314,5 +314,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   <!-- ----- custom js -----  -->
   <script rel="stylesheet" src="<?=ROOT?>/assets/js/script.js"></script>
+
+  <!-- ----- general js -----  -->
+  <script src="<?=ROOT?>/assets/js/general.js"></script>
 </body>
 </html>
