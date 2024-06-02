@@ -1,3 +1,34 @@
+<?php
+  if (!is_user_logged_in()) {
+    redirect(ROOT . '/login');
+  }
+  else if (!is_user_admin()) {
+    redirect(ROOT . '/');
+  }
+
+  $section = $url[1] ?? 'dashboard';
+  $action = $url[2] ?? 'view';
+  $id = $url[3] ?? 0;
+  
+  $file_name = '../app/pages/admin/' . $section . '.php';
+  if (!file_exists($file_name)) {
+    require_once '../app/pages/admin/404.php';
+  }
+
+  if ($section == 'users') {
+    require_once '../app/pages/admin/users_contr.php';
+  }
+  else if ($section == 'categories') {
+    require_once '../app/pages/admin/categories_contr.php';
+  }
+  else if ($section == 'articles') {
+    require_once '../app/pages/admin/articles_contr.php';
+  }
+
+  
+  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,19 +72,10 @@
     </nav>
   </aside>
 
-  <main>
-    <?php
-      $section = $url[1] ?? 'dashboard';
-      
-      $file_name = '../app/pages/admin/' . $section . '.php';
-      if (file_exists($file_name)) {
-        require_once $file_name;
-      }
-      else {
-        require_once '../app/pages/admin/404.php';
-      }
-    ?>
-  </main>
+  <!-- === MAIN CONTENT === -->
+  <?php
+    require_once $file_name;
+  ?>
 
 
   <?php

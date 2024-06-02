@@ -87,6 +87,15 @@ function generate_slug (string $string) {
   return $string;
 }
 
+/**
+ * Returns proper path to the file from given filepath starting from images folder.
+ * @param string $image_path Path to image from /assets/images folder.
+ * @return string Full path to the image.
+ */
+function get_image_path (string $image_path) {
+  return ROOT . '/assets/images/' . $image_path;
+}
+
 /* === HTML FUNCTIONS === */
 
 /**

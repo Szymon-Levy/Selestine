@@ -16,19 +16,20 @@
   --clr-placeholder: #979797;
   --clr-footer: #212121;
   --clr-body-text: #444444;
-  --clr-error: rgb(176, 28, 28);
   --clr-close: rgb(202, 12, 12);
   --clr-close-alt: rgb(124, 12, 12);
   --clr-success-bg: rgb(210, 255, 210);
   --clr-success: rgb(12, 134, 12);
+  --clr-error-bg: rgb(255, 200, 200);
+  --clr-error: rgb(176, 28, 28);
   --clr-border: #cccccc;
   --clr-line: #eeeeee;
 
   /* TYPOGRAPHY */
 
   /* font family */
-  --ff-body: "DM Sans", sans-serif;
-  --ff-title: "DM Serif Text", serif;
+  --ff-body: "Poppins", sans-serif;
+  --ff-title: "Poppins", sans-serif;
 
   /* font size */
   --fs-base: 62.5%;
@@ -157,6 +158,11 @@ b {
 .alert.alert--success {
   background-color: var(--clr-success-bg);
   color: var(--clr-success);
+}
+
+.alert.alert--error {
+  background-color: var(--clr-error-bg);
+  color: var(--clr-error);
 }
 
 .alert__close {
