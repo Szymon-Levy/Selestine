@@ -78,17 +78,17 @@ else if ($action == 'edit') { ?>
 
         <!-- === EDIT USER FORM === -->
       <section class="edit-user">
-        <form method="post" class="form user__form">
+        <form method="post" class="form user__form" enctype="multipart/form-data">
 
         <div class="form__row">
             <div class="form__field">
               <label for="avatar">
-                <img src="<?= htmlspecialchars(get_image_path($user_row[0]['avatar'])) ?>" alt="user avatar">
+                <img src="<?= htmlspecialchars(get_image_path($user_row[0]['avatar'])) ?>" class="js-user-form-avatar-image" alt="user avatar">
               </label>
-              <input type="file" name="avatar" id="avatar">
+              <input type="file" name="avatar" id="avatar" class="js-user-form-avatar-input">
 
-              <?php if (!empty($errors['user_name'])) { ?>
-                <div class="form_error"> <?= $errors['user_name']; ?> </div>
+              <?php if (!empty($errors['avatar'])) { ?>
+                <div class="form_error"> <?= $errors['avatar']; ?> </div>
               <?php } ?>
             </div>
           </div>
@@ -155,7 +155,6 @@ else if ($action == 'edit') { ?>
   else { ?>
     <?php generate_alert('User not found.', 'error'); ?>
   <?php } ?>
-  
 
 <?php }
 else if ($action == 'delete') { ?>

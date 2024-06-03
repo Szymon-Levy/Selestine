@@ -74,9 +74,25 @@ else if ($action == 'edit') {
       $password = trim($_POST['password']);
       $password2 = trim($_POST['retype-password']);
       $type = !empty($_POST['type']) ? 'admin' : 'user';
+      $avatar = $_FILES['avatar'] ?? null;
     
       //validate
       $errors = [];
+
+      //validate avatar
+      $current_avatar = $user_row[0]['avatar'];
+      $allowed_types = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+      if (!empty($avatar['name'])) {
+        if (!in_array($avatar['type'], $allowed_types)) {
+          $errors['avatar'] = 'JPG, PNG and WEBP only allowed!';
+        } else if ($avatar['size'] > 300000) {
+          $errors['avatar'] = 'Maximum filesize is 300kb!';
+        } else {
+          $uploaded_image_path = 'users/avatars/' . time() . basename($avatar['name']);
+          move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
+          $current_avatar = $uploaded_image_path;
+        }
+      }
     
       if (empty($user_name)) {
         $errors['user_name'] = 'User name cannot be empty!';
@@ -115,13 +131,14 @@ else if ($action == 'edit') {
         $data['user_name']    = $user_name;
         $data['email']        = $email;
         $data['account_type'] = $type;
+        $data['avatar']       = $current_avatar;
         
         if (empty($password)) {
-          $query = 'UPDATE users SET user_name = :user_name, email = :email, account_type = :account_type WHERE id = :id LIMIT 1;';
+          $query = 'UPDATE users SET user_name = :user_name, email = :email, account_type = :account_type, avatar = :avatar WHERE id = :id LIMIT 1;';
         }
         else {
           $data['pass'] = hash_password($password);
-          $query = 'UPDATE users SET user_name = :user_name, email = :email, pass = :pass, account_type = :account_type WHERE id = :id LIMIT 1;';
+          $query = 'UPDATE users SET user_name = :user_name, email = :email, pass = :pass, account_type = :account_type, avatar = :avatar WHERE id = :id LIMIT 1;';
         }
         
         query($pdo, $query, $data);
