@@ -127,6 +127,19 @@ function is_menu_item_active(string $href) {
 }
 
 /**
+ * Returns class of active menu item if its page is currently opened.
+ * @param string $href Href to the page in the menu item link.
+ * @param string $section Section name of current page.
+ * @return string Class of menu item. If page doesn't match returns empty string.
+ */
+function is_menu_item_active_admin(string $href, string $section) {
+  if ($section == $href) {
+    return 'active';
+  }
+  return '';
+}
+
+/**
  * Generates alert message of certain type.
  * @param string $message Text of message.
  * @param string $type Type of alert (error, success, info).

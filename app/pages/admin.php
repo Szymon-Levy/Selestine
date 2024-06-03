@@ -49,24 +49,45 @@
 <body>
 
   <!-- === SIDEBAR === -->
-  <aside class="sidebar">
+  <aside class="sidebar js-sidebar">
+
+    <button class="sidebar__toggler js-sidebar-toggler">
+      <i class="ri-menu-unfold-line sidebar__toggler__icon--mobile js-sidebar-toggler-icon-mobile" aria-hidden="false"></i>
+      <i class="ri-menu-fold-line sidebar__toggler__icon--desktop js-sidebar-toggler-icon-desktop" aria-hidden="false"></i>
+    </button>
+
+    <a href="<?= ROOT . '/admin' ?>" class="sidebar__logo">
+      <span>S</span>elestine<span> A</span>dmin
+    </a>
 
     <nav class="sidebar__nav">
       <ul class="sidebar__nav__list">
         <li>
-          <a href="<?=ROOT?>/admin">Dashboard</a>
+          <a href="<?=ROOT?>/admin" class="<?= is_menu_item_active_admin('dashboard', $section) ?>">
+            <i class="ri-dashboard-2-line" aria-hidden="true"></i>
+            Dashboard
+          </a>
         </li>
 
         <li>
-          <a href="<?=ROOT?>/admin/users">Users</a>
+          <a href="<?=ROOT?>/admin/users" class="<?= is_menu_item_active_admin('users', $section) ?>">
+            <i class="ri-user-line" aria-hidden="true"></i>
+            Users
+          </a>
         </li>
 
         <li>
-          <a href="<?=ROOT?>/admin/categories">Categories</a>
+          <a href="<?=ROOT?>/admin/categories">
+            <i class="ri-folders-line" aria-hidden="true"></i>
+            Categories
+          </a>
         </li>
 
         <li>
-          <a href="<?=ROOT?>/admin/articles">Articles</a>
+          <a href="<?=ROOT?>/admin/articles">
+            <i class="ri-article-line" aria-hidden="true"></i>
+            Articles
+          </a>
         </li>
       </ul>
     </nav>
