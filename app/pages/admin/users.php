@@ -201,16 +201,21 @@ else { ?>
   <h1 class="main__title">Users</h1>
 
   <div class="main__container">
-    <a href="<?=ROOT?>/admin/users/add">Add new user</a>
+    <div class="buttons-container">
+      <a class="btn btn--primary" href="<?=ROOT?>/admin/users/add">
+        <i class="ri-user-add-line" aria-hidden="true"></i>
+        Add new user
+      </a>
+    </div>
 
-    <table>
+    <table class="table">
       <thead>
         <th>Id</th>
         <th>Avatar</th>
         <th>Username</th>
         <th>Email</th>
         <th>Date</th>
-        <th>Account type</th>
+        <th>Account</th>
         <th>Actions</th>
       </thead>
 
@@ -224,17 +229,28 @@ else { ?>
         <?php foreach($found_users as $user) { ?>
 
           <tr>
-            <td><?= $user['id'] ?></td>
-            <td>
-              <img src="<?= htmlspecialchars(get_image_path($user['avatar'])) ?>" alt="user avatar">
+            <td data-label="Id"><?= $user['id'] ?></td>
+            <td data-label="Avatar">
+              <div class="table__avatar">
+                <img src="<?= htmlspecialchars(get_image_path($user['avatar'])) ?>" alt="user avatar">
+              </div>
             </td>
-            <td><?= htmlspecialchars($user['user_name']) ?></td>
-            <td><?= $user['email'] ?></td>
-            <td><?= date('jS M, Y', strtotime($user['create_date'])) ?></td>
-            <td><?= $user['account_type'] ?></td>
-            <td>
-              <a href="<?=ROOT?>/admin/users/delete/<?=$user['id']?>">Delete</a>
-              <a href="<?=ROOT?>/admin/users/edit/<?=$user['id']?>">Edit</a>
+            <td data-label="Username"><?= htmlspecialchars($user['user_name']) ?></td>
+            <td data-label="Email"><?= $user['email'] ?></td>
+            <td data-label="Date"><?= date('jS M, Y', strtotime($user['create_date'])) ?></td>
+            <td data-label="Account type"><span class="table__account--<?= $user['account_type'] ?>"><?= $user['account_type'] ?></span></td>
+            <td data-label="Actions">
+              <div class="table__buttons">
+                <a class="table__buttons__button table__buttons__button--edit" href="<?=ROOT?>/admin/users/edit/<?=$user['id']?>">
+                  <i class="ri-user-settings-line" aria-hidden="true"></i>
+                  <span class="visually-hidden">Edit user</span>
+                </a>
+
+                <a class="table__buttons__button table__buttons__button--delete" href="<?=ROOT?>/admin/users/delete/<?=$user['id']?>">
+                  <i class="ri-user-unfollow-line" aria-hidden="true"></i>
+                  <span class="visually-hidden">Delete user</span>
+                </a>
+              </div>
             </td>
           </tr>
 

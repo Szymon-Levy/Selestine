@@ -89,6 +89,13 @@
             Articles
           </a>
         </li>
+
+        <li>
+          <a href="<?=ROOT?>" target="_blank">
+            <i class="ri-external-link-line" aria-hidden="true"></i>
+            Front Page
+          </a>
+        </li>
       </ul>
     </nav>
   </aside>
