@@ -627,17 +627,17 @@ b {
 
 .sidebar__user {
   position: relative;
-  display: grid;
-  align-items: center;
-  grid-template-columns: 4rem auto;
-  column-gap: 1.4rem;
   margin-top: auto;
   padding-top: 1.6rem;
   border-top: 1px solid var(--clr-border2);
 }
 
+.sidebar__user__image {
+  margin-bottom: 1rem;
+}
+
 .sidebar__user__image img {
-  width: 100%;
+  width: 4rem;
   height: 4rem;
   object-fit: cover;
   border-radius: 50%;

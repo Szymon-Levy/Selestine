@@ -96,6 +96,17 @@ function get_image_path (string $image_path) {
   return ROOT . '/assets/images/' . $image_path;
 }
 
+/**
+ * Deletes file from given filepath starting from images folder.
+ * @param string $image_path Path to image from /assets/images folder.
+ */
+function delete_image (string $image_path) {
+  $path_to_image = FILESYSTEM_PATH . '/assets/images/' . $image_path;
+  if (file_exists($path_to_image)) {
+    unlink($path_to_image);
+  }
+}
+
 /* === HTML FUNCTIONS === */
 
 /**
@@ -169,7 +180,7 @@ function generate_nav_profile () {
   echo  '<div class="nav__profile__menu js-nav-profile-menu">';
   echo    '<div class="nav__profile__menu__greeting">';
   echo      'Hi, ';
-  echo      $_SESSION['USER']['name'] ? htmlspecialchars($_SESSION['USER']['name']) : htmlspecialchars($_SESSION['USER']['user_name']);
+  echo      $_SESSION['USER']['first_name'] ? htmlspecialchars($_SESSION['USER']['first_name']) : htmlspecialchars($_SESSION['USER']['user_name']);
   echo    '</div>';
   echo    '<ul class="nav__profile__menu__list">';
   echo      '<li><a href="profile-settings"><i class="ri-settings-2-fill" aria-hidden="true"></i> Profile settings</a></li>';

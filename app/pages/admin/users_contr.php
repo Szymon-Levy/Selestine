@@ -5,6 +5,7 @@ if ($action == 'add') {
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     //get signup form values
     $user_name = trim($_POST['username']);
+    $first_name = trim($_POST['firstname']) ?? NULL;
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $password2 = trim($_POST['retype-password']);
@@ -29,6 +30,10 @@ if ($action == 'add') {
       }
     }
   
+    if (strlen($first_name) > 50) {
+      $errors['first_name'] = 'First name cannot be longer than 30 characters!';
+    }
+
     if (empty($user_name)) {
       $errors['user_name'] = 'User name cannot be empty!';
     }
@@ -65,6 +70,7 @@ if ($action == 'add') {
     if(empty($errors)) {
       //save new user to database
       $data = [];
+      $data['first_name']   = $first_name;
       $data['user_name']    = $user_name;
       $data['email']        = $email;
       $data['pass']         = hash_password($password);
@@ -72,10 +78,10 @@ if ($action == 'add') {
       
       if ($current_avatar) {
         $data['avatar']       = $current_avatar;
-        $query = 'INSERT INTO users (avatar, user_name, email, pass, account_type) VALUES (:avatar, :user_name, :email, :pass, :account_type);';
+        $query = 'INSERT INTO users (avatar, first_name, user_name, email, pass, account_type) VALUES (:avatar, :first_name, :user_name, :email, :pass, :account_type);';
       }
       else {
-        $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
+        $query = 'INSERT INTO users (user_name, first_name, email, pass, account_type) VALUES (:user_name, :first_name, :email, :pass, :account_type);';
       }
       query($pdo, $query, $data);
       
@@ -92,6 +98,7 @@ else if ($action == 'edit') {
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user_row[0]) {
       //get signup form values
+      $first_name = trim($_POST['firstname']) ?? NULL;
       $user_name = trim($_POST['username']);
       $email = trim($_POST['email']);
       $password = trim($_POST['password']);
@@ -115,6 +122,10 @@ else if ($action == 'edit') {
           move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
           $current_avatar = $uploaded_image_path;
         }
+      }
+
+      if (strlen($first_name) > 50) {
+        $errors['first_name'] = 'First name cannot be longer than 30 characters!';
       }
     
       if (empty($user_name)) {
@@ -151,17 +162,18 @@ else if ($action == 'edit') {
         //edit user in database
         $data =               [];
         $data['id']           = $id;
+        $data['first_name']   = $first_name;
         $data['user_name']    = $user_name;
         $data['email']        = $email;
         $data['account_type'] = $type;
         $data['avatar']       = $current_avatar;
         
         if (empty($password)) {
-          $query = 'UPDATE users SET user_name = :user_name, email = :email, account_type = :account_type, avatar = :avatar WHERE id = :id LIMIT 1;';
+          $query = 'UPDATE users SET first_name = :first_name, user_name = :user_name, email = :email, account_type = :account_type, avatar = :avatar WHERE id = :id;';
         }
         else {
           $data['pass'] = hash_password($password);
-          $query = 'UPDATE users SET user_name = :user_name, email = :email, pass = :pass, account_type = :account_type, avatar = :avatar WHERE id = :id LIMIT 1;';
+          $query = 'UPDATE users SET first_name = :first_name, user_name = :user_name, email = :email, pass = :pass, account_type = :account_type, avatar = :avatar WHERE id = :id;';
         }
         
         query($pdo, $query, $data);
@@ -177,8 +189,19 @@ else if ($action == 'delete') {
   $user_query = 'SELECT * FROM users WHERE id = :id LIMIT 1';
   $user_row = query($pdo, $user_query, ['id' => $id]);
 
+  if ($id == 44) {
+    $_SESSION['USER_DELETE_FORBIDDEN'] = true;
+    redirect(ROOT . '/admin/users');
+    die();
+  }
+
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user_row[0]) {
+      //delete avatar of user
+      if ($user_row[0]['avatar'] != 'users/avatars/default-profile-picture.jpg') {
+        delete_image($user_row[0]['avatar']);
+      }
+
       //delete user from database
       $data['id'] = $id;
       

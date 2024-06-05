@@ -33,6 +33,17 @@
 
           <div class="form__row">
             <div class="form__field">
+              <label for="firstname" class="form__label">first name</label>
+              <input value="<?= $first_name ?? ''; ?>" type="text" name="firstname" id="firstname" placeholder="First name">
+
+              <?php if (!empty($errors['first_name'])) { ?>
+                <div class="form_error"> <?= $errors['first_name']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
               <label for="username" class="form__label">user name</label>
               <input value="<?= $user_name ?? ''; ?>" type="text" name="username" id="username" placeholder="username">
 
@@ -133,6 +144,17 @@ else if ($action == 'edit') { ?>
                 <span>Avatar preview:</span>
                 <img src="<?= htmlspecialchars(get_image_path($user_row[0]['avatar'])) ?>" class="form__image-preview__image form__avatar__img user__form__avatar-preview__img js-form-avatar-image" alt="user avatar">
               </div>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="firstname" class="form__label">first name</label>
+              <input value="<?= htmlspecialchars($user_row[0]['first_name'] ?? ''); ?>" type="text" name="firstname" id="firstname" placeholder="First name">
+
+              <?php if (!empty($errors['first_name'])) { ?>
+                <div class="form_error"> <?= $errors['first_name']; ?> </div>
+              <?php } ?>
             </div>
           </div>
 
@@ -303,16 +325,14 @@ else { ?>
             <td data-label="Actions">
               <div class="table__buttons">
                 <a class="table__buttons__button table__buttons__button--edit" href="<?=ROOT?>/admin/users/edit/<?=$user['id']?>">
-                  <i class="ri-user-settings-line" aria-hidden="true"></i>
+                  <i class="ri-edit-2-line" aria-hidden="true"></i>
                   <span class="visually-hidden">Edit user</span>
                 </a>
 
-                <?php if ($user['id'] != 44) { ?>
-                  <a class="table__buttons__button table__buttons__button--delete" href="<?=ROOT?>/admin/users/delete/<?=$user['id']?>">
-                    <i class="ri-user-unfollow-line" aria-hidden="true"></i>
-                    <span class="visually-hidden">Delete user</span>
-                  </a>
-                <?php } ?>
+                <a class="table__buttons__button table__buttons__button--delete" href="<?=ROOT?>/admin/users/delete/<?=$user['id']?>">
+                  <i class="ri-delete-bin-line" aria-hidden="true"></i>
+                  <span class="visually-hidden">Delete user</span>
+                </a>
               </div>
             </td>
           </tr>
@@ -335,6 +355,13 @@ else { ?>
   if(isset($_SESSION['USER_EDITED']) && $_SESSION['USER_EDITED'] === true) {
     unset($_SESSION['USER_EDITED']);
     generate_alert('User data has been successfully edited.', 'success');
+  }
+?>
+
+<?php
+  if(isset($_SESSION['USER_DELETE_FORBIDDEN']) && $_SESSION['USER_DELETE_FORBIDDEN'] === true) {
+    unset($_SESSION['USER_DELETE_FORBIDDEN']);
+    generate_alert('User cannot be deleted.', 'error');
   }
 ?>
 
