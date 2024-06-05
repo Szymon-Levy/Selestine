@@ -28,7 +28,7 @@ function query (object $pdo, string $query, array $data = []) {
  * @param string $page Page to redirect to.
  */
 function redirect (string $page) {
-  header('Location: ' . $page);
+  header('Location: ' . ROOT . '/' . $page);
   die();
 }
 
@@ -119,7 +119,7 @@ function generate_bottom_gallery () {
   if (!empty($images)) {
     foreach ($images as $i => $src) {
       echo '<div class="swiper-slide">';
-      echo '<img src="' . ROOT . '/assets/images/bottom-gallery/' . $src . '" alt="gallery image ' . $i . '">';
+      echo '<img src="' . get_image_path('bottom-gallery/' . $src) . '" alt="gallery image ' . $i . '">';
       echo '</div>';
     }
   }
@@ -172,7 +172,7 @@ function generate_nav_profile () {
   echo '<div class="nav__profile js-nav-profile">';
 
   echo  '<button class="nav__profile__button js-nav-profile-button" aria-expanded="false">';
-  echo    '<img class="nav__profile__button__avatar" src="' . ROOT . '/assets/images/' . htmlspecialchars($_SESSION['USER']['avatar']) . '" aria-hidden="true"            alt="Profile picture">';
+  echo    '<img class="nav__profile__button__avatar" src="' . get_image_path(htmlspecialchars($_SESSION['USER']['avatar'])) . '" aria-hidden="true"            alt="Profile picture">';
   echo    '<i class="ri-arrow-down-s-line nav__profile__button__arrow js-nav-profile-button-arrow" aria-hidden="true"></i>';
   echo    '<span class="visually-hidden">Show profile options</span>';
   echo  '</button>';

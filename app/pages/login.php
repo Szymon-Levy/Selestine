@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         redirect('admin');
       }
       else {
-        redirect('home');
+        redirect('');
       }
 
     }
@@ -51,7 +51,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- ----- favicon -----  -->
-  <link rel="icon" href="<?=ROOT?>/assets/images/logo/favicon.png" type="image/png">
+  <link rel="icon" href="<?= get_image_path('logo/favicon.png'); ?>" type="image/png">
 
   <!-- ----- remix icon -----  -->
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/remixicon.css">
@@ -102,7 +102,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </ul>
 
         <a href="home" class="header__logo">
-          <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="Selestine logo">
+          <img src="<?= get_image_path('logo/logo.png'); ?>" alt="Selestine logo">
         </a>
 
         <form action="" class="header__search form">
@@ -163,7 +163,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       <div class="row">
         <form method="post" class="form login__form authentication__form">
           <a href="<?=ROOT?>/home" class="authentication__form__logo">
-            <img src="<?=ROOT?>/assets/images/logo/logo.png" alt="page logo">
+            <img src="<?= get_image_path('logo/logo.png'); ?>" alt="page logo">
           </a>
 
           <div class="form__row">

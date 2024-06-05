@@ -361,7 +361,7 @@ else { ?>
 <?php
   if(isset($_SESSION['USER_DELETE_FORBIDDEN']) && $_SESSION['USER_DELETE_FORBIDDEN'] === true) {
     unset($_SESSION['USER_DELETE_FORBIDDEN']);
-    generate_alert('User cannot be deleted.', 'error');
+    generate_alert('Admin cannot be deleted.', 'error');
   }
 ?>
 

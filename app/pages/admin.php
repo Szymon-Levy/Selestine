@@ -1,9 +1,9 @@
 <?php
   if (!is_user_logged_in()) {
-    redirect(ROOT . '/login');
+    redirect('login');
   }
   else if (!is_user_admin()) {
-    redirect(ROOT . '/');
+    redirect('');
   }
 
   $section = $url[1] ?? 'dashboard';
@@ -36,7 +36,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- ----- favicon -----  -->
-  <link rel="icon" href="<?=ROOT?>/assets/images/logo/favicon.png" type="image/png">
+  <link rel="icon" href="<?= get_image_path('logo/favicon.png') ?>" type="image/png">
 
   <!-- ----- remix icon -----  -->
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/remixicon.css">
@@ -57,7 +57,7 @@
     </button>
 
     <a href="<?= ROOT . '/admin' ?>" class="sidebar__logo">
-      <img class="sidebar__logo__image" src="<?= ROOT . '/assets/images/logo/logo-white.png' ?>" alt="selestine logo">
+      <img class="sidebar__logo__image" src="<?= get_image_path('logo/logo-white.png') ?>" alt="selestine logo">
       <div class="sidebar__logo__text">
         <span>A</span>dmin <span>P</span>anel
       </div>
@@ -109,7 +109,7 @@
       </div>
 
       <div class="sidebar__user__info">
-        <h4><?=htmlspecialchars($_SESSION['USER']['user_name']); ?></h4>
+        <h4><?= htmlspecialchars($_SESSION['USER']['first_name']) ?? htmlspecialchars($_SESSION['USER']['user_name']); ?></h4>
         <span><?=htmlspecialchars($_SESSION['USER']['email']); ?></span>
       </div>
 

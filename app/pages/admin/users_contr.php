@@ -86,7 +86,7 @@ if ($action == 'add') {
       query($pdo, $query, $data);
       
       $_SESSION['USER_ADDED'] = true;
-      redirect(ROOT . '/admin/users');
+      redirect('admin/users');
     }
   }
 }
@@ -179,7 +179,7 @@ else if ($action == 'edit') {
         query($pdo, $query, $data);
         
         $_SESSION['USER_EDITED'] = true;
-        redirect(ROOT . '/admin/users');
+        redirect('admin/users');
       }
     }
   }
@@ -191,7 +191,7 @@ else if ($action == 'delete') {
 
   if ($id == 44) {
     $_SESSION['USER_DELETE_FORBIDDEN'] = true;
-    redirect(ROOT . '/admin/users');
+    redirect('admin/users');
     die();
   }
 
@@ -210,7 +210,7 @@ else if ($action == 'delete') {
       query($pdo, $delete_query, $data);
       
       $_SESSION['USER_DELETED'] = true;
-      redirect(ROOT . '/admin/users');
+      redirect('admin/users');
 
     }
   }
