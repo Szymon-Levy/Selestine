@@ -8,10 +8,26 @@ if ($action == 'add') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $password2 = trim($_POST['retype-password']);
-    $type = $_POST['type'] ? 'admin' : 'user';
+    $type = !empty($_POST['type']) ? 'admin' : 'user';
+    $avatar = $_FILES['avatar'] ?? null;
   
     //validate
     $errors = [];
+
+    //validate avatar
+    $current_avatar = null;
+    $allowed_types = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!empty($avatar['name'])) {
+      if (!in_array($avatar['type'], $allowed_types)) {
+        $errors['avatar'] = 'JPG, PNG and WEBP only allowed!';
+      } else if ($avatar['size'] > 300000) {
+        $errors['avatar'] = 'Maximum filesize is 300kb!';
+      } else {
+        $uploaded_image_path = 'users/avatars/' . time() . basename($avatar['name']);
+        move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
+        $current_avatar = $uploaded_image_path;
+      }
+    }
   
     if (empty($user_name)) {
       $errors['user_name'] = 'User name cannot be empty!';
@@ -53,7 +69,14 @@ if ($action == 'add') {
       $data['email']        = $email;
       $data['pass']         = hash_password($password);
       $data['account_type'] = $type;
-      $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
+      
+      if ($current_avatar) {
+        $data['avatar']       = $current_avatar;
+        $query = 'INSERT INTO users (avatar, user_name, email, pass, account_type) VALUES (:avatar, :user_name, :email, :pass, :account_type);';
+      }
+      else {
+        $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
+      }
       query($pdo, $query, $data);
       
       $_SESSION['USER_ADDED'] = true;

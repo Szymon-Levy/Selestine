@@ -57,7 +57,11 @@
     </button>
 
     <a href="<?= ROOT . '/admin' ?>" class="sidebar__logo">
-      <span>S</span>elestine<span> A</span>dmin
+      <img class="sidebar__logo__image" src="<?= ROOT . '/assets/images/logo/logo-white.png' ?>" alt="selestine logo">
+      <div class="sidebar__logo__text">
+        <span>A</span>dmin <span>P</span>anel
+      </div>
+      
     </a>
 
     <nav class="sidebar__nav">
@@ -77,14 +81,14 @@
         </li>
 
         <li>
-          <a href="<?=ROOT?>/admin/categories">
+          <a href="<?=ROOT?>/admin/categories" class="<?= is_menu_item_active_admin('categories', $section) ?>">
             <i class="ri-folders-line" aria-hidden="true"></i>
             Categories
           </a>
         </li>
 
         <li>
-          <a href="<?=ROOT?>/admin/articles">
+          <a href="<?=ROOT?>/admin/articles" class="<?= is_menu_item_active_admin('articles', $section) ?>">
             <i class="ri-article-line" aria-hidden="true"></i>
             Articles
           </a>
@@ -98,6 +102,22 @@
         </li>
       </ul>
     </nav>
+
+    <div class="sidebar__user">
+      <div class="sidebar__user__image">
+        <img src="<?= get_image_path($_SESSION['USER']['avatar']); ?>" alt="">
+      </div>
+
+      <div class="sidebar__user__info">
+        <h4><?=htmlspecialchars($_SESSION['USER']['user_name']); ?></h4>
+        <span><?=htmlspecialchars($_SESSION['USER']['email']); ?></span>
+      </div>
+
+      <a class="sidebar__user__logout" href="<?= ROOT ?>/logout">
+        <span class="visually-hidden">Logout</span>
+        <i class="ri-logout-box-r-line" aria-hidden="true"></i>
+      </a>
+    </div>
   </aside>
 
   <!-- === MAIN CONTENT === -->

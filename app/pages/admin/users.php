@@ -1,70 +1,102 @@
 <?php if ($action == 'add') { ?>
 
   <main class="main">
-  <h1 class="main__title">Add new user</h1>
+    <h1 class="main__title">Add new user</h1>
 
-  <div class="main__container">
+    <div class="main__container">
 
-    <!-- === ADD USER FORM === -->
-    <section class="add-user">
-      <form method="post" class="form user__form">
-        <div class="form__row">
-          <div class="form__field">
-            <input value="<?= $user_name ?? ''; ?>" type="text" name="username" id="username" placeholder="username">
+      <!-- === ADD USER FORM === -->
+      <section class="add-user">
+        <form method="post" class="form user__form" enctype="multipart/form-data">
+          <div class="form__row">
+            <div class="form__field">
+              <label for="avatar" class="form__label">upload avatar</label>
+              <label class="form__upload">
+                <span class="form__upload__text">
+                  <i class="ri-upload-2-line" aria-hidden="true"></i>
+                  Click or Drag file here...
+                </span>
+                <span role="presentation" class="form__upload__file-name js-form-upload-filename">No file selected</span>
+                <input type="file" name="avatar" id="avatar" class="form__upload__input js-form-upload-input">
+              </label>
 
-            <?php if (!empty($errors['user_name'])) { ?>
-              <div class="form_error"> <?= $errors['user_name']; ?> </div>
-            <?php } ?>
-          </div>
-        </div>
+              <?php if (!empty($errors['avatar'])) { ?>
+                <div class="form_error"> <?= $errors['avatar']; ?> </div>
+              <?php } ?>
 
-        <div class="form__row">
-          <div class="form__field">
-            <input value="<?= $email ?? ''; ?>" type="text" name="email" id="email" placeholder="email">
-
-            <?php if (!empty($errors['email'])) { ?>
-              <div class="form_error"> <?= $errors['email']; ?> </div>
-            <?php } ?>
-          </div>
-        </div>
-
-        <div class="form__row">
-          <div class="form__field">
-            <input type="password" name="password" id="password" placeholder="password">
-
-            <?php if (!empty($errors['password'])) { ?>
-              <div class="form_error"> <?= $errors['password']; ?> </div>
-            <?php } ?>
-          </div>
-        </div>
-
-        <div class="form__row">
-          <div class="form__field">
-            <input type="password" name="retype-password" id="retype-password" placeholder="retype password">
-
-            <?php if (!empty($errors['password2'])) { ?>
-              <div class="form_error"> <?= $errors['password2']; ?> </div>
-            <?php } ?>
-          </div>
-        </div>
-
-        <div class="form__row">
-          <div class="form__field">
-            <div class="form_checkbox">
-              <input class="form_checkbox__input" <?= !empty($type) && $type == 'admin' ? 'checked' : '' ?> type="checkbox" name="type" id="type" value="admin">
-              <label for="type">Accept terms and conditions</label>
+              <div class="form__image-preview user__form__avatar-preview">
+                <span>Avatar preview:</span>
+                <img src="<?= get_image_path('users/avatars/default-profile-picture.jpg'); ?>" class="form__image-preview__image form__avatar__img user__form__avatar-preview__img js-form-avatar-image" alt="user avatar">
+              </div>
             </div>
           </div>
-        </div>
-        
-        <div class="form__row form__row--submit">
-          <button class="btn btn--accent form__submit-btn" type="submit">Add account</button>
-        </div>
 
-      </form>
-    </section>
+          <div class="form__row">
+            <div class="form__field">
+              <label for="username" class="form__label">user name</label>
+              <input value="<?= $user_name ?? ''; ?>" type="text" name="username" id="username" placeholder="username">
 
-  </div>
+              <?php if (!empty($errors['user_name'])) { ?>
+                <div class="form_error"> <?= $errors['user_name']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="email" class="form__label">email</label>
+              <input value="<?= $email ?? ''; ?>" type="text" name="email" id="email" placeholder="email">
+
+              <?php if (!empty($errors['email'])) { ?>
+                <div class="form_error"> <?= $errors['email']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="password" class="form__label">password</label>
+              <input type="password" name="password" id="password" placeholder="password">
+
+              <?php if (!empty($errors['password'])) { ?>
+                <div class="form_error"> <?= $errors['password']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="retype-password" class="form__label">retype password</label>
+              <input type="password" name="retype-password" id="retype-password" placeholder="retype password">
+
+              <?php if (!empty($errors['password2'])) { ?>
+                <div class="form_error"> <?= $errors['password2']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <div class="form_checkbox">
+                <label for="type" class="form__label">account type</label>
+                <input class="form_checkbox__input" <?= !empty($type) && $type == 'admin' ? 'checked' : '' ?> type="checkbox" name="type" id="type" value="admin">
+                <label for="type">Admin account</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form__row form__row--submit form__row--buttons">
+            <button class="btn btn--primary form__submit-btn" type="submit">Add account</button>
+            <a href="<?=ROOT?>/admin/users" class="btn btn--secondary">
+              <i class="ri-arrow-go-back-line" aria-hidden="true"></i>
+              Go back
+            </a>
+          </div>
+
+        </form>
+      </section>
+
+    </div>
   </main>
 
 <?php }
@@ -82,19 +114,31 @@ else if ($action == 'edit') { ?>
 
         <div class="form__row">
             <div class="form__field">
-              <label for="avatar">
-                <img src="<?= htmlspecialchars(get_image_path($user_row[0]['avatar'])) ?>" class="js-user-form-avatar-image" alt="user avatar">
+              <label for="avatar" class="form__label">upload avatar</label>
+              <label class="form__upload">
+                <span class="form__upload__text">
+                  <i class="ri-upload-2-line" aria-hidden="true"></i>
+                  Click or Drag file here...
+                </span>
+                <span role="presentation" class="form__upload__file-name js-form-upload-filename">No file selected</span>
+                <input type="file" name="avatar" id="avatar" class="form__upload__input js-form-upload-input">
               </label>
-              <input type="file" name="avatar" id="avatar" class="js-user-form-avatar-input">
 
+              
               <?php if (!empty($errors['avatar'])) { ?>
                 <div class="form_error"> <?= $errors['avatar']; ?> </div>
               <?php } ?>
+
+              <div class="form__image-preview user__form__avatar-preview">
+                <span>Avatar preview:</span>
+                <img src="<?= htmlspecialchars(get_image_path($user_row[0]['avatar'])) ?>" class="form__image-preview__image form__avatar__img user__form__avatar-preview__img js-form-avatar-image" alt="user avatar">
+              </div>
             </div>
           </div>
 
           <div class="form__row">
             <div class="form__field">
+              <label for="username" class="form__label">user name</label>
               <input value="<?= htmlspecialchars($user_row[0]['user_name'] ?? ''); ?>" type="text" name="username" id="username" placeholder="username">
 
               <?php if (!empty($errors['user_name'])) { ?>
@@ -105,6 +149,7 @@ else if ($action == 'edit') { ?>
 
           <div class="form__row">
             <div class="form__field">
+              <label for="email" class="form__label">email</label>
               <input value="<?= htmlspecialchars($user_row[0]['email'] ?? ''); ?>" type="text" name="email" id="email" placeholder="email">
 
               <?php if (!empty($errors['email'])) { ?>
@@ -115,6 +160,7 @@ else if ($action == 'edit') { ?>
 
           <div class="form__row">
             <div class="form__field">
+              <label for="password" class="form__label">password</label>
               <input type="password" name="password" id="password" placeholder="password (leave blank if it should remain unchanged)">
 
               <?php if (!empty($errors['password'])) { ?>
@@ -125,6 +171,7 @@ else if ($action == 'edit') { ?>
 
           <div class="form__row">
             <div class="form__field">
+              <label for="retype-password" class="form__label">retype password</label>
               <input type="password" name="retype-password" id="retype-password" placeholder="retype password">
 
               <?php if (!empty($errors['password2'])) { ?>
@@ -135,6 +182,7 @@ else if ($action == 'edit') { ?>
 
           <div class="form__row">
             <div class="form__field">
+              <label for="type" class="form__label">account type</label>
               <div class="form_checkbox">
                 <input class="form_checkbox__input" <?= $user_row[0]['account_type'] == 'admin' ? 'checked' : '' ?> type="checkbox" name="type" id="type" value="admin">
                 <label for="type">Admin account</label>
@@ -142,8 +190,12 @@ else if ($action == 'edit') { ?>
             </div>
           </div>
           
-          <div class="form__row form__row--submit">
-            <button class="btn btn--accent form__submit-btn" type="submit">Edit account</button>
+          <div class="form__row form__row--submit form__row--buttons">
+            <button class="btn btn--primary form__submit-btn" type="submit">Edit account</button>
+            <a href="<?=ROOT?>/admin/users" class="btn btn--secondary">
+              <i class="ri-arrow-go-back-line" aria-hidden="true"></i>
+              Go back
+            </a>
           </div>
 
         </form>
@@ -168,20 +220,28 @@ else if ($action == 'delete') { ?>
         <!-- === DELETE USER FORM === -->
       <section class="delete-user">
         <form method="post" class="form user__form">
+          <div class="delete-user__question">Are You sure to delete this user?</div>
+
           <div class="form__row">
             <div class="form__field">
+              <div class="form__label">user name</div>
               <input disabled value="<?= htmlspecialchars($user_row[0]['user_name'] ?? ''); ?>" type="text" name="username" id="username" placeholder="username">
             </div>
           </div>
 
           <div class="form__row">
             <div class="form__field">
+              <div class="form__label">user email</div>
               <input disabled value="<?= htmlspecialchars($user_row[0]['email'] ?? ''); ?>" type="text" name="email" id="email" placeholder="email">
             </div>
           </div>
           
-          <div class="form__row form__row--submit">
-            <button class="btn btn--accent form__submit-btn" type="submit">Delete account</button>
+          <div class="form__row form__row--submit form__row--buttons">
+            <button class="btn btn--primary form__submit-btn" type="submit">Delete account</button>
+            <a href="<?=ROOT?>/admin/users" class="btn btn--secondary">
+              <i class="ri-arrow-go-back-line" aria-hidden="true"></i>
+              Go back
+            </a>
           </div>
 
         </form>
@@ -197,6 +257,7 @@ else { ?>
 <?php }
 else { ?>
 
+<!-- === USERS TABLE === -->
 <main class="main">
   <h1 class="main__title">Users</h1>
 
@@ -246,10 +307,12 @@ else { ?>
                   <span class="visually-hidden">Edit user</span>
                 </a>
 
-                <a class="table__buttons__button table__buttons__button--delete" href="<?=ROOT?>/admin/users/delete/<?=$user['id']?>">
-                  <i class="ri-user-unfollow-line" aria-hidden="true"></i>
-                  <span class="visually-hidden">Delete user</span>
-                </a>
+                <?php if ($user['id'] != 44) { ?>
+                  <a class="table__buttons__button table__buttons__button--delete" href="<?=ROOT?>/admin/users/delete/<?=$user['id']?>">
+                    <i class="ri-user-unfollow-line" aria-hidden="true"></i>
+                    <span class="visually-hidden">Delete user</span>
+                  </a>
+                <?php } ?>
               </div>
             </td>
           </tr>

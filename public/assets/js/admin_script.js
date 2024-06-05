@@ -60,17 +60,28 @@ $sidebarToggler.addEventListener('click', () => {
 
 
 /* === USERS CRUD === */
-const $avatarInput = document.querySelector('.js-user-form-avatar-input')
-const $avatarImage = document.querySelector('.js-user-form-avatar-image')
+const $uploadInput = document.querySelector('.js-form-upload-input')
+const $uploadImage = document.querySelector('.js-form-avatar-image')
+const $uploadFileName = document.querySelector('.js-form-upload-filename')
 
 /**
- * Updates avatar preview after selecting file from explorer.
+ * Shows name of file after selecting from explorer.
  */
-const updateAvatar = (e) => {
-  const file = e.target.files[0]
-  $avatarImage.src = URL.createObjectURL(file)
+const updateFileName = () => {
+  $uploadFileName.textContent = $uploadInput.value.split("\\").pop()
 }
 
-if ($avatarInput) { 
-  $avatarInput.addEventListener('change', updateAvatar) 
+/**
+ * Updates image preview after selecting file from explorer.
+ */
+const updateImage = (e) => {
+  const file = e.target.files[0]
+  $uploadImage.src = URL.createObjectURL(file)
+}
+
+if ($uploadInput) { 
+  $uploadInput.addEventListener('change', (e) => {
+    updateImage(e)
+    updateFileName()
+  }) 
 }
