@@ -242,7 +242,7 @@ else if ($action == 'delete') { ?>
         <!-- === DELETE USER FORM === -->
       <section class="delete-user">
         <form method="post" class="form user__form">
-          <div class="delete-user__question">Are You sure to delete this user?</div>
+          <div class="form__question">Are You sure to delete this user?</div>
 
           <div class="form__row">
             <div class="form__field">

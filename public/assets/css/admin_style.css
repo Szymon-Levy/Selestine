@@ -255,6 +255,14 @@ b {
   text-transform: capitalize;
 }
 
+.form__question {
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--clr-secondary);
+  font-size: var(--fs-h3);
+}
+
 /* custom checkbox & radio */
 .form_checkbox__input,
 .form_radio__input {
@@ -530,6 +538,21 @@ b {
   color: var(--clr-white);
 }
 
+.table__status {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+}
+
+.table__status--active {
+  background-color: var(--clr-success);
+}
+
+.table__status--inactive {
+  background-color: var(--clr-error);
+}
+
 /* === SIDEBAR === */
 
 .sidebar {
@@ -682,14 +705,6 @@ b {
   height: 10rem;
   border-radius: 50%;
   object-fit: cover;
-}
-
-.delete-user__question {
-  margin-bottom: 2rem;
-  line-height: 1.4;
-  font-weight: 500;
-  color: var(--clr-secondary);
-  font-size: var(--fs-h3);
 }
 
 
