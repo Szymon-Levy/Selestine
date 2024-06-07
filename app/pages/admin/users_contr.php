@@ -124,7 +124,6 @@ else if ($action == 'edit') {
           $errors['avatar'] = 'Maximum filesize is 300kb!';
         } else {
           $uploaded_image_path = 'users/avatars/' . time() . basename($avatar['name']);
-          move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
           $current_avatar = $uploaded_image_path;
         }
       }
@@ -164,6 +163,14 @@ else if ($action == 'edit') {
       }
     
       if(empty($errors)) {
+        //upload new avatar and delete the old one
+        if ($current_avatar != 'users/avatars/default-profile-picture.jpg') {
+          move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
+          if ($user_row[0]['avatar'] != 'users/avatars/default-profile-picture.jpg' && $user_row[0]['avatar'] != $current_avatar) {
+            delete_image($user_row[0]['avatar']);
+          }
+        }
+
         //edit user in database
         $data =               [];
         $data['id']           = $id;
