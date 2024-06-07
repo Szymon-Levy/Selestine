@@ -204,12 +204,16 @@ b {
 }
 
 .form input,
-.form textarea {
+.form textarea,
+.form__select select {
   border-radius: var(--br-400);
   transition: box-shadow .2s;
 }
 
 .form textarea {
+  padding: 1.4rem;
+  width: 100%;
+  min-height: 150px;
   border: 1px solid var(--clr-border);
 }
 
@@ -219,7 +223,8 @@ b {
 }
 
 .form input:not([type="checkbox"], [type="radio"]):focus,
-.form textarea:focus {
+.form textarea:focus,
+.form__select select:focus {
   box-shadow: 1px 1px 15px rgba(0, 0, 0, 8%);
 }
 
@@ -253,6 +258,10 @@ b {
   font-weight: 600;
   color: var(--clr-secondary);
   text-transform: capitalize;
+}
+
+.form__label__star {
+  color: var(--clr-close);
 }
 
 .form__question {
@@ -332,6 +341,34 @@ b {
 .form_checkbox__input:checked + label::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpolyline points='1 6.5 4 9.5 11 2.5' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'/%3E%3C/svg%3E");
   background-size: .7em;
+}
+
+/* custom select */
+.form__select {
+  position: relative;
+  max-width: max-content;
+}
+
+.form__select::before {
+  content: "";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border-left: 0.4rem solid transparent;
+  border-right: 0.4rem solid transparent;
+  border-top: 0.4rem solid black;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.form__select select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0.675em 6em 0.675em 1em;
+  border: 1px solid var(--clr-border);
+  background-color: var(--clr-white);
+  cursor: pointer;
 }
 
 /* upload file drag & drop */
@@ -491,6 +528,12 @@ b {
   width: 5rem;
   height: 5rem;
   border-radius: 50%;
+  object-fit: cover;
+}
+
+.table__thumbnail img {
+  width: 5rem;
+  height: 5rem;
   object-fit: cover;
 }
 
@@ -698,7 +741,11 @@ b {
   box-shadow: 1px 1px 25px rgba(41, 48, 66, 8%);
 }
 
-/* USERS */
+/* USER FORMS */
+
+.user__form__avatar-preview {
+  margin-top: 1.4rem;
+}
 
 .user__form__avatar-preview__img {
   width: 10rem;
@@ -757,6 +804,16 @@ b {
 
   .form__row--submit {
     margin-top: 2rem;
+  }
+
+  /* upload image preview */
+  .form__image-preview {
+    margin-top: 0;
+  }
+
+  .form__image-preview__image {
+    max-width: 18rem;
+    max-height: 18rem;
   }
 
   /* ALERTS */
@@ -884,6 +941,17 @@ b {
 
   .main__title {
     margin-bottom: 2rem;
+  }
+
+  /* USER FORMS */
+  .user__form__upload-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 3rem;
+  }
+
+  .user__form__avatar-preview {
+    margin-top: 1.4rem;
   }
  }
 

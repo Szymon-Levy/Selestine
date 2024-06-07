@@ -180,7 +180,7 @@ else { ?>
           <td data-label="Slug"><?= $category['slug'] ?></td>
           <td data-label="Status">
             <span class="table__status table__status--<?= $category['is_active'] ? 'active' : 'inactive' ?>">
-            </span>
+          </span>
           </td>
           <td data-label="Actions">
             <div class="table__buttons">

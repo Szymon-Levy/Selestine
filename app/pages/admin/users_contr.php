@@ -21,11 +21,12 @@ if ($action == 'add') {
     if (!empty($avatar['name'])) {
       if (!in_array($avatar['type'], $allowed_types)) {
         $errors['avatar'] = 'JPG, PNG and WEBP only allowed!';
-      } else if ($avatar['size'] > 300000) {
+      } 
+      else if ($avatar['size'] > 300000) {
         $errors['avatar'] = 'Maximum filesize is 300kb!';
-      } else {
+      }
+      else {
         $uploaded_image_path = 'users/avatars/' . time() . basename($avatar['name']);
-        move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
         $current_avatar = $uploaded_image_path;
       }
     }
@@ -68,6 +69,7 @@ if ($action == 'add') {
     }
   
     if(empty($errors)) {
+      
       //save new user to database
       $data = [];
       $data['first_name']   = $first_name;
@@ -77,6 +79,9 @@ if ($action == 'add') {
       $data['account_type'] = $type;
       
       if ($current_avatar) {
+        //upload avatar
+        move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
+        
         $data['avatar']       = $current_avatar;
         $query = 'INSERT INTO users (avatar, first_name, user_name, email, pass, account_type) VALUES (:avatar, :first_name, :user_name, :email, :pass, :account_type);';
       }
@@ -189,7 +194,7 @@ else if ($action == 'delete') {
   $user_query = 'SELECT * FROM users WHERE id = :id LIMIT 1';
   $user_row = query($pdo, $user_query, ['id' => $id]);
 
-  if ($id == 44) {
+  if ($id == ADMIN_ID) {
     $_SESSION['USER_DELETE_FORBIDDEN'] = true;
     redirect('admin/users');
     die();
