@@ -63,21 +63,21 @@
         <div class="form__row">
           <div class="form__field">
             <label for="thumbnail" class="form__label">upload thumbnail <span class="form__label__star">*</span></label>
-              <div class="user__form__upload-container">
-                <label class="form__upload">
-                  <span class="form__upload__text">
-                    <i class="ri-upload-2-line" aria-hidden="true"></i>
-                    Click or Drag file here...
-                  </span>
-                  <span role="presentation" class="form__upload__file-name js-form-upload-filename">No file selected</span>
-                  <input type="file" name="thumbnail" id="thumbnail" class="form__upload__input js-form-upload-input">
-                </label>
+            <div class="user__form__upload-container js-form-upload-container">
+              <label class="form__upload">
+                <span class="form__upload__text">
+                  <i class="ri-upload-2-line" aria-hidden="true"></i>
+                  Click or Drag file here...
+                </span>
+                <span role="presentation" class="form__upload__file-name js-form-upload-filelabel">No file selected</span>
+                <input type="file" name="thumbnail" id="thumbnail" class="form__upload__input js-form-upload-input">
+              </label>
 
               <div class="form__image-preview">
                 <span>Thumbnail preview:</span>
-                <img src="<?= get_image_path('noimage.jpg'); ?>" class="form__image-preview__image js-form-avatar-image" alt="article thumbnail">
+                <img src="<?= get_image_path('noimage.jpg'); ?>" class="form__image-preview__image js-form-upload-preview-image" alt="article thumbnail">
               </div>
-              </div>
+            </div>
 
             <?php if (!empty($errors['thumbnail'])) { ?>
               <div class="form_error"> <?= $errors['thumbnail']; ?> </div>
@@ -89,19 +89,19 @@
         <div class="form__row">
           <div class="form__field">
             <label for="fullimage" class="form__label">upload full image <span class="form__label__star">*</span></label>
-            <div class="user__form__upload-container">
+            <div class="user__form__upload-container js-form-upload-container">
               <label class="form__upload">
                 <span class="form__upload__text">
                   <i class="ri-upload-2-line" aria-hidden="true"></i>
                   Click or Drag file here...
                 </span>
-                <span role="presentation" class="form__upload__file-name js-form-upload-filename">No file selected</span>
+                <span role="presentation" class="form__upload__file-name js-form-upload-filelabel">No file selected</span>
                 <input type="file" name="fullimage" id="fullimage" class="form__upload__input js-form-upload-input">
               </label>
 
               <div class="form__image-preview">
                 <span>Full image preview:</span>
-                <img src="<?= get_image_path('noimage.jpg'); ?>" class="form__image-preview__image js-form-avatar-image" alt="article full image">
+                <img src="<?= get_image_path('noimage.jpg'); ?>" class="form__image-preview__image js-form-upload-preview-image" alt="article full image">
               </div>
             </div>
 
@@ -240,20 +240,20 @@ else if ($action == 'edit') { ?>
         <div class="form__row">
           <div class="form__field">
             <label for="thumbnail" class="form__label">upload thumbnail <span class="form__label__star">*</span></label>
-              <div class="user__form__upload-container">
+              <div class="user__form__upload-container js-form-upload-container">
                 <label class="form__upload">
                   <span class="form__upload__text">
                     <i class="ri-upload-2-line" aria-hidden="true"></i>
                     Click or Drag file here...
                   </span>
-                  <span role="presentation" class="form__upload__file-name js-form-upload-filename">No file selected</span>
+                  <span role="presentation" class="form__upload__file-name js-form-upload-filelabel">No file selected</span>
                   <input type="file" name="thumbnail" id="thumbnail" class="form__upload__input js-form-upload-input">
                 </label>
 
-              <div class="form__image-preview">
-                <span>Thumbnail preview:</span>
-                <img src="<?= get_image_path(!empty($article_row[0]['thumbnail']) ? $article_row[0]['thumbnail'] : 'noimage.jpg'); ?>" class="form__image-preview__image js-form-avatar-image" alt="article thumbnail">
-              </div>
+                <div class="form__image-preview">
+                  <span>Thumbnail preview:</span>
+                  <img src="<?= get_image_path(!empty($article_row[0]['thumbnail']) ? $article_row[0]['thumbnail'] : 'noimage.jpg'); ?>" class="form__image-preview__image js-form-upload-preview-image" alt="article thumbnail">
+                </div>
               </div>
 
             <?php if (!empty($errors['thumbnail'])) { ?>
@@ -266,19 +266,19 @@ else if ($action == 'edit') { ?>
         <div class="form__row">
           <div class="form__field">
             <label for="fullimage" class="form__label">upload full image <span class="form__label__star">*</span></label>
-            <div class="user__form__upload-container">
+            <div class="user__form__upload-container js-form-upload-container">
               <label class="form__upload">
                 <span class="form__upload__text">
                   <i class="ri-upload-2-line" aria-hidden="true"></i>
                   Click or Drag file here...
                 </span>
-                <span role="presentation" class="form__upload__file-name js-form-upload-filename">No file selected</span>
+                <span role="presentation" class="form__upload__file-name js-form-upload-filelabel">No file selected</span>
                 <input type="file" name="fullimage" id="fullimage" class="form__upload__input js-form-upload-input">
               </label>
 
               <div class="form__image-preview">
                 <span>Full image preview:</span>
-                <img src="<?= get_image_path(!empty($article_row[0]['full_image']) ? $article_row[0]['full_image'] : 'noimage.jpg'); ?>" class="form__image-preview__image js-form-avatar-image" alt="article full image">
+                <img src="<?= get_image_path(!empty($article_row[0]['full_image']) ? $article_row[0]['full_image'] : 'noimage.jpg'); ?>" class="form__image-preview__image js-form-upload-preview-image" alt="article full image">
               </div>
             </div>
 

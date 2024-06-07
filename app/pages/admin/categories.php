@@ -10,7 +10,7 @@
       <form method="post" class="form category__form" enctype="multipart/form-data">
         <div class="form__row">
           <div class="form__field">
-            <label for="categoryname" class="form__label">category name</label>
+            <label for="categoryname" class="form__label">category name <span class="form__label__star">*</span></label>
             <input value="<?= $category_name ?? ''; ?>" type="text" name="categoryname" id="categoryname" placeholder="Category name">
 
             <?php if (!empty($errors['category_name'])) { ?>

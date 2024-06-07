@@ -10,23 +10,25 @@
         <form method="post" class="form user__form" enctype="multipart/form-data">
           <div class="form__row">
             <div class="form__field">
-              <label for="avatar" class="form__label">upload avatar</label>
-              <label class="form__upload">
-                <span class="form__upload__text">
-                  <i class="ri-upload-2-line" aria-hidden="true"></i>
-                  Click or Drag file here...
-                </span>
-                <span role="presentation" class="form__upload__file-name js-form-upload-filename">No file selected</span>
-                <input type="file" name="avatar" id="avatar" class="form__upload__input js-form-upload-input">
-              </label>
-
-              <?php if (!empty($errors['avatar'])) { ?>
-                <div class="form_error"> <?= $errors['avatar']; ?> </div>
-              <?php } ?>
-
-              <div class="form__image-preview user__form__avatar-preview">
-                <span>Avatar preview:</span>
-                <img src="<?= get_image_path('users/avatars/default-profile-picture.jpg'); ?>" class="form__image-preview__image form__avatar__img user__form__avatar-preview__img js-form-avatar-image" alt="user avatar">
+              <div class="js-form-upload-container">
+                <label for="avatar" class="form__label">upload avatar</label>
+                <label class="form__upload">
+                  <span class="form__upload__text">
+                    <i class="ri-upload-2-line" aria-hidden="true"></i>
+                    Click or Drag file here...
+                  </span>
+                  <span role="presentation" class="form__upload__file-name js-form-upload-filelabel">No file selected</span>
+                  <input type="file" name="avatar" id="avatar" class="form__upload__input js-form-upload-input">
+                </label>
+  
+                <?php if (!empty($errors['avatar'])) { ?>
+                  <div class="form_error"> <?= $errors['avatar']; ?> </div>
+                <?php } ?>
+  
+                <div class="form__image-preview user__form__avatar-preview">
+                  <span>Avatar preview:</span>
+                  <img src="<?= get_image_path('users/avatars/default-profile-picture.jpg'); ?>" class="form__image-preview__image form__avatar__img user__form__avatar-preview__img js-form-upload-preview-image" alt="user avatar">
+                </div>
               </div>
             </div>
           </div>
@@ -44,7 +46,7 @@
 
           <div class="form__row">
             <div class="form__field">
-              <label for="username" class="form__label">user name</label>
+              <label for="username" class="form__label">user name <span class="form__label__star">*</span></label>
               <input value="<?= $user_name ?? ''; ?>" type="text" name="username" id="username" placeholder="username">
 
               <?php if (!empty($errors['user_name'])) { ?>
@@ -55,7 +57,7 @@
 
           <div class="form__row">
             <div class="form__field">
-              <label for="email" class="form__label">email</label>
+              <label for="email" class="form__label">email <span class="form__label__star">*</span></label>
               <input value="<?= $email ?? ''; ?>" type="text" name="email" id="email" placeholder="email">
 
               <?php if (!empty($errors['email'])) { ?>
@@ -66,7 +68,7 @@
 
           <div class="form__row">
             <div class="form__field">
-              <label for="password" class="form__label">password</label>
+              <label for="password" class="form__label">password <span class="form__label__star">*</span></label>
               <input type="password" name="password" id="password" placeholder="password">
 
               <?php if (!empty($errors['password'])) { ?>
@@ -77,7 +79,7 @@
 
           <div class="form__row">
             <div class="form__field">
-              <label for="retype-password" class="form__label">retype password</label>
+              <label for="retype-password" class="form__label">retype password <span class="form__label__star">*</span></label>
               <input type="password" name="retype-password" id="retype-password" placeholder="retype password">
 
               <?php if (!empty($errors['password2'])) { ?>
@@ -125,24 +127,26 @@ else if ($action == 'edit') { ?>
 
         <div class="form__row">
             <div class="form__field">
-              <label for="avatar" class="form__label">upload avatar</label>
-              <label class="form__upload">
-                <span class="form__upload__text">
-                  <i class="ri-upload-2-line" aria-hidden="true"></i>
-                  Click or Drag file here...
-                </span>
-                <span role="presentation" class="form__upload__file-name js-form-upload-filename">No file selected</span>
-                <input type="file" name="avatar" id="avatar" class="form__upload__input js-form-upload-input">
-              </label>
-
-              
-              <?php if (!empty($errors['avatar'])) { ?>
-                <div class="form_error"> <?= $errors['avatar']; ?> </div>
-              <?php } ?>
-
-              <div class="form__image-preview user__form__avatar-preview">
-                <span>Avatar preview:</span>
-                <img src="<?= htmlspecialchars(get_image_path($user_row[0]['avatar'])) ?>" class="form__image-preview__image form__avatar__img user__form__avatar-preview__img js-form-avatar-image" alt="user avatar">
+              <div class="js-form-upload-container">
+                <label for="avatar" class="form__label">upload avatar</label>
+                <label class="form__upload">
+                  <span class="form__upload__text">
+                    <i class="ri-upload-2-line" aria-hidden="true"></i>
+                    Click or Drag file here...
+                  </span>
+                  <span role="presentation" class="form__upload__file-name js-form-upload-filelabel">No file selected</span>
+                  <input type="file" name="avatar" id="avatar" class="form__upload__input js-form-upload-input">
+                </label>
+  
+                
+                <?php if (!empty($errors['avatar'])) { ?>
+                  <div class="form_error"> <?= $errors['avatar']; ?> </div>
+                <?php } ?>
+  
+                <div class="form__image-preview user__form__avatar-preview">
+                  <span>Avatar preview:</span>
+                  <img src="<?= htmlspecialchars(get_image_path($user_row[0]['avatar'])) ?>" class="form__image-preview__image form__avatar__img user__form__avatar-preview__img js-form-upload-preview-image" alt="user avatar">
+                </div>
               </div>
             </div>
           </div>
