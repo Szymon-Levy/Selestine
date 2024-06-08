@@ -5,7 +5,7 @@
 
   <div class="article-card__content">
     <div class="article-card__content__info">
-      <a href="<?= ROOT . '/blog/category/' . $article['category_slug']; ?>" class="article-card__content__info__category"> <?= $article['category_name']; ?> </a>
+      <a href="<?= ROOT . '/category/' . $article['category_slug']; ?>" class="article-card__content__info__category"> <?= $article['category_name']; ?> </a>
       <span class="article-card__content__info__date"><?= date('F d, Y', strtotime($article['create_date'])); ?></span>
     </div>
 

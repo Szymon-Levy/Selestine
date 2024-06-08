@@ -83,7 +83,7 @@
 
         <ul class="nav__list js-nav-list">
           <li><a href="<?= ROOT ?>" class="nav__list__link <?= is_menu_item_active('home'); ?>">Home</a></li>
-          <li><a href="<?= ROOT ?>/blog" class="nav__list__link">Blog</a></li>
+          <li><a href="<?= ROOT ?>/blog" class="nav__list__link <?= is_menu_item_active('blog'); ?>">Blog</a></li>
           <li><a href="#" class="nav__list__link">Works</a></li>
           <li><a href="#" class="nav__list__link">FAQ</a></li>
           <li><a href="#" class="nav__list__link">Contact</a></li>

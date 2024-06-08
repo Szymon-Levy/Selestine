@@ -16,8 +16,8 @@
   $found_article = query($pdo, $article_query, ['slug' => $article_slug]);
 
   if (!empty($found_article)) {
-    $found_article = $found_article[0];
-    var_dump($found_article['title']);
+    $article = $found_article[0];
+    include '../app/pages/includes/single-article.php';
   }
   else {
     $message_block = generate_alert('Article not found.', 'error');

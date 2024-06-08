@@ -174,6 +174,14 @@ else if ($action == 'edit') {
           $current_fullimage = $uploaded_fullimage_path;
         }
       }
+
+      if (!empty($tags)) {
+        $tags = trim($tags, ',');
+        $tags = trim($tags, ' ');
+      }
+      if (!empty($tags) && !preg_match('/^[a-zA-Z\, ]*$/', $tags)) {
+        $errors['tags'] = 'Do not use special chars and numbers!';
+      }
     
       if(empty($errors)) {
         //upload thumbnail and/or full image and remove the old one
