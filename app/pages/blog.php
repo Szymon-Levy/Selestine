@@ -1,6 +1,6 @@
 <?php 
   $article_slug = $url[1] ?? null;
-  ?>
+?>
 
 <?php include '../app/pages/includes/top.php'; ?>
 

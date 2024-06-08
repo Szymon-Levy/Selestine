@@ -22,7 +22,7 @@
 
   <div class="container">
     <div class="article__body">
-      <?= $article['content']; ?>
+      <?= nl2br($article['content']); ?>
     </div>
 
     <div class="article__footer">
