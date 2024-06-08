@@ -18,7 +18,6 @@ else {
   define('FILESYSTEM_PATH', str_replace('\\', '/', __DIR__));
 }
 
-
 if (file_exists($file_name)) {
   require_once $file_name;
 } else {

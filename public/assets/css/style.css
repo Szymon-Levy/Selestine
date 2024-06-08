@@ -1,6 +1,8 @@
 /* === GOOGLE FONTS === */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Text:ital@0;1&display=swap');
 
+/* //ANCHOR variables */
+
 /* === VARIABLES === */
 :root {
 
@@ -35,11 +37,11 @@
   --fs-base: 62.5%;
   --fs-body-300: 1.2rem;
   --fs-body-400: 1.6rem;
-  --fs-h1: 4.8rem;
-  --fs-h2: 4rem;
-  --fs-h3: 3.6rem;
-  --fs-h4: 2.4rem;
-  --fs-h5: 2rem;
+  --fs-h1: 4rem;
+  --fs-h2: 4.5rem;
+  --fs-h3: 2.8rem;
+  --fs-h4: 2rem;
+  --fs-h5: 1.8rem;
 
   /* line height */
   --lh-body-400: 1.5em;
@@ -49,7 +51,13 @@
   --container-400: 1170px;
   --side-space: 1.5rem;
   --section-block-space-400: 5rem;
-}
+  --gap-400: 3rem;
+  --gap-500: 5rem;
+  --inner-space-400: 2.5rem;
+  --inner-space-500: 3rem;
+  --inner-space-600: 4rem;
+  --inner-space-700: 5rem;
+  }
 
 /* === RESET === */
 *,
@@ -141,6 +149,18 @@ b {
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(50%);
   white-space: nowrap;
+}
+
+.title{
+  display: block;
+  font-family: var(--ff-title);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--clr-black);
+}
+
+.title--h3 {
+  font-size: var(--fs-h3);
 }
 
 /* === COMPONENTS === */
@@ -329,6 +349,74 @@ b {
 .alert__close:hover,
 .alert__close:focus-visible {
   color: var(--clr-close-alt);
+}
+
+/* ARTICLE CARD */
+.article-card__image-wrapper {
+  position: relative;
+  display: block;
+  overflow: hidden;
+}
+
+.article-card__image-wrapper img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .3s ease-in-out;
+}
+
+.article-card__image-wrapper:hover img,
+.article-card__image-wrapper:focus-visible img {
+  transform: scale(1.05);
+}
+
+.article-card__content {
+  position: relative;
+  margin-top: calc(var(--inner-space-600) * 2 * -1);
+  margin-left: var(--inner-space-600);
+  padding: var(--inner-space-600) var(--inner-space-600) 0 var(--inner-space-600);
+  background-color: var(--clr-white);
+}
+
+.article-card__content__info {
+  display: flex;
+  align-items: center;
+  letter-spacing: .15em;
+  line-height: 1;
+}
+
+.article-card__content__info::before {
+  content: "";
+  margin: 0 .95em;
+  width: .1em;
+  height: .8em;
+  background-color: var(--clr-border);
+}
+
+.article-card__content__info__category {
+  order: -1;
+  color: var(--clr-accent);
+}
+
+.article-card__content__info__category:hover,
+.article-card__content__info__category:focus-visible {
+  color: var(--clr-accent-alt);
+}
+
+.article-card__content__info__category,
+.article-card__content__info__date {
+  text-transform: uppercase;
+  font-size: var(--fs-body-300);
+  font-weight: 500;
+}
+
+.article-card__content__title {
+  margin-top: var(--inner-space-400);
+}
+
+.article-card__content__title a:hover,
+.article-card__content__title a:focus-visible {
+  color: var(--clr-accent);
 }
 
 
@@ -599,6 +687,17 @@ b {
   text-align: center;
 }
 
+/* === BLOG === */
+.blog {
+ padding: var(--section-block-space-400) 0; 
+}
+
+.blog__row {
+  display: grid;
+  row-gap: var(--gap-500);
+  column-gap: var(--gap-500);
+}
+
 
 /* === FOOTER & BOTTOM GALLERY === */
 .bottom-gallery {
@@ -730,8 +829,7 @@ b {
   :root {
 
     /* CONTAINER */
-    --side-space: 6rem;
-    --section-block-space-400: 10rem;
+    --section-block-space-400: 8rem;
   }
 
   /* === COMPONENTS === */
@@ -814,6 +912,15 @@ b {
     margin: 0 auto 3rem;
     max-width: 90px;
   }
+
+  /* === BLOG === */
+  .blog__row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .blog__row .article-card__image-wrapper {
+    height: 500px;
+  }
  }
 
 
@@ -821,6 +928,27 @@ b {
 /* 1200px */
 
 @media screen and (min-width: 1200px) {
+  /* === VARIABLES === */
+  :root {
+
+    /* TYPOGRAPHY */
+
+    /* font size */
+    --fs-h1: 4.8rem;
+    --fs-h2: 4rem;
+    --fs-h3: 3.6rem;
+    --fs-h4: 2.4rem;
+    --fs-h5: 2rem;
+
+    /* CONTAINER */
+    --section-block-space-400: 10rem;
+    --gap-500: 7rem;
+    --inner-space-400: 3rem;
+    --inner-space-500: 4rem;
+    --inner-space-600: 6rem;
+    --inner-space-700: 7rem;
+  }
+
   /* === HEADER === */
   .header {
     --logo-width: 325px;

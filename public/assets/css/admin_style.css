@@ -816,14 +816,6 @@ b {
 
 /* === BREAKPOINTS === */
 
-/* //ANCHOR 768px */
-/* 768px */
-
-@media screen and (min-width: 768px) {
-  
-}
-
-
 /* //ANCHOR 992px */
 /* 992px */
 
@@ -1021,12 +1013,3 @@ b {
     margin-top: 1.4rem;
   }
  }
-
-
-/* //ANCHOR 1200px */
-/* 1200px */
-
-@media screen and (min-width: 1200px) {
-
-
-}
