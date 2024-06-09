@@ -22,7 +22,7 @@
 
   <div class="container">
     <div class="article__body">
-      <?= nl2br($article['content']); ?>
+      <?= add_root_to_src($article['content']); ?>
     </div>
 
     <div class="article__footer">
