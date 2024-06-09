@@ -24,7 +24,7 @@
             include '../app/pages/includes/article-card.php';
           }
         } else {
-          echo'Category not found.';
+          echo'Posts not found.';
         }
         ?>
       </div>

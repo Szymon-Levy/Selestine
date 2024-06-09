@@ -1,3 +1,8 @@
+<?php
+  $categories_query = 'SELECT * FROM categories WHERE is_active = 1;';
+  $found_categories = query($pdo, $categories_query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -84,18 +89,23 @@
         <ul class="nav__list js-nav-list">
           <li><a href="<?= ROOT ?>" class="nav__list__link <?= is_menu_item_active('home'); ?>">Home</a></li>
           <li><a href="<?= ROOT ?>/blog" class="nav__list__link <?= is_menu_item_active('blog'); ?>">Blog</a></li>
-          <li><a href="#" class="nav__list__link">Works</a></li>
-          <li><a href="#" class="nav__list__link">FAQ</a></li>
-          <li><a href="#" class="nav__list__link">Contact</a></li>
+
+          
+          <?php if ( !empty($found_categories) ) { ?>
+              <?php foreach ($found_categories as $category) { ?>
+                <li><a href="<?= ROOT ?>/category/<?= $category['slug'] ?>" class="nav__list__link <?= $url[1] == $category['slug'] ? 'active' : '' ?>"><?= $category['category_name'] ?></a></li>
+              <?php } ?>
+          <?php } ?>
+          
 
           <?php if (!is_user_logged_in()) { ?>
             <li>
-              <a href="login" class="nav__list__link <?= is_menu_item_active('login'); ?>">
+              <a href="<?= ROOT ?>/login" class="nav__list__link <?= is_menu_item_active('login'); ?>">
                 <i class="ri-user-fill" aria-hidden="true"></i>
                 Login
               </a></li>
             <li>
-              <a href="signup" class="nav__list__link <?= is_menu_item_active('signup'); ?>">
+              <a href="<?= ROOT ?>/signup" class="nav__list__link <?= is_menu_item_active('signup'); ?>">
                 <i class="ri-user-add-fill" aria-hidden="true"></i>
                 signup
               </a>

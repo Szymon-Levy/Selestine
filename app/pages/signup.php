@@ -75,7 +75,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   <div class="container">
     <div class="row">
       <form method="post" class="form signup__form authentication__form">
-        <a href="<?=ROOT?>/home" class="authentication__form__logo">
+        <a href="<?=ROOT?>" class="authentication__form__logo">
           <img src="<?= get_image_path('logo/logo.png'); ?>" alt="page logo">
         </a>
 
