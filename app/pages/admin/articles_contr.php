@@ -74,11 +74,11 @@ if ($action == 'add') {
   
     if(empty($errors)) {
       //upload thumbnail
-      $uploaded_thumbnail_path = 'articles/' . time() . basename($thumbnail['name']);
+      $uploaded_thumbnail_path = 'articles/thumbnails/' . time() . basename($thumbnail['name']);
       move_uploaded_file($thumbnail['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_thumbnail_path);
       
       //upload full image
-      $uploaded_fullimage_path = 'articles/' . time() . basename($full_image['name']);
+      $uploaded_fullimage_path = 'articles/full_images/' . time() . basename($full_image['name']);
       move_uploaded_file($full_image['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_fullimage_path);
 
       //save article to database
@@ -156,7 +156,7 @@ else if ($action == 'edit') {
           $errors['thumbnail'] = 'Maximum filesize is 300kb!';
         }
         else {
-          $uploaded_thumbnail_path = 'articles/' . time() . basename($thumbnail['name']);
+          $uploaded_thumbnail_path = 'articles/thumbnails/' . time() . basename($thumbnail['name']);
           $current_thumbnail = $uploaded_thumbnail_path;
         }
       }
@@ -170,7 +170,7 @@ else if ($action == 'edit') {
         } else if ($full_image['size'] > 500000) {
           $errors['full_image'] = 'Maximum filesize is 500kb!';
         } else {
-          $uploaded_fullimage_path = 'articles/' . time() . basename($full_image['name']);
+          $uploaded_fullimage_path = 'articles/full_images/' . time() . basename($full_image['name']);
           $current_fullimage = $uploaded_fullimage_path;
         }
       }

@@ -44,6 +44,9 @@
   <!-- ----- custom css -----  -->
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/admin_style.css">
 
+  <!-- ----- summernote css -----  -->
+  <link href="<?=ROOT?>/assets/summernote/summernote-lite.min.css" rel="stylesheet">
+
   <title>Admin panel - <?= APP_NAME ?> </title>
 </head>
 <body>
