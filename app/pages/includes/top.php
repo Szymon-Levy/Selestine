@@ -16,7 +16,7 @@
   <!-- ----- swiper js -----  -->
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/swiper-bundle.min.css">
 
-  <title>Home - <?= APP_NAME ?> </title>
+  <title><?= isset($page_title) ? $page_title . ' - ' : '' ?> <?= APP_NAME ?> </title>
 </head>
 <body>
 

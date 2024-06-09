@@ -1,4 +1,7 @@
-<?php include '../app/pages/includes/top.php'; ?>
+<?php 
+    $page_title = !empty($_GET['keyword']) ? $_GET['keyword'] : 'Search';
+    include '../app/pages/includes/top.php'; 
+?>
 
 <!-- === BLOG === -->
 <section class="blog">

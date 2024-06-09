@@ -2,8 +2,6 @@
   $article_slug = $url[1] ?? null;
 ?>
 
-<?php include '../app/pages/includes/top.php'; ?>
-
 <?php if ($article_slug) { ?>
   <!-- show article page -->
 
@@ -17,9 +15,16 @@
 
   if (!empty($found_article)) {
     $article = $found_article[0];
+
+    $page_title = $article['title'];
+    include '../app/pages/includes/top.php';
+
     include '../app/pages/includes/single-article.php';
   }
   else {
+    $page_title = 'Blog';
+    include '../app/pages/includes/top.php';
+
     $message_block = generate_alert('Article not found.', 'error');
   }
 
@@ -27,6 +32,10 @@
 
 <?php } 
 else { ?>
+  <?php
+    $page_title = 'Blog';
+    include '../app/pages/includes/top.php';
+  ?>
   <!-- show articles grid -->
 
   <!-- === BLOG === -->

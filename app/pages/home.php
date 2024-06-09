@@ -1,4 +1,7 @@
-<?php include '../app/pages/includes/top.php'; ?>
+<?php
+  $page_title = 'Home';
+  include '../app/pages/includes/top.php';
+?>
 
 <!-- === BLOG CARDS === -->
 <section class="blog">

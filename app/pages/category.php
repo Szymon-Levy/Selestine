@@ -3,7 +3,10 @@
 ?>
 
 <?php if ($category_slug) { ?>
-  <?php include '../app/pages/includes/top.php'; ?>
+  <?php 
+    $page_title = $category_slug;
+    include '../app/pages/includes/top.php'; 
+  ?>
 
   <!-- === BLOG === -->
   <section class="blog">

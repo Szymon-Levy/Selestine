@@ -208,6 +208,21 @@ b {
   margin-bottom: 1rem;
 }
 
+.form__label {
+  display: block;
+  margin-bottom: .8rem;
+  font-weight: 600;
+  font-size: var(--fs-body-300);
+  line-height: 1.2;
+  color: var(--clr-secondary);
+  text-transform: capitalize;
+}
+
+.form__label--required::after {
+  content: " *";
+  color: var(--clr-close);
+}
+
 .form input:not([type="checkbox"], [type="radio"]) {
   padding: 0 1.4rem;
   width: 100%;
