@@ -130,6 +130,10 @@ b {
   font-weight: 700;
 }
 
+p {
+  margin-bottom: .8em;
+}
+
 /* === REUSED STYLES === */
 .container {
   width: 100%;
@@ -159,8 +163,30 @@ b {
   color: var(--clr-black);
 }
 
+.title--h1 {
+  font-size: var(--fs-h1);
+}
+
+.title--h2 {
+  font-size: var(--fs-h2);
+}
+
 .title--h3 {
   font-size: var(--fs-h3);
+}
+
+.title--h4 {
+  font-size: var(--fs-h4);
+}
+
+.title--h5 {
+  font-size: var(--fs-h5);
+}
+
+.markers-list {
+  margin-bottom: .8em;
+  padding-left: 2.7rem;
+  list-style-type: disc;
 }
 
 /* === COMPONENTS === */

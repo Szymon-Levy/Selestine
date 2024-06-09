@@ -127,7 +127,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
           <div class="form__field">
             <div class="form_checkbox">
               <input class="form_checkbox__input" <?= !empty($terms) ? 'checked' : '' ?> type="checkbox" name="terms" id="terms" value="1">
-              <label for="terms">Accept terms and conditions</label>
+              <label for="terms"><span>Accept <a href="<?= ROOT ?>/privacy-policy"> privacy policy</a></span></label>
             </div>
 
             <?php if (!empty($errors['terms'])) { ?>
