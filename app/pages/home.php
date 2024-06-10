@@ -14,6 +14,22 @@
                     WHERE categories.is_active = 1 
                     ORDER BY create_date DESC LIMIT 4;';
   $found_articles = query($pdo, $articles_query);
+
+  //featured articles
+  $featured_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
+                       FROM articles INNER JOIN categories 
+                       ON articles.category_id = categories.id 
+                       WHERE categories.is_active = 1 AND articles.is_featured = 1
+                       ORDER BY create_date DESC LIMIT 3;';
+  $found_featured_articles = query($pdo, $featured_articles_query);
+
+  //daily featured
+  $daily_featured_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
+                       FROM articles INNER JOIN categories 
+                       ON articles.category_id = categories.id 
+                       WHERE categories.is_active = 1 AND articles.is_daily_featured = 1
+                       ORDER BY create_date DESC LIMIT 1;';
+  $found_daily_featured_articles = query($pdo, $daily_featured_articles_query);
 ?>
 
 <?php
@@ -65,22 +81,70 @@
   </section>
 <?php } ?>
 
-<!-- === BLOG CARDS === -->
-<section class="blog">
-<div class="container">
-  <div class="row blog__row">
-    <?php 
-    if ($found_articles) {
-      foreach ($found_articles as $article) {
-        include '../app/pages/includes/article-card.php';
+<?php if (!empty($found_articles)) { ?>
+  <!-- === BLOG CARDS === -->
+  <section class="blog">
+  <div class="container">
+    <div class="row blog__row">
+      <?php 
+      if ($found_articles) {
+        foreach ($found_articles as $article) {
+          include '../app/pages/includes/article-card.php';
+        }
+      } else {
+        echo'No articles found.';
       }
-    } else {
-      echo'No articles found.';
-    }
-    ?>
+      ?>
+    </div>
   </div>
-</div>
-</section>
+  </section>
+<?php } ?>
+
+<?php if (!empty($found_featured_articles)) { ?>
+  <!-- === FEATURED ARTICLES === -->
+  <section class="featured">
+    <div class="container">
+      <h3 class="featured__title title title--h3">Featured articles</h3>
+      <div class="row featured__row">
+        <img class="featured__image" src="<?= get_image_path('featured.jpg'); ?>" alt="featured image">
+
+        <div class="featured__articles">
+          <?php foreach ($found_featured_articles as $article) { ?>
+            <div class="featured__articles__item">
+              <a href="<?= ROOT . '/blog/' . $article['slug'] ?>" class="featured__articles__item__image">
+                <img src="<?= get_image_path($article['thumbnail']); ?>" alt="article image">
+              </a>
+            
+
+              <div class="featured__articles__item__content">
+                <div class="featured__articles__item__content__info">
+                  <a href="<?= ROOT . '/category/' . $article['category_slug']; ?>" class="featured__articles__item__content__info__category"> <?= $article['category_name']; ?> </a>
+                  <span class="featured__articles__item__content__info__date"><?= date('F d, Y', strtotime($article['create_date'])); ?></span>
+                </div>
+
+                <h3 class="featured__articles__item__content__title">
+                  <a href="<?= ROOT . '/blog/' . $article['slug']; ?>" class="title title--h5"><?= htmlspecialchars($article['title']); ?></a>
+                </h3>
+              </div>
+            </div>
+          <?php } ?>
+        </div>
+      </div>
+    </div>
+  </section>
+<?php } ?>
+
+<?php if (!empty($found_daily_featured_articles)) { ?>
+  <?php $found_daily_featured_articles = $found_daily_featured_articles[0]; ?>
+  <!-- === DAILY FEATURED ARTICLE === -->
+  <section class="daily-featured">
+    <div class="container">
+      <div class="row">
+        
+      </div>
+    </div>
+  </section>
+<?php } ?>
 
 <?php
   if(isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN'] === true) {

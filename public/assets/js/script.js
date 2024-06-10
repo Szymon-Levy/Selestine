@@ -111,10 +111,11 @@ const homeSlider = new Swiper('.js-home-slider', {
   loop: true,
   draggable: true,
   grabCursor: true,
-  // autoplay: {
-  //   delay: 1500,
-  // },
-  speed: 700,
+  effect: 'fade',
+  autoplay: {
+    delay: 3500,
+  },
+  speed: 1000,
   navigation: {
     nextEl: '.slider__controls__button--next',
     prevEl: '.slider__controls__button--prev',
