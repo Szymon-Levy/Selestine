@@ -743,6 +743,12 @@ p {
  padding: var(--section-block-space-400) 0; 
 }
 
+.blog__title {
+  margin-bottom: 1.6em;
+  text-align: center;
+  text-transform: capitalize;
+}
+
 .blog__row {
   display: grid;
   row-gap: var(--gap-500);

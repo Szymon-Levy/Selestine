@@ -4,14 +4,14 @@
                        FROM articles INNER JOIN categories 
                        ON articles.category_id = categories.id 
                        WHERE categories.is_active = 1 AND articles.is_home_slider = 1
-                       ORDER BY create_date DESC;';
+                       ORDER BY create_date ASC;';
   $found_home_slides = query($pdo, $home_slides_query);
 
   //blog cards
   $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
                     FROM articles INNER JOIN categories 
                     ON articles.category_id = categories.id 
-                    WHERE categories.is_active = 1 
+                    WHERE categories.is_active = 1 AND articles.is_home_slider = 0
                     ORDER BY create_date DESC LIMIT 4;';
   $found_articles = query($pdo, $articles_query);
 
