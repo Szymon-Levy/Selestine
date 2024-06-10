@@ -15,11 +15,11 @@
   <!-- ----- remix icon -----  -->
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/remixicon.css">
 
-  <!-- ----- custom css -----  -->
-  <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css">
-
   <!-- ----- swiper js -----  -->
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/swiper-bundle.min.css">
+
+  <!-- ----- custom css -----  -->
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css">
 
   <title><?= isset($page_title) ? $page_title . ' - ' : '' ?> <?= APP_NAME ?> </title>
 </head>

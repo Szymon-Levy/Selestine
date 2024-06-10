@@ -104,6 +104,23 @@ const handleProfileDropdown = () => {
 
 if ($profileDropdown) { handleProfileDropdown() }
 
+/* === HOME PAGE === */
+
+/* HOME SLIDER */
+const homeSlider = new Swiper('.js-home-slider', {
+  loop: true,
+  draggable: true,
+  grabCursor: true,
+  // autoplay: {
+  //   delay: 1500,
+  // },
+  speed: 700,
+  navigation: {
+    nextEl: '.slider__controls__button--next',
+    prevEl: '.slider__controls__button--prev',
+  },
+});
+
 /* === BOTTOM GALLERY === */
 
 const swiper = new Swiper('.js-bottom-gallery-swiper', {
