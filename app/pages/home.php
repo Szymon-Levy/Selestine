@@ -135,12 +135,27 @@
 <?php } ?>
 
 <?php if (!empty($found_daily_featured_articles)) { ?>
-  <?php $found_daily_featured_articles = $found_daily_featured_articles[0]; ?>
+  <?php $article = $found_daily_featured_articles[0]; ?>
   <!-- === DAILY FEATURED ARTICLE === -->
   <section class="daily-featured">
     <div class="container">
       <div class="row">
-        
+        <div class="daily-featured__article">
+          <a href="<?= ROOT . '/blog/' . $article['slug']; ?>" class="daily-featured__article__image">
+            <img src="<?= get_image_path($article['full_image']); ?>" alt="article image">
+          </a>
+
+          <div class="daily-featured__article__content">
+            <div class="daily-featured__article__content__info">
+              <a href="<?= ROOT . '/category/' . $article['category_slug']; ?>" class="daily-featured__article__content__info__category"> <?= $article['category_name']; ?> </a>
+              <span class="daily-featured__article__content__info__date"><?= date('F d, Y', strtotime($article['create_date'])); ?></span>
+            </div>
+
+            <h3 class="daily-featured__article__content__title">
+              <a href="<?= ROOT . '/blog/' . $article['slug']; ?>" class="title title--h3"><?= htmlspecialchars($article['title']); ?></a>
+            </h3>
+          </div>
+        </div>
       </div>
     </div>
   </section>

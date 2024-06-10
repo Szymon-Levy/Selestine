@@ -1025,6 +1025,79 @@ p {
   margin-top: 1.2rem;
 }
 
+/* DAILY FEATURED ARTICLE */
+.daily-featured {
+  padding: var(--section-block-space-400) 0;
+}
+
+.daily-featured__article__image {
+  overflow: hidden;
+}
+
+.daily-featured__article__image img {
+  transition: transform .4s ease-out;
+}
+
+.daily-featured__article__image:hover img,
+.daily-featured__article__image:focus-visible img {
+  transform: scale(1.1)
+}
+
+.daily-featured__article {
+  display: grid;
+  justify-items: center;
+}
+
+.daily-featured__article__content {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding: var(--inner-space-600);
+  padding-bottom: 0;
+  margin-top: calc(var(--gap-400) * -1);
+  margin-left: var(--side-space);
+  margin-right: var(--side-space);
+  max-width: 67rem;
+  background-color: var(--clr-white);
+}
+
+.daily-featured__article__content__info {
+  display: flex;
+  align-items: center;
+  letter-spacing: .15em;
+  line-height: 1;
+}
+
+.daily-featured__article__content__info::before {
+  content: "";
+  margin: 0 .95em;
+  width: .1em;
+  height: .8em;
+  background-color: var(--clr-border);
+}
+
+.daily-featured__article__content__info__category {
+  order: -1;
+  color: var(--clr-accent);
+}
+
+.daily-featured__article__content__info__category:hover,
+.daily-featured__article__content__info__category:focus-visible {
+  color: var(--clr-accent-alt);
+}
+
+.daily-featured__article__content__info__category,
+.daily-featured__article__content__info__date {
+  text-transform: uppercase;
+  font-size: var(--fs-body-300);
+  font-weight: 500;
+}
+
+.daily-featured__article__content__title {
+  margin-top: 2rem;
+  text-align: center;
+}
+
 
 /* === FOOTER & BOTTOM GALLERY === */
 .bottom-gallery {
@@ -1336,7 +1409,7 @@ p {
   .featured__title {
     margin-bottom: 4rem;
   }
-  
+
   .featured__image {
     display: block;
     height: 100%;
@@ -1358,6 +1431,17 @@ p {
   .featured__articles__item__image img {
     height: 100%;
     max-height: 15rem;
+  }
+
+  /* DAILY FEATURED ARTICLE */
+  .daily-featured__article__image img {
+    width: 100%;
+    min-height: 50rem;
+    max-height: 65rem;
+  }
+
+  .daily-featured__article__content {
+    margin-top: -11rem;
   }
 
  }
@@ -1445,6 +1529,11 @@ p {
 
   .featured__articles__item__image, .featured__articles__item__image img {
     max-height: unset;
+  }
+
+  /* DAILY FEATURED ARTICLE */
+  .daily-featured {
+    padding: 15rem 0;
   }
 
   /* === FOOTER & BOTTOM GALLERY === */
