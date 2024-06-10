@@ -20,6 +20,10 @@
     include '../app/pages/includes/top.php';
 
     include '../app/pages/includes/single-article.php';
+
+    //update article views column
+    $add_visitor_query = 'UPDATE articles SET visits = visits + 1 WHERE id = :id';
+    query($pdo, $add_visitor_query, ['id' => $article['id']]);
   }
   else {
     $page_title = 'Blog';
