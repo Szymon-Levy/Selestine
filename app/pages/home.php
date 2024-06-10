@@ -30,6 +30,14 @@
                        WHERE categories.is_active = 1 AND articles.is_daily_featured = 1
                        ORDER BY create_date DESC LIMIT 1;';
   $found_daily_featured_articles = query($pdo, $daily_featured_articles_query);
+
+  //fashion carousel
+  $fashion_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
+                       FROM articles INNER JOIN categories 
+                       ON articles.category_id = categories.id 
+                       WHERE categories.is_active = 1 AND categories.category_name = :category_name
+                       ORDER BY create_date DESC;';
+  $found_fashion_articles = query($pdo, $fashion_articles_query, ['category_name' => 'fashion']);
 ?>
 
 <?php
@@ -160,6 +168,50 @@
     </div>
   </section>
 <?php } ?>
+
+<?php if (!empty($found_fashion_articles)) { ?>
+  <!-- === HOME CAROUSEL === -->
+  <section class="home-carousel">
+    <div class="container">
+      <div class="row">
+        <div class="swiper home-carousel__container js-home-carousel slider">
+          <div class="swiper-wrapper">
+            <?php foreach ($found_fashion_articles as $slide) { ?>
+              <div class="swiper-slide home-carousel__slide">
+                <div class="home-carousel__slide__container">
+                  <div class="home-carousel__slide__image">
+                    <img src="<?= get_image_path($slide['thumbnail']); ?>" alt="article image">
+                  </div>
+                  <div class="home-carousel__slide__content">
+                    <a href="<?= ROOT . '/category/' . $slide['category_slug']; ?>" class="home-carousel__slide__content__category"> <?= $slide['category_name']; ?> </a>
+    
+                    <h3 class="home-carousel__slide__content__title title title--h1">
+                      <?= htmlspecialchars($slide['title']); ?>
+                    </h3>
+    
+                    <a href="<?= ROOT . '/blog/' . $slide['slug']; ?>" class="btn btn--primary">continue reading</a>
+                  </div>
+                </div>
+              </div>
+            <?php } ?>
+          </div>
+          
+          <div class="home-carousel__container__controls slider__controls">
+            <div class="slider__controls__button slider__controls__button--next">
+              <i class="ri-arrow-right-s-line" aria-hidden="true"></i>
+            </div>
+  
+            <div class="slider__controls__button slider__controls__button--prev">
+              <i class="ri-arrow-left-s-line" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<?php } ?>
+
+
 
 <?php
   if(isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN'] === true) {

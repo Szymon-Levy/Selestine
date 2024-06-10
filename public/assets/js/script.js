@@ -122,6 +122,20 @@ const homeSlider = new Swiper('.js-home-slider', {
   },
 });
 
+/* HOME CAROUSEL */
+const homeCarousel = new Swiper('.js-home-carousel', {
+  loop: true,
+  draggable: true,
+  // autoplay: {
+  //   delay: 3500,
+  // },
+  speed: 1000,
+  navigation: {
+    nextEl: '.slider__controls__button--next',
+    prevEl: '.slider__controls__button--prev',
+  },
+});
+
 /* === BOTTOM GALLERY === */
 
 const swiper = new Swiper('.js-bottom-gallery-swiper', {
