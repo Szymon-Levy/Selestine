@@ -17,27 +17,35 @@
 
   //featured articles
   $featured_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
-                       FROM articles INNER JOIN categories 
-                       ON articles.category_id = categories.id 
-                       WHERE categories.is_active = 1 AND articles.is_featured = 1
-                       ORDER BY create_date DESC LIMIT 3;';
+                              FROM articles INNER JOIN categories 
+                              ON articles.category_id = categories.id 
+                              WHERE categories.is_active = 1 AND articles.is_featured = 1
+                              ORDER BY create_date DESC LIMIT 3;';
   $found_featured_articles = query($pdo, $featured_articles_query);
 
   //daily featured
   $daily_featured_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
-                       FROM articles INNER JOIN categories 
-                       ON articles.category_id = categories.id 
-                       WHERE categories.is_active = 1 AND articles.is_daily_featured = 1
-                       ORDER BY create_date DESC LIMIT 1;';
+                                    FROM articles INNER JOIN categories 
+                                    ON articles.category_id = categories.id 
+                                    WHERE categories.is_active = 1 AND articles.is_daily_featured = 1
+                                    ORDER BY create_date DESC LIMIT 1;';
   $found_daily_featured_articles = query($pdo, $daily_featured_articles_query);
 
   //fashion carousel
   $fashion_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
-                       FROM articles INNER JOIN categories 
-                       ON articles.category_id = categories.id 
-                       WHERE categories.is_active = 1 AND categories.category_name = :category_name
-                       ORDER BY create_date DESC;';
+                            FROM articles INNER JOIN categories 
+                            ON articles.category_id = categories.id 
+                            WHERE categories.is_active = 1 AND categories.category_name = :category_name
+                            ORDER BY create_date DESC;';
   $found_fashion_articles = query($pdo, $fashion_articles_query, ['category_name' => 'fashion']);
+
+  //most popular articles
+  $popular_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
+                            FROM articles INNER JOIN categories 
+                            ON articles.category_id = categories.id 
+                            WHERE categories.is_active = 1
+                            ORDER BY visits DESC LIMIT 5;';
+  $found_popular_articles = query($pdo, $popular_articles_query);
 ?>
 
 <?php
@@ -211,7 +219,22 @@
   </section>
 <?php } ?>
 
+<?php if (!empty($found_popular_articles)) { ?>
+  <!-- === POPULAR ARTICLES === -->
+  <section class="popular">
+    <div class="container">
+      <h3 class="popular__title title title--h1">Most popular</h3>
 
+      <div class="row blog__row popular__row">
+        <?php 
+          foreach ($found_popular_articles as $article) {
+            include '../app/pages/includes/article-card.php';
+          }
+        ?>
+      </div>
+    </div>
+  </section>
+<?php } ?>
 
 <?php
   if(isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN'] === true) {

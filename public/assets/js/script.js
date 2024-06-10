@@ -126,9 +126,9 @@ const homeSlider = new Swiper('.js-home-slider', {
 const homeCarousel = new Swiper('.js-home-carousel', {
   loop: true,
   draggable: true,
-  // autoplay: {
-  //   delay: 3500,
-  // },
+  autoplay: {
+    delay: 2500,
+  },
   speed: 1000,
   navigation: {
     nextEl: '.slider__controls__button--next',
