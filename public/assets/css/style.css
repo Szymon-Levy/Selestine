@@ -817,6 +817,13 @@ p {
   margin-top: var(--inner-space-400);
 }
 
+.article__hero__content__visits {
+  margin-top: .8rem;
+  font-size: var(--fs-body-300);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
 .article__footer__tags {
   margin-bottom: 2rem;
   display: flex;
@@ -1436,8 +1443,8 @@ p {
   }
 
   .home-slider__slide__content {
-    padding-right: 0;
-    max-width: 60rem;
+    padding-right: 3;
+    max-width: 65rem;
     z-index: 2;
     position: relative;
   }

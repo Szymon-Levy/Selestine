@@ -17,6 +17,10 @@
       <h1 class="article__hero__content__title title title--h3">
         <?= htmlspecialchars($article['title']); ?>
       </h1>
+
+      <div class="article__hero__content__visits">
+        Visits: <?= $article['visits']; ?>
+      </div>
     </div>
   </div>
 
