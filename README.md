@@ -23,7 +23,7 @@ Website available here: [ Selestine Blog](https://selestine.com.pl/)
 
 - Adding, editing and removing users.
 - Adding, editing and removing categories.
-- Adding, editing and removing articles. Handy WYSIWYG editor halps with creating and editing articles content.
+- Adding, editing and removing articles. Handy WYSIWYG editor helps with creating and editing articles content.
 
 ## Used Languages and Technologies
 
