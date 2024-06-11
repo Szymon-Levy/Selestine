@@ -200,7 +200,7 @@ function generate_nav_profile () {
   echo      $_SESSION['USER']['first_name'] ? htmlspecialchars($_SESSION['USER']['first_name']) : htmlspecialchars($_SESSION['USER']['user_name']);
   echo    '</div>';
   echo    '<ul class="nav__profile__menu__list">';
-  echo      '<li><a href="' . ROOT . '/profile-settings"><i class="ri-settings-2-fill" aria-hidden="true"></i> Profile settings</a></li>';
+  //echo      '<li><a href="' . ROOT . '/profile-settings"><i class="ri-settings-2-fill" aria-hidden="true"></i> Profile settings</a></li>';
   echo      is_user_admin() ? '<li><a href="' . ROOT . '/admin" target="_blank"><i class="ri-dashboard-3-fill" aria-hidden="true"></i> Admin panel</a></li>' : '';
   echo      '<li><a href="' . ROOT . '/logout"><i class="ri-logout-box-r-fill" aria-hidden="true"></i> Logout</a></li>';
   echo    '</ul>';

@@ -755,6 +755,26 @@ p {
   column-gap: var(--gap-500);
 }
 
+.blog__row.blog__row--horizontal-view {
+  grid-template-columns: unset;
+}
+
+.blog__row.blog__row--horizontal-view .article-card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  column-gap: var(--gap-500);
+}
+
+.blog__row.blog__row--horizontal-view .article-card:nth-child(even) .article-card__content {
+  order: -1;
+}
+
+.blog__row.blog__row--horizontal-view .article-card .article-card__content {
+  margin: 0;
+  padding: 0;
+}
+
 /* === SINGLE ARTICLE PAGE === */
 .article {
   padding-bottom: var(--section-block-space-400);

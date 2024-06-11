@@ -74,5 +74,11 @@
 
 <!-- ----- general js -----  -->
 <script src="<?=ROOT?>/assets/js/general.js"></script>
+
+<!-- ----- scroll reveal js -----  -->
+<script src="<?=ROOT?>/assets/js/scrollreveal.js"></script>
+
+<!-- ----- animations js -----  -->
+<script src="<?=ROOT?>/assets/js/animations.js"></script>
 </body>
 </html>

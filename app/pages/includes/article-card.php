@@ -1,4 +1,4 @@
-<div class="article-card">
+<div class="article-card js-animation-fade-from-bottom">
   <a href="<?= ROOT . '/blog/' . $article['slug']; ?>" class="article-card__image-wrapper">
     <img src="<?= get_image_path($article['thumbnail']); ?>" alt="article thumbnail">
   </a>

@@ -45,7 +45,7 @@ else { ?>
   <!-- === BLOG === -->
   <section class="blog">
   <div class="container">
-    <div class="row blog__row">
+    <div class="row blog__row blog__row--horizontal-view">
       <?php 
       $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
                         FROM articles INNER JOIN categories 

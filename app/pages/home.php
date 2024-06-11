@@ -122,11 +122,11 @@
     <div class="container">
       <h3 class="featured__title title title--h3">Featured articles</h3>
       <div class="row featured__row">
-        <img class="featured__image" src="<?= get_image_path('featured.jpg'); ?>" alt="featured image">
+        <img class="featured__image js-animation-fade-from-left" src="<?= get_image_path('featured.jpg'); ?>" alt="featured image">
 
         <div class="featured__articles">
           <?php foreach ($found_featured_articles as $article) { ?>
-            <div class="featured__articles__item">
+            <div class="featured__articles__item js-animation-fade-from-right">
               <a href="<?= ROOT . '/blog/' . $article['slug'] ?>" class="featured__articles__item__image">
                 <img src="<?= get_image_path($article['thumbnail']); ?>" alt="article image">
               </a>
@@ -157,11 +157,11 @@
     <div class="container">
       <div class="row">
         <div class="daily-featured__article">
-          <a href="<?= ROOT . '/blog/' . $article['slug']; ?>" class="daily-featured__article__image">
+          <a href="<?= ROOT . '/blog/' . $article['slug']; ?>" class="daily-featured__article__image js-animation-fade-from-bottom">
             <img src="<?= get_image_path($article['full_image']); ?>" alt="article image">
           </a>
 
-          <div class="daily-featured__article__content">
+          <div class="daily-featured__article__content js-animation-fade-from-bottom">
             <div class="daily-featured__article__content__info">
               <a href="<?= ROOT . '/category/' . $article['category_slug']; ?>" class="daily-featured__article__content__info__category"> <?= $article['category_name']; ?> </a>
               <span class="daily-featured__article__content__info__date"><?= date('F d, Y', strtotime($article['create_date'])); ?></span>
