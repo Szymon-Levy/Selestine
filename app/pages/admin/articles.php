@@ -28,7 +28,7 @@
                   <option value="">Select the author</option>
                   <?php
                     $admin_users_query = 'SELECT id, user_name FROM users WHERE account_type = "admin";';
-                    $found_admins = query($pdo, $admin_users_query);
+                    $found_admins = db_query($pdo, $admin_users_query);
                   ?>
                   <?php if (!empty($found_admins)) { ?>
                     <?php foreach ($found_admins as $admin) { ?>
@@ -48,7 +48,7 @@
                   <option value="">Select category</option>
                   <?php
                     $categories_query = 'SELECT id, category_name FROM categories;';
-                    $found_categories = query($pdo, $categories_query);
+                    $found_categories = db_query($pdo, $categories_query);
                   ?>
                   <?php if (!empty($found_categories)) { ?>
                     <?php foreach ($found_categories as $category) { ?>
@@ -218,7 +218,7 @@ else if ($action == 'edit') { ?>
                 <option value="">Select the author</option>
                 <?php
                   $admin_users_query = 'SELECT id, user_name FROM users WHERE account_type = "admin";';
-                  $found_admins = query($pdo, $admin_users_query);
+                  $found_admins = db_query($pdo, $admin_users_query);
                 ?>
                 <?php if (!empty($found_admins)) { ?>
                   <?php foreach ($found_admins as $admin) { ?>
@@ -238,7 +238,7 @@ else if ($action == 'edit') { ?>
                 <option value="">Select category</option>
                 <?php
                   $categories_query = 'SELECT id, category_name FROM categories;';
-                  $found_categories = query($pdo, $categories_query);
+                  $found_categories = db_query($pdo, $categories_query);
                 ?>
                 <?php if (!empty($found_categories)) { ?>
                   <?php foreach ($found_categories as $category) { ?>
@@ -450,7 +450,7 @@ else { ?>
 
       <?php
         $all_articles_query = 'SELECT * FROM articles ORDER BY id ASC';
-        $found_articles = query($pdo, $all_articles_query);
+        $found_articles = db_query($pdo, $all_articles_query);
       ?>
 
       <?php if (!empty($found_articles)) { ?>
@@ -459,7 +459,7 @@ else { ?>
 
           <?php
             $category_query = 'SELECT * FROM categories WHERE id = :id';
-            $found_category = query($pdo, $category_query, ['id' => $article['category_id']]);
+            $found_category = db_query($pdo, $category_query, ['id' => $article['category_id']]);
             $category_name = $found_category[0]["category_name"] ?? 'Not assigned';
           ?>
 

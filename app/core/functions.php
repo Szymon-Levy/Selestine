@@ -2,14 +2,15 @@
 
 /**
  * Queries the database with a given query and returns found rows. Returns false if not found.
- * @param string $query Query to search in the database.
- * @param array $data Values to use in the query.
+ * @param object $pdo PDO object.
+ * @param string $sql SQL query to execute in the database.
+ * @param array $arguments Values to use in prepare statement.
  * @return array|boolean Associative array of found row/rows or false if not found.
  */
-function query (object $pdo, string $query, array $data = []) {
+function db_query (PDO $pdo, string $sql, array $arguments = [], bool $is_multiple_result = true) {
   try {
-    $stmt = $pdo->prepare($query);
-    $stmt->execute($data);
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($arguments);
 
     $restult = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

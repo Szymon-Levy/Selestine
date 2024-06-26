@@ -17,7 +17,7 @@
                         ON articles.category_id = categories.id 
                         WHERE categories.is_active = 1 AND articles.title LIKE :keyword
                         ORDER BY create_date DESC;';
-      $found_articles = query($pdo, $articles_query, ['keyword' => $keyword]);
+      $found_articles = db_query($pdo, $articles_query, ['keyword' => $keyword]);
 
       if (!empty($found_articles)) {
         foreach ($found_articles as $article) {

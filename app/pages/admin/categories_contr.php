@@ -20,13 +20,13 @@ if ($action == 'add') {
     $category_slug = generate_slug($category_name);
   
     $slug_query = 'SELECT id FROM categories WHERE slug = :slug limit 1;';
-    $is_slug_in_db = query($pdo, $slug_query, ['slug' => $category_slug]);
+    $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $category_slug]);
     $slug_number = 1;
     
     while ($is_slug_in_db) {
       $category_slug .= $slug_number;
       $slug_number++;
-      $is_slug_in_db = query($pdo, $slug_query, ['slug' => $category_slug]);
+      $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $category_slug]);
     }
   
     if(empty($errors)) {
@@ -37,7 +37,7 @@ if ($action == 'add') {
       $data['is_active']     = $is_active;
       
       $query = 'INSERT INTO categories (category_name, slug, is_active) VALUES (:category_name, :slug, :is_active);';
-      query($pdo, $query, $data);
+      db_query($pdo, $query, $data);
       
       $_SESSION['CATEGORY_ADDED'] = true;
       redirect('admin/categories');
@@ -47,7 +47,7 @@ if ($action == 'add') {
 //edit category
 else if ($action == 'edit') {
   $category_query = 'SELECT * FROM categories WHERE id = :id LIMIT 1';
-  $category_row = query($pdo, $category_query, ['id' => $id]);
+  $category_row = db_query($pdo, $category_query, ['id' => $id]);
 
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($category_row[0]) {
@@ -68,13 +68,13 @@ else if ($action == 'edit') {
       $category_slug = generate_slug($category_name);
     
       $slug_query = 'SELECT id FROM categories WHERE slug = :slug AND id != :id limit 1;';
-      $is_slug_in_db = query($pdo, $slug_query, ['slug' => $category_slug, 'id' => $id]);
+      $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $category_slug, 'id' => $id]);
       $slug_number = 1;
       
       while ($is_slug_in_db) {
         $category_slug .= $slug_number;
         $slug_number++;
-        $is_slug_in_db = query($pdo, $slug_query, ['slug' => $category_slug]);
+        $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $category_slug]);
       }
     
       if(empty($errors)) {
@@ -87,7 +87,7 @@ else if ($action == 'edit') {
 
         $query = 'UPDATE categories SET category_name = :category_name, slug = :slug, is_active = :is_active WHERE id = :id;';
         
-        query($pdo, $query, $data);
+        db_query($pdo, $query, $data);
         
         $_SESSION['CATEGORY_EDITED'] = true;
         redirect('admin/categories');
@@ -98,7 +98,7 @@ else if ($action == 'edit') {
 //delete category
 else if ($action == 'delete') {
   $category_query = 'SELECT * FROM categories WHERE id = :id LIMIT 1';
-  $category_row = query($pdo, $category_query, ['id' => $id]);
+  $category_row = db_query($pdo, $category_query, ['id' => $id]);
 
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($category_row[0]) {
@@ -108,7 +108,7 @@ else if ($action == 'delete') {
       
       $delete_query = 'DELETE FROM categories WHERE id = :id LIMIT 1;';
       
-      query($pdo, $delete_query, $data);
+      db_query($pdo, $delete_query, $data);
       
       $_SESSION['CATEGORY_DELETED'] = true;
       redirect('admin/categories');

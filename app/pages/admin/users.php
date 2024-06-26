@@ -308,7 +308,7 @@ else { ?>
 
       <?php
         $all_users_query = 'SELECT * FROM users ORDER BY id ASC';
-        $found_users = query($pdo, $all_users_query);
+        $found_users = db_query($pdo, $all_users_query);
       ?>
 
       <?php if (!empty($found_users)) { ?>

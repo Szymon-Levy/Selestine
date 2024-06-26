@@ -46,7 +46,7 @@ if ($action == 'add') {
     }
   
     $email_query = 'SELECT id FROM users WHERE email = :email limit 1;';
-    $is_email_in_db = query($pdo, $email_query, ['email' => $email]);
+    $is_email_in_db = db_query($pdo, $email_query, ['email' => $email]);
   
     if (empty($email)) {
       $errors['email'] = 'Email cannot be empty!';
@@ -88,7 +88,7 @@ if ($action == 'add') {
       else {
         $query = 'INSERT INTO users (user_name, first_name, email, pass, account_type) VALUES (:user_name, :first_name, :email, :pass, :account_type);';
       }
-      query($pdo, $query, $data);
+      db_query($pdo, $query, $data);
       
       $_SESSION['USER_ADDED'] = true;
       redirect('admin/users');
@@ -98,7 +98,7 @@ if ($action == 'add') {
 //edit user
 else if ($action == 'edit') {
   $user_query = 'SELECT * FROM users WHERE id = :id LIMIT 1';
-  $user_row = query($pdo, $user_query, ['id' => $id]);
+  $user_row = db_query($pdo, $user_query, ['id' => $id]);
 
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user_row[0]) {
@@ -143,7 +143,7 @@ else if ($action == 'edit') {
       }
     
       $email_query = 'SELECT id FROM users WHERE email = :email AND id != :id limit 1;';
-      $is_email_in_db = query($pdo, $email_query, ['email' => $email, 'id' => $id]);
+      $is_email_in_db = db_query($pdo, $email_query, ['email' => $email, 'id' => $id]);
     
       if (empty($email)) {
         $errors['email'] = 'Email cannot be empty!';
@@ -188,12 +188,12 @@ else if ($action == 'edit') {
           $query = 'UPDATE users SET first_name = :first_name, user_name = :user_name, email = :email, pass = :pass, account_type = :account_type, avatar = :avatar WHERE id = :id;';
         }
         
-        query($pdo, $query, $data);
+        db_query($pdo, $query, $data);
 
         //update userdata in session when currently is logged in
         if ($_SESSION['USER']['id'] == $id) {
           $user_query = 'SELECT * FROM users WHERE id = :id limit 1;';
-          $found_user_row = query($pdo, $user_query, ['id' => $id]);
+          $found_user_row = db_query($pdo, $user_query, ['id' => $id]);
           authenticate_user($found_user_row[0]);
         }
         
@@ -206,7 +206,7 @@ else if ($action == 'edit') {
 //delete user
 else if ($action == 'delete') {
   $user_query = 'SELECT * FROM users WHERE id = :id LIMIT 1';
-  $user_row = query($pdo, $user_query, ['id' => $id]);
+  $user_row = db_query($pdo, $user_query, ['id' => $id]);
 
   if ($id == ADMIN_ID) {
     $_SESSION['USER_DELETE_FORBIDDEN'] = true;
@@ -226,7 +226,7 @@ else if ($action == 'delete') {
       
       $delete_query = 'DELETE FROM users WHERE id = :id LIMIT 1;';
       
-      query($pdo, $delete_query, $data);
+      db_query($pdo, $delete_query, $data);
       
       $_SESSION['USER_DELETED'] = true;
       redirect('admin/users');

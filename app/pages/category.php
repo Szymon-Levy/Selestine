@@ -5,7 +5,7 @@
                     ON articles.category_id = categories.id 
                     WHERE categories.is_active = 1 AND articles.category_id IN (SELECT id FROM categories WHERE slug = :category_slug)
                     ORDER BY create_date DESC;';
-  $found_articles = query($pdo, $articles_query, ['category_slug' => $category_slug]);
+  $found_articles = db_query($pdo, $articles_query, ['category_slug' => $category_slug]);
 
 ?>
 

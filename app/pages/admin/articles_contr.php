@@ -28,13 +28,13 @@ if ($action == 'add') {
       $article_slug = generate_slug($title);
     
       $slug_query = 'SELECT id FROM articles WHERE slug = :slug;';
-      $is_slug_in_db = query($pdo, $slug_query, ['slug' => $article_slug]);
+      $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug]);
       $slug_number = 1;
       
       while ($is_slug_in_db) {
         $article_slug .= $slug_number;
         $slug_number++;
-        $is_slug_in_db = query($pdo, $slug_query, ['slug' => $article_slug]);
+        $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug]);
       }
     }
 
@@ -97,7 +97,7 @@ if ($action == 'add') {
       
       $query = 'INSERT INTO articles (user_id, category_id, title, content, thumbnail, full_image, is_home_slider, is_featured, is_daily_featured, slug, tags) VALUES (:user_id, :category_id, :title, :content, :thumbnail, :full_image, :is_home_slider, :is_featured, :is_daily_featured, :slug, :tags);';
 
-      query($pdo, $query, $data);
+      db_query($pdo, $query, $data);
       
       $_SESSION['ARTICLE_ADDED'] = true;
       redirect('admin/articles');
@@ -107,7 +107,7 @@ if ($action == 'add') {
 //edit article
 else if ($action == 'edit') {
   $article_query = 'SELECT * FROM articles WHERE id = :id LIMIT 1';
-  $article_row = query($pdo, $article_query, ['id' => $id]);
+  $article_row = db_query($pdo, $article_query, ['id' => $id]);
 
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($article_row[0]) {
@@ -136,13 +136,13 @@ else if ($action == 'edit') {
         $article_slug = generate_slug($title);
       
         $slug_query = 'SELECT id FROM articles WHERE slug = :slug AND id != id;';
-        $is_slug_in_db = query($pdo, $slug_query, ['slug' => $article_slug, 'id' => $id]);
+        $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug, 'id' => $id]);
         $slug_number = 1;
         
         while ($is_slug_in_db) {
           $article_slug .= $slug_number;
           $slug_number++;
-          $is_slug_in_db = query($pdo, $slug_query, ['slug' => $article_slug, 'id' => $id]);
+          $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug, 'id' => $id]);
         }
       }
 
@@ -231,7 +231,7 @@ else if ($action == 'edit') {
           $query = 'UPDATE articles SET user_id = :user_id, category_id = :category_id, title = :title, content = :content, thumbnail = :thumbnail, full_image = :full_image, is_home_slider = :is_home_slider, is_featured = :is_featured, is_daily_featured = :is_daily_featured, slug = :slug, tags = :tags WHERE id = :id;';
         }
         
-        query($pdo, $query, $data);
+        db_query($pdo, $query, $data);
         
         $_SESSION['ARTICLE_EDITED'] = true;
         redirect('admin/articles');
@@ -242,7 +242,7 @@ else if ($action == 'edit') {
 //delete article
 else if ($action == 'delete') {
   $article_query = 'SELECT * FROM articles WHERE id = :id LIMIT 1';
-  $article_row = query($pdo, $article_query, ['id' => $id]);
+  $article_row = db_query($pdo, $article_query, ['id' => $id]);
 
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($article_row[0]) {
@@ -260,7 +260,7 @@ else if ($action == 'delete') {
       
       $delete_query = 'DELETE FROM articles WHERE id = :id LIMIT 1;';
       
-      query($pdo, $delete_query, $data);
+      db_query($pdo, $delete_query, $data);
       
       $_SESSION['ARTICLE_DELETED'] = true;
       redirect('admin/articles');

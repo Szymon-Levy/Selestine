@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   $email_query = 'SELECT id FROM users WHERE email = :email limit 1;';
-  $is_email_in_db = query($pdo, $email_query, ['email' => $email]);
+  $is_email_in_db = db_query($pdo, $email_query, ['email' => $email]);
 
   if (empty($email)) {
     $errors['email'] = 'Email cannot be empty!';
@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $data['pass']         = hash_password($password);
     $data['account_type'] = 'user';
     $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
-    query($pdo, $query, $data);
+    db_query($pdo, $query, $data);
     
     $_SESSION['REGISTERED'] = true;
     redirect('login');

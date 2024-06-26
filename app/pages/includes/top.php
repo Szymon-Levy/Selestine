@@ -1,6 +1,6 @@
 <?php
   $categories_query = 'SELECT * FROM categories WHERE is_active = 1;';
-  $found_categories = query($pdo, $categories_query);
+  $found_categories = db_query($pdo, $categories_query);
 ?>
 
 <!DOCTYPE html>

@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if(empty($errors)) {
     $query = 'SELECT * FROM users WHERE email = :email limit 1;';
-    $found_user_row = query($pdo, $query, ['email' => $email]);
+    $found_user_row = db_query($pdo, $query, ['email' => $email]);
 
     if ($found_user_row && password_verify($password, $found_user_row[0]['pass'])) {
       //login into session

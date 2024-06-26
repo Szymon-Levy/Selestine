@@ -5,7 +5,7 @@
                        ON articles.category_id = categories.id 
                        WHERE categories.is_active = 1 AND articles.is_home_slider = 1
                        ORDER BY create_date ASC;';
-  $found_home_slides = query($pdo, $home_slides_query);
+  $found_home_slides = db_query($pdo, $home_slides_query);
 
   //blog cards
   $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
@@ -13,7 +13,7 @@
                     ON articles.category_id = categories.id 
                     WHERE categories.is_active = 1 AND articles.is_home_slider = 0
                     ORDER BY create_date DESC LIMIT 4;';
-  $found_articles = query($pdo, $articles_query);
+  $found_articles = db_query($pdo, $articles_query);
 
   //featured articles
   $featured_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
@@ -21,7 +21,7 @@
                               ON articles.category_id = categories.id 
                               WHERE categories.is_active = 1 AND articles.is_featured = 1
                               ORDER BY create_date DESC LIMIT 3;';
-  $found_featured_articles = query($pdo, $featured_articles_query);
+  $found_featured_articles = db_query($pdo, $featured_articles_query);
 
   //daily featured
   $daily_featured_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
@@ -29,7 +29,7 @@
                                     ON articles.category_id = categories.id 
                                     WHERE categories.is_active = 1 AND articles.is_daily_featured = 1
                                     ORDER BY create_date DESC LIMIT 1;';
-  $found_daily_featured_articles = query($pdo, $daily_featured_articles_query);
+  $found_daily_featured_articles = db_query($pdo, $daily_featured_articles_query);
 
   //fashion carousel
   $fashion_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
@@ -37,7 +37,7 @@
                             ON articles.category_id = categories.id 
                             WHERE categories.is_active = 1 AND categories.category_name = :category_name
                             ORDER BY create_date DESC;';
-  $found_fashion_articles = query($pdo, $fashion_articles_query, ['category_name' => 'fashion']);
+  $found_fashion_articles = db_query($pdo, $fashion_articles_query, ['category_name' => 'fashion']);
 
   //most popular articles
   $popular_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
@@ -45,7 +45,7 @@
                             ON articles.category_id = categories.id 
                             WHERE categories.is_active = 1
                             ORDER BY visits DESC LIMIT 5;';
-  $found_popular_articles = query($pdo, $popular_articles_query);
+  $found_popular_articles = db_query($pdo, $popular_articles_query);
 ?>
 
 <?php

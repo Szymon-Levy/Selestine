@@ -167,7 +167,7 @@ else { ?>
 
     <?php
       $all_categories_query = 'SELECT * FROM categories ORDER BY id ASC';
-      $found_categories = query($pdo, $all_categories_query);
+      $found_categories = db_query($pdo, $all_categories_query);
     ?>
 
     <?php if (!empty($found_categories)) { ?>
