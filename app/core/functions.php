@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Queries the database with a given query and returns found data.
  * @param object $pdo PDO object.
@@ -121,6 +120,16 @@ function add_root_to_src (string $content) {
   }
 
   return $content;
+}
+
+/**
+ * Changes date into readable format.
+ * @param string $date.
+ * @return string Converted date.
+ */
+function format_date (string $date) {
+  $date = strtotime($date);
+  return date('F d, Y', $date);
 }
 
 /* === HTML FUNCTIONS === */

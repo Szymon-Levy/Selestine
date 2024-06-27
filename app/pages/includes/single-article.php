@@ -11,7 +11,7 @@
     <div class="article__hero__content">
       <div class="article__hero__content__info">
         <a href="<?= ROOT . '/category/' . $article['category_slug']; ?>" class="article__hero__content__info__category"> <?= $article['category_name']; ?> </a>
-        <span class="article__hero__content__info__date"><?= date('F d, Y', strtotime($article['create_date'])); ?></span>
+        <span class="article__hero__content__info__date"><?= format_date($article['create_date']); ?></span>
       </div>
 
       <h1 class="article__hero__content__title title title--h3">

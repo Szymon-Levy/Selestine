@@ -65,7 +65,7 @@
               <div class="home-slider__slide__content">
                 <div class="home-slider__slide__content__info">
                   <a href="<?= ROOT . '/category/' . $slide['category_slug']; ?>" class="home-slider__slide__content__info__category"> <?= $slide['category_name']; ?> </a>
-                  <span class="home-slider__slide__content__info__date"><?= date('F d, Y', strtotime($slide['create_date'])); ?></span>
+                  <span class="home-slider__slide__content__info__date"><?= format_date($slide['create_date']); ?></span>
                 </div>
 
                 <h3 class="home-slider__slide__content__title title title--h2">
@@ -131,7 +131,7 @@
               <div class="featured__articles__item__content">
                 <div class="featured__articles__item__content__info">
                   <a href="<?= ROOT . '/category/' . $article['category_slug']; ?>" class="featured__articles__item__content__info__category"> <?= $article['category_name']; ?> </a>
-                  <span class="featured__articles__item__content__info__date"><?= date('F d, Y', strtotime($article['create_date'])); ?></span>
+                  <span class="featured__articles__item__content__info__date"><?= format_date($article['create_date']); ?></span>
                 </div>
 
                 <h3 class="featured__articles__item__content__title">
@@ -160,7 +160,7 @@
           <div class="daily-featured__article__content js-animation-fade-from-bottom">
             <div class="daily-featured__article__content__info">
               <a href="<?= ROOT . '/category/' . $article['category_slug']; ?>" class="daily-featured__article__content__info__category"> <?= $article['category_name']; ?> </a>
-              <span class="daily-featured__article__content__info__date"><?= date('F d, Y', strtotime($article['create_date'])); ?></span>
+              <span class="daily-featured__article__content__info__date"><?= format_date($article['create_date']); ?></span>
             </div>
 
             <h3 class="daily-featured__article__content__title">
