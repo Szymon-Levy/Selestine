@@ -1,15 +1,15 @@
 <?php
   $all_users_query = 'SELECT id FROM users';
-  $found_users = db_query($pdo, $all_users_query);
-  $users_number = !empty($found_users) ? count($found_users) : 0;
+  $users = db_query($pdo, $all_users_query)->fetchAll();
+  $users_number = !empty($users) ? count($users) : 0;
 
   $all_categories_query = 'SELECT id FROM categories';
-  $found_categories = db_query($pdo, $all_categories_query);
-  $categories_number = !empty($found_categories) ? count($found_categories) : 0;
+  $categories = db_query($pdo, $all_categories_query)->fetchAll();
+  $categories_number = !empty($categories) ? count($categories) : 0;
 
   $all_articles_query = 'SELECT id FROM articles';
-  $found_articles = db_query($pdo, $all_articles_query);
-  $articles_number = !empty($found_articles) ? count($found_articles) : 0;
+  $articles = db_query($pdo, $all_articles_query)->fetchAll();
+  $articles_number = !empty($articles) ? count($articles) : 0;
 ?>
 
 <main class="main">

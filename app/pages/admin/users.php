@@ -115,7 +115,7 @@
 <?php }
 else if ($action == 'edit') { ?>
 
-  <?php if (isset($user_row[0])) { ?>
+  <?php if ($user) { ?>
     <main class="main">
       <h1 class="main__title">Edit user</h1>
 
@@ -145,7 +145,7 @@ else if ($action == 'edit') { ?>
   
                 <div class="form__image-preview user__form__avatar-preview">
                   <span>Avatar preview:</span>
-                  <img src="<?= htmlspecialchars(get_image_path($user_row[0]['avatar'])) ?>" class="form__image-preview__image form__avatar__img user__form__avatar-preview__img js-form-upload-preview-image" alt="user avatar">
+                  <img src="<?= htmlspecialchars(get_image_path($user['avatar'])) ?>" class="form__image-preview__image form__avatar__img user__form__avatar-preview__img js-form-upload-preview-image" alt="user avatar">
                 </div>
               </div>
             </div>
@@ -154,7 +154,7 @@ else if ($action == 'edit') { ?>
           <div class="form__row">
             <div class="form__field">
               <label for="firstname" class="form__label">first name</label>
-              <input value="<?= htmlspecialchars($user_row[0]['first_name'] ?? ''); ?>" type="text" name="firstname" id="firstname" placeholder="First name">
+              <input value="<?= htmlspecialchars($user['first_name'] ?? ''); ?>" type="text" name="firstname" id="firstname" placeholder="First name">
 
               <?php if (!empty($errors['first_name'])) { ?>
                 <div class="form_error"> <?= $errors['first_name']; ?> </div>
@@ -165,7 +165,7 @@ else if ($action == 'edit') { ?>
           <div class="form__row">
             <div class="form__field">
               <label for="username" class="form__label">user name</label>
-              <input value="<?= htmlspecialchars($user_row[0]['user_name'] ?? ''); ?>" type="text" name="username" id="username" placeholder="username">
+              <input value="<?= htmlspecialchars($user['user_name'] ?? ''); ?>" type="text" name="username" id="username" placeholder="username">
 
               <?php if (!empty($errors['user_name'])) { ?>
                 <div class="form_error"> <?= $errors['user_name']; ?> </div>
@@ -176,7 +176,7 @@ else if ($action == 'edit') { ?>
           <div class="form__row">
             <div class="form__field">
               <label for="email" class="form__label">email</label>
-              <input value="<?= htmlspecialchars($user_row[0]['email'] ?? ''); ?>" type="text" name="email" id="email" placeholder="email">
+              <input value="<?= htmlspecialchars($user['email'] ?? ''); ?>" type="text" name="email" id="email" placeholder="email">
 
               <?php if (!empty($errors['email'])) { ?>
                 <div class="form_error"> <?= $errors['email']; ?> </div>
@@ -210,7 +210,7 @@ else if ($action == 'edit') { ?>
             <div class="form__field">
               <label for="type" class="form__label">account type</label>
               <div class="form_checkbox">
-                <input class="form_checkbox__input" <?= $user_row[0]['account_type'] == 'admin' ? 'checked' : '' ?> type="checkbox" name="type" id="type" value="admin">
+                <input class="form_checkbox__input" <?= $user['account_type'] == 'admin' ? 'checked' : '' ?> type="checkbox" name="type" id="type" value="admin">
                 <label for="type">Admin account</label>
               </div>
             </div>
@@ -237,7 +237,7 @@ else if ($action == 'edit') { ?>
 <?php }
 else if ($action == 'delete') { ?>
 
-<?php if (isset($user_row[0])) { ?>
+<?php if ($user) { ?>
     <main class="main">
       <h1 class="main__title">Delete user</h1>
 
@@ -251,14 +251,14 @@ else if ($action == 'delete') { ?>
           <div class="form__row">
             <div class="form__field">
               <div class="form__label">user name</div>
-              <input disabled value="<?= htmlspecialchars($user_row[0]['user_name'] ?? ''); ?>" type="text" name="username" id="username" placeholder="username">
+              <input disabled value="<?= htmlspecialchars($user['user_name'] ?? ''); ?>" type="text" name="username" id="username" placeholder="username">
             </div>
           </div>
 
           <div class="form__row">
             <div class="form__field">
               <div class="form__label">user email</div>
-              <input disabled value="<?= htmlspecialchars($user_row[0]['email'] ?? ''); ?>" type="text" name="email" id="email" placeholder="email">
+              <input disabled value="<?= htmlspecialchars($user['email'] ?? ''); ?>" type="text" name="email" id="email" placeholder="email">
             </div>
           </div>
           
@@ -308,12 +308,12 @@ else { ?>
 
       <?php
         $all_users_query = 'SELECT * FROM users ORDER BY id ASC';
-        $found_users = db_query($pdo, $all_users_query);
+        $users = db_query($pdo, $all_users_query)->fetchAll();
       ?>
 
-      <?php if (!empty($found_users)) { ?>
+      <?php if (!empty($users)) { ?>
       <tbody>
-        <?php foreach($found_users as $user) { ?>
+        <?php foreach($users as $user) { ?>
 
           <tr>
             <td data-label="Id"><?= $user['id'] ?></td>

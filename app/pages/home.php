@@ -5,7 +5,7 @@
                        ON articles.category_id = categories.id 
                        WHERE categories.is_active = 1 AND articles.is_home_slider = 1
                        ORDER BY create_date ASC;';
-  $found_home_slides = db_query($pdo, $home_slides_query);
+  $home_slides = db_query($pdo, $home_slides_query)->fetchAll();
 
   //blog cards
   $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
@@ -13,7 +13,7 @@
                     ON articles.category_id = categories.id 
                     WHERE categories.is_active = 1 AND articles.is_home_slider = 0
                     ORDER BY create_date DESC LIMIT 4;';
-  $found_articles = db_query($pdo, $articles_query);
+  $main_articles = db_query($pdo, $articles_query)->fetchAll();
 
   //featured articles
   $featured_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
@@ -21,23 +21,23 @@
                               ON articles.category_id = categories.id 
                               WHERE categories.is_active = 1 AND articles.is_featured = 1
                               ORDER BY create_date DESC LIMIT 3;';
-  $found_featured_articles = db_query($pdo, $featured_articles_query);
+  $featured_articles = db_query($pdo, $featured_articles_query)->fetchAll();
 
   //daily featured
-  $daily_featured_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
+  $daily_featured_article_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
                                     FROM articles INNER JOIN categories 
                                     ON articles.category_id = categories.id 
                                     WHERE categories.is_active = 1 AND articles.is_daily_featured = 1
                                     ORDER BY create_date DESC LIMIT 1;';
-  $found_daily_featured_articles = db_query($pdo, $daily_featured_articles_query);
+  $daily_featured_article = db_query($pdo, $daily_featured_article_query)->fetch();
 
   //fashion carousel
   $fashion_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
                             FROM articles INNER JOIN categories 
                             ON articles.category_id = categories.id 
-                            WHERE categories.is_active = 1 AND categories.category_name = :category_name
+                            WHERE categories.is_active = 1 AND categories.category_name = "fashion"
                             ORDER BY create_date DESC;';
-  $found_fashion_articles = db_query($pdo, $fashion_articles_query, ['category_name' => 'fashion']);
+  $fashion_articles = db_query($pdo, $fashion_articles_query)->fetchAll();
 
   //most popular articles
   $popular_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
@@ -45,7 +45,7 @@
                             ON articles.category_id = categories.id 
                             WHERE categories.is_active = 1
                             ORDER BY visits DESC LIMIT 5;';
-  $found_popular_articles = db_query($pdo, $popular_articles_query);
+  $popular_articles = db_query($pdo, $popular_articles_query)->fetchAll();
 ?>
 
 <?php
@@ -53,14 +53,14 @@
   include '../app/pages/includes/top.php';
 ?>
 
-<?php if (!empty($found_home_slides)) { ?>
+<?php if ($home_slides) { ?>
   <!-- === HOME SLIDER === -->
   <section class="home-slider">
     <div class="row">
       <div class="swiper home-slider__container js-home-slider slider">
         <div class="swiper-wrapper">
           <?php $i = 1; ?>
-          <?php foreach ($found_home_slides as $slide) { ?>
+          <?php foreach ($home_slides as $slide) { ?>
             <div class="swiper-slide home-slider__slide" style="background-image: url('<?= get_image_path($slide['full_image']); ?>');">
               <div class="home-slider__slide__content">
                 <div class="home-slider__slide__content__info">
@@ -76,7 +76,7 @@
               </div>
 
               <div class="home-slider__container__counter">
-                <span>0<?= $i; ?> / </span> 0<?= count($found_home_slides) ?>
+                <span>0<?= $i; ?> / </span> 0<?= count($home_slides) ?>
               </div>
             </div>
             <?php $i++; ?>
@@ -97,26 +97,22 @@
   </section>
 <?php } ?>
 
-<?php if (!empty($found_articles)) { ?>
+<?php if ($main_articles) { ?>
   <!-- === BLOG CARDS === -->
   <section class="blog">
   <div class="container">
     <div class="row blog__row">
       <?php 
-      if ($found_articles) {
-        foreach ($found_articles as $article) {
+        foreach ($main_articles as $article) {
           include '../app/pages/includes/article-card.php';
         }
-      } else {
-        echo'No articles found.';
-      }
       ?>
     </div>
   </div>
   </section>
 <?php } ?>
 
-<?php if (!empty($found_featured_articles)) { ?>
+<?php if ($featured_articles) { ?>
   <!-- === FEATURED ARTICLES === -->
   <section class="featured">
     <div class="container">
@@ -125,7 +121,7 @@
         <img class="featured__image js-animation-fade-from-left" src="<?= get_image_path('featured.jpg'); ?>" alt="featured image">
 
         <div class="featured__articles">
-          <?php foreach ($found_featured_articles as $article) { ?>
+          <?php foreach ($featured_articles as $article) { ?>
             <div class="featured__articles__item js-animation-fade-from-right">
               <a href="<?= ROOT . '/blog/' . $article['slug'] ?>" class="featured__articles__item__image">
                 <img src="<?= get_image_path($article['thumbnail']); ?>" alt="article image">
@@ -150,8 +146,8 @@
   </section>
 <?php } ?>
 
-<?php if (!empty($found_daily_featured_articles)) { ?>
-  <?php $article = $found_daily_featured_articles[0]; ?>
+<?php if ($daily_featured_article) { ?>
+  <?php $article = $daily_featured_article; ?>
   <!-- === DAILY FEATURED ARTICLE === -->
   <section class="daily-featured">
     <div class="container">
@@ -177,14 +173,14 @@
   </section>
 <?php } ?>
 
-<?php if (!empty($found_fashion_articles)) { ?>
+<?php if ($fashion_articles) { ?>
   <!-- === HOME CAROUSEL === -->
   <section class="home-carousel">
     <div class="container">
       <div class="row">
         <div class="swiper home-carousel__container js-home-carousel slider">
           <div class="swiper-wrapper">
-            <?php foreach ($found_fashion_articles as $slide) { ?>
+            <?php foreach ($fashion_articles as $slide) { ?>
               <div class="swiper-slide home-carousel__slide">
                 <div class="home-carousel__slide__container">
                   <div class="home-carousel__slide__image">
@@ -219,7 +215,7 @@
   </section>
 <?php } ?>
 
-<?php if (!empty($found_popular_articles)) { ?>
+<?php if ($popular_articles) { ?>
   <!-- === POPULAR ARTICLES === -->
   <section class="popular">
     <div class="container">
@@ -227,7 +223,7 @@
 
       <div class="row blog__row popular__row">
         <?php 
-          foreach ($found_popular_articles as $article) {
+          foreach ($popular_articles as $article) {
             include '../app/pages/includes/article-card.php';
           }
         ?>

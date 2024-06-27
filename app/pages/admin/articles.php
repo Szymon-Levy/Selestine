@@ -27,11 +27,11 @@
                 <select id="author" name="author">
                   <option value="">Select the author</option>
                   <?php
-                    $admin_users_query = 'SELECT id, user_name FROM users WHERE account_type = "admin";';
-                    $found_admins = db_query($pdo, $admin_users_query);
+                    $admins_query = 'SELECT id, user_name FROM users WHERE account_type = "admin";';
+                    $admins = db_query($pdo, $admins_query)->fetchAll();
                   ?>
-                  <?php if (!empty($found_admins)) { ?>
-                    <?php foreach ($found_admins as $admin) { ?>
+                  <?php if ($admins) { ?>
+                    <?php foreach ($admins as $admin) { ?>
                       <option value="<?= $admin['id']; ?>" <?= !empty($author) && $author == $admin['id'] ? 'selected' : '' ?>><?= $admin['user_name']; ?></option>
                     <?php } ?>
                   <?php } ?>
@@ -48,10 +48,10 @@
                   <option value="">Select category</option>
                   <?php
                     $categories_query = 'SELECT id, category_name FROM categories;';
-                    $found_categories = db_query($pdo, $categories_query);
+                    $categories = db_query($pdo, $categories_query)->fetchAll();
                   ?>
-                  <?php if (!empty($found_categories)) { ?>
-                    <?php foreach ($found_categories as $category) { ?>
+                  <?php if ($categories) { ?>
+                    <?php foreach ($categories as $category) { ?>
                       <option value="<?= $category['id']; ?>" <?= !empty($category) && $category == $category['id'] ? 'selected' : '' ?>><?= $category['category_name']; ?></option>
                     <?php } ?>
                   <?php } ?>
@@ -189,7 +189,7 @@
 <?php }
 else if ($action == 'edit') { ?>
 
-<?php if (isset($article_row[0])) { ?>
+<?php if ($article) { ?>
   <main class="main">
     <h1 class="main__title">Edit article</h1>
 
@@ -202,7 +202,7 @@ else if ($action == 'edit') { ?>
         <div class="form__row">
           <div class="form__field">
             <label for="title" class="form__label">title <span class="form__label__star">*</span></label>
-            <input value="<?= htmlspecialchars($article_row[0]['title'] ?? ''); ?>" type="text" name="title" id="title" placeholder="Article title">
+            <input value="<?= htmlspecialchars($article['title'] ?? ''); ?>" type="text" name="title" id="title" placeholder="Article title">
 
             <?php if (!empty($errors['title'])) { ?>
               <div class="form_error"> <?= $errors['title']; ?> </div>
@@ -217,12 +217,12 @@ else if ($action == 'edit') { ?>
               <select id="author" name="author">
                 <option value="">Select the author</option>
                 <?php
-                  $admin_users_query = 'SELECT id, user_name FROM users WHERE account_type = "admin";';
-                  $found_admins = db_query($pdo, $admin_users_query);
+                  $admins_query = 'SELECT id, user_name FROM users WHERE account_type = "admin";';
+                  $admins = db_query($pdo, $admins_query)->fetchAll();
                 ?>
-                <?php if (!empty($found_admins)) { ?>
-                  <?php foreach ($found_admins as $admin) { ?>
-                    <option value="<?= $admin['id']; ?>" <?= !empty($article_row[0]['user_id']) && $article_row[0]['user_id'] == $admin['id'] ? 'selected' : '' ?>><?= $admin['user_name']; ?></option>
+                <?php if ($admins) { ?>
+                  <?php foreach ($admins as $admin) { ?>
+                    <option value="<?= $admin['id']; ?>" <?= !empty($article['user_id']) && $article['user_id'] == $admin['id'] ? 'selected' : '' ?>><?= $admin['user_name']; ?></option>
                   <?php } ?>
                 <?php } ?>
               </select>
@@ -238,11 +238,11 @@ else if ($action == 'edit') { ?>
                 <option value="">Select category</option>
                 <?php
                   $categories_query = 'SELECT id, category_name FROM categories;';
-                  $found_categories = db_query($pdo, $categories_query);
+                  $categories = db_query($pdo, $categories_query)->fetchAll();
                 ?>
-                <?php if (!empty($found_categories)) { ?>
-                  <?php foreach ($found_categories as $category) { ?>
-                    <option value="<?= $category['id']; ?>" <?= !empty($article_row[0]['category_id']) && $article_row[0]['category_id'] == $category['id'] ? 'selected' : '' ?>><?= $category['category_name']; ?></option>
+                <?php if ($categories) { ?>
+                  <?php foreach ($categories as $category) { ?>
+                    <option value="<?= $category['id']; ?>" <?= !empty($article['category_id']) && $article['category_id'] == $category['id'] ? 'selected' : '' ?>><?= $category['category_name']; ?></option>
                   <?php } ?>
                 <?php } ?>
               </select>
@@ -265,7 +265,7 @@ else if ($action == 'edit') { ?>
 
                 <div class="form__image-preview">
                   <span>Thumbnail preview:</span>
-                  <img src="<?= get_image_path(!empty($article_row[0]['thumbnail']) ? $article_row[0]['thumbnail'] : 'noimage.jpg'); ?>" class="form__image-preview__image js-form-upload-preview-image" alt="article thumbnail">
+                  <img src="<?= get_image_path(!empty($article['thumbnail']) ? $article['thumbnail'] : 'noimage.jpg'); ?>" class="form__image-preview__image js-form-upload-preview-image" alt="article thumbnail">
                 </div>
               </div>
 
@@ -291,7 +291,7 @@ else if ($action == 'edit') { ?>
 
               <div class="form__image-preview">
                 <span>Full image preview:</span>
-                <img src="<?= get_image_path(!empty($article_row[0]['full_image']) ? $article_row[0]['full_image'] : 'noimage.jpg'); ?>" class="form__image-preview__image js-form-upload-preview-image" alt="article full image">
+                <img src="<?= get_image_path(!empty($article['full_image']) ? $article['full_image'] : 'noimage.jpg'); ?>" class="form__image-preview__image js-form-upload-preview-image" alt="article full image">
               </div>
             </div>
 
@@ -305,7 +305,7 @@ else if ($action == 'edit') { ?>
         <div class="form__row">
           <div class="form__field">
             <label for="content" class="form__label">content</label>
-            <textarea name="content" class="js-summernote" id="content" placeholder="Article content"><?= $article_row[0]['content'] ?? ''; ?></textarea>
+            <textarea name="content" class="js-summernote" id="content" placeholder="Article content"><?= $article['content'] ?? ''; ?></textarea>
           </div>
         </div>
 
@@ -313,7 +313,7 @@ else if ($action == 'edit') { ?>
           <div class="form__field">
             <div class="form_checkbox">
               <label for="homeslider" class="form__label">Home slider</label>
-              <input class="form_checkbox__input" <?= $article_row[0]['is_home_slider'] == '1' ? 'checked' : '' ?> type="checkbox" name="homeslider" id="homeslider" value="1">
+              <input class="form_checkbox__input" <?= $article['is_home_slider'] == '1' ? 'checked' : '' ?> type="checkbox" name="homeslider" id="homeslider" value="1">
               <label for="homeslider">Show on home slider</label>
             </div>
           </div>
@@ -323,7 +323,7 @@ else if ($action == 'edit') { ?>
           <div class="form__field">
             <div class="form_checkbox">
               <label for="featured" class="form__label">Featured</label>
-              <input class="form_checkbox__input" <?= $article_row[0]['is_featured'] == '1' ? 'checked' : '' ?> type="checkbox" name="featured" id="featured" value="1">
+              <input class="form_checkbox__input" <?= $article['is_featured'] == '1' ? 'checked' : '' ?> type="checkbox" name="featured" id="featured" value="1">
               <label for="featured">Show in featured section</label>
             </div>
           </div>
@@ -333,7 +333,7 @@ else if ($action == 'edit') { ?>
           <div class="form__field">
             <div class="form_checkbox">
               <label for="dailyfeatured" class="form__label">Daily featured</label>
-              <input class="form_checkbox__input" <?= $article_row[0]['is_daily_featured'] == '1' ? 'checked' : '' ?> type="checkbox" name="dailyfeatured" id="dailyfeatured" value="1">
+              <input class="form_checkbox__input" <?= $article['is_daily_featured'] == '1' ? 'checked' : '' ?> type="checkbox" name="dailyfeatured" id="dailyfeatured" value="1">
               <label for="dailyfeatured">Show in daily featured section</label>
             </div>
           </div>
@@ -342,7 +342,7 @@ else if ($action == 'edit') { ?>
         <div class="form__row">
           <div class="form__field">
             <label for="tags" class="form__label">tags</label>
-            <input value="<?= htmlspecialchars($article_row[0]['tags'] ?? ''); ?>" type="text" name="tags" id="tags" placeholder="Tags divided by commas (,)">
+            <input value="<?= htmlspecialchars($article['tags'] ?? ''); ?>" type="text" name="tags" id="tags" placeholder="Tags divided by commas (,)">
 
             <?php if (!empty($errors['tags'])) { ?>
               <div class="form_error"> <?= $errors['tags']; ?> </div>
@@ -379,13 +379,13 @@ else if ($action == 'edit') { ?>
 
 <?php }
 else { ?>
-  <?php generate_alert('User not found.', 'error'); ?>
+  <?php generate_alert('Article not found.', 'error'); ?>
 <?php } ?>
 
 <?php }
 else if ($action == 'delete') { ?>
 
-<?php if (isset($article_row[0])) { ?>
+<?php if ($article) { ?>
   <main class="main">
     <h1 class="main__title">Delete article</h1>
 
@@ -399,7 +399,7 @@ else if ($action == 'delete') { ?>
         <div class="form__row">
           <div class="form__field">
             <div class="form__label">Article title</div>
-            <input disabled value="<?= htmlspecialchars($article_row[0]['title'] ?? ''); ?>" type="text" id="title">
+            <input disabled value="<?= htmlspecialchars($article['title'] ?? ''); ?>" type="text" id="title">
           </div>
         </div>
         
@@ -450,17 +450,17 @@ else { ?>
 
       <?php
         $all_articles_query = 'SELECT * FROM articles ORDER BY id ASC';
-        $found_articles = db_query($pdo, $all_articles_query);
+        $articles = db_query($pdo, $all_articles_query)->fetchAll();
       ?>
 
-      <?php if (!empty($found_articles)) { ?>
+      <?php if ($articles) { ?>
       <tbody>
-        <?php foreach($found_articles as $article) { ?>
+        <?php foreach($articles as $article) { ?>
 
           <?php
             $category_query = 'SELECT * FROM categories WHERE id = :id';
-            $found_category = db_query($pdo, $category_query, ['id' => $article['category_id']]);
-            $category_name = $found_category[0]["category_name"] ?? 'Not assigned';
+            $category = db_query($pdo, $category_query, ['id' => $article['category_id']])->fetch();
+            $category_name = $category["category_name"] ?? 'Not assigned';
           ?>
 
           <tr>

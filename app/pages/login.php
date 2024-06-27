@@ -20,15 +20,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   if(empty($errors)) {
-    $query = 'SELECT * FROM users WHERE email = :email limit 1;';
-    $found_user_row = db_query($pdo, $query, ['email' => $email]);
+    $query = 'SELECT * FROM users WHERE email = :email;';
+    $user = db_query($pdo, $query, ['email' => $email])->fetch();
 
-    if ($found_user_row && password_verify($password, $found_user_row[0]['pass'])) {
+    if ($user && password_verify($password, $user['pass'])) {
       //login into session
-      authenticate_user($found_user_row[0]);
+      authenticate_user($user);
 
       $_SESSION['LOGGED_IN'] = true;
-      if ($found_user_row[0]['account_type'] === 'admin') {
+      if ($user['account_type'] === 'admin') {
         redirect('admin');
       }
       else {

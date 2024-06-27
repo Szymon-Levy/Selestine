@@ -28,13 +28,13 @@ if ($action == 'add') {
       $article_slug = generate_slug($title);
     
       $slug_query = 'SELECT id FROM articles WHERE slug = :slug;';
-      $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug]);
+      $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug])->fetch();
       $slug_number = 1;
       
       while ($is_slug_in_db) {
         $article_slug .= $slug_number;
         $slug_number++;
-        $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug]);
+        $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug])->fetch();
       }
     }
 
@@ -82,22 +82,22 @@ if ($action == 'add') {
       move_uploaded_file($full_image['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_fullimage_path);
 
       //save article to database
-      $data = [];
-      $data['title']              = $title;
-      $data['slug']               = $article_slug;
-      $data['user_id']            = $author;
-      $data['category_id']        = $category;
-      $data['thumbnail']          = $uploaded_thumbnail_path;
-      $data['full_image']         = $uploaded_fullimage_path;
-      $data['content']            = $content;
-      $data['is_home_slider']     = $is_homeslider;
-      $data['is_featured']        = $is_featured;
-      $data['is_daily_featured']  = $is_dailyfeatured;
-      $data['tags']               = $tags;
+      $arguments = [];
+      $arguments['title']              = $title;
+      $arguments['slug']               = $article_slug;
+      $arguments['user_id']            = $author;
+      $arguments['category_id']        = $category;
+      $arguments['thumbnail']          = $uploaded_thumbnail_path;
+      $arguments['full_image']         = $uploaded_fullimage_path;
+      $arguments['content']            = $content;
+      $arguments['is_home_slider']     = $is_homeslider;
+      $arguments['is_featured']        = $is_featured;
+      $arguments['is_daily_featured']  = $is_dailyfeatured;
+      $arguments['tags']               = $tags;
       
       $query = 'INSERT INTO articles (user_id, category_id, title, content, thumbnail, full_image, is_home_slider, is_featured, is_daily_featured, slug, tags) VALUES (:user_id, :category_id, :title, :content, :thumbnail, :full_image, :is_home_slider, :is_featured, :is_daily_featured, :slug, :tags);';
 
-      db_query($pdo, $query, $data);
+      db_query($pdo, $query, $arguments);
       
       $_SESSION['ARTICLE_ADDED'] = true;
       redirect('admin/articles');
@@ -106,11 +106,11 @@ if ($action == 'add') {
 }
 //edit article
 else if ($action == 'edit') {
-  $article_query = 'SELECT * FROM articles WHERE id = :id LIMIT 1';
-  $article_row = db_query($pdo, $article_query, ['id' => $id]);
+  $article_query = 'SELECT * FROM articles WHERE id = :id';
+  $article = db_query($pdo, $article_query, ['id' => $id])->fetch();
 
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($article_row[0]) {
+    if ($article) {
       //get article form values
       $title = trim($_POST['title']);
       $author = !empty($_POST['author']) ? trim($_POST['author']) : ADMIN_ID;
@@ -136,13 +136,13 @@ else if ($action == 'edit') {
         $article_slug = generate_slug($title);
       
         $slug_query = 'SELECT id FROM articles WHERE slug = :slug AND id != id;';
-        $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug, 'id' => $id]);
+        $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug, 'id' => $id])->fetch();
         $slug_number = 1;
         
         while ($is_slug_in_db) {
           $article_slug .= $slug_number;
           $slug_number++;
-          $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug, 'id' => $id]);
+          $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug, 'id' => $id])->fetch();
         }
       }
 
@@ -187,51 +187,51 @@ else if ($action == 'edit') {
         //upload thumbnail and/or full image and remove the old one
         if ($current_thumbnail && !$current_fullimage) {
           move_uploaded_file($thumbnail['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_thumbnail_path);
-          delete_image($article_row[0]['thumbnail']);
+          delete_image($article['thumbnail']);
         }
         else if ($current_fullimage && !$current_thumbnail) {
           move_uploaded_file($full_image['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_fullimage_path);
-          delete_image($article_row[0]['full_image']);
+          delete_image($article['full_image']);
         }
         else if ($current_fullimage && $current_thumbnail) {
           move_uploaded_file($thumbnail['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_thumbnail_path);
           move_uploaded_file($full_image['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_fullimage_path);
 
-          delete_image($article_row[0]['thumbnail']);
-          delete_image($article_row[0]['full_image']);
+          delete_image($article['thumbnail']);
+          delete_image($article['full_image']);
         }
 
         //edit article in database
-        $data = [];
-        $data['id']                 = $id;
-        $data['title']              = $title;
-        $data['slug']               = $article_slug;
-        $data['user_id']            = $author;
-        $data['category_id']        = $category;
-        $data['content']            = $content;
-        $data['is_home_slider']     = $is_homeslider;
-        $data['is_featured']        = $is_featured;
-        $data['is_daily_featured']  = $is_dailyfeatured;
-        $data['tags']               = $tags;
+        $arguments = [];
+        $arguments['id']                 = $id;
+        $arguments['title']              = $title;
+        $arguments['slug']               = $article_slug;
+        $arguments['user_id']            = $author;
+        $arguments['category_id']        = $category;
+        $arguments['content']            = $content;
+        $arguments['is_home_slider']     = $is_homeslider;
+        $arguments['is_featured']        = $is_featured;
+        $arguments['is_daily_featured']  = $is_dailyfeatured;
+        $arguments['tags']               = $tags;
         
         if (!$current_thumbnail && !$current_fullimage) {
           $query = 'UPDATE articles SET user_id = :user_id, category_id = :category_id, title = :title, content = :content, is_home_slider = :is_home_slider, is_featured = :is_featured, is_daily_featured = :is_daily_featured, slug = :slug, tags = :tags WHERE id = :id;';
         }
         else if ($current_thumbnail && !$current_fullimage) {
-          $data['thumbnail'] = $uploaded_thumbnail_path;
+          $arguments['thumbnail'] = $uploaded_thumbnail_path;
           $query = 'UPDATE articles SET user_id = :user_id, category_id = :category_id, title = :title, content = :content, thumbnail = :thumbnail, is_home_slider = :is_home_slider, is_featured = :is_featured, is_daily_featured = :is_daily_featured, slug = :slug, tags = :tags WHERE id = :id;';
         }
         else if ($current_fullimage && !$current_thumbnail) {
-          $data['full_image'] = $uploaded_fullimage_path;
+          $arguments['full_image'] = $uploaded_fullimage_path;
           $query = 'UPDATE articles SET user_id = :user_id, category_id = :category_id, title = :title, content = :content, full_image = :full_image, is_home_slider = :is_home_slider, is_featured = :is_featured, is_daily_featured = :is_daily_featured, slug = :slug, tags = :tags WHERE id = :id;';
         }
         else if ($current_thumbnail && $current_fullimage) {
-          $data['thumbnail'] = $uploaded_thumbnail_path;
-          $data['full_image'] = $uploaded_fullimage_path;
+          $arguments['thumbnail'] = $uploaded_thumbnail_path;
+          $arguments['full_image'] = $uploaded_fullimage_path;
           $query = 'UPDATE articles SET user_id = :user_id, category_id = :category_id, title = :title, content = :content, thumbnail = :thumbnail, full_image = :full_image, is_home_slider = :is_home_slider, is_featured = :is_featured, is_daily_featured = :is_daily_featured, slug = :slug, tags = :tags WHERE id = :id;';
         }
         
-        db_query($pdo, $query, $data);
+        db_query($pdo, $query, $arguments);
         
         $_SESSION['ARTICLE_EDITED'] = true;
         redirect('admin/articles');
@@ -241,26 +241,26 @@ else if ($action == 'edit') {
 }
 //delete article
 else if ($action == 'delete') {
-  $article_query = 'SELECT * FROM articles WHERE id = :id LIMIT 1';
-  $article_row = db_query($pdo, $article_query, ['id' => $id]);
+  $article_query = 'SELECT * FROM articles WHERE id = :id';
+  $article = db_query($pdo, $article_query, ['id' => $id])->fetch();
 
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($article_row[0]) {
+    if ($article) {
       //delete images from article
-      if (!empty($article_row[0]['thumbnail'])) {
-        delete_image($article_row[0]['thumbnail']);
+      if (!empty($article['thumbnail'])) {
+        delete_image($article['thumbnail']);
       }
 
-      if (!empty($article_row[0]['full_image'])) {
-        delete_image($article_row[0]['full_image']);
+      if (!empty($article['full_image'])) {
+        delete_image($article['full_image']);
       }
 
       //delete article from database
-      $data['id'] = $id;
+      $arguments['id'] = $id;
       
       $delete_query = 'DELETE FROM articles WHERE id = :id LIMIT 1;';
       
-      db_query($pdo, $delete_query, $data);
+      db_query($pdo, $delete_query, $arguments);
       
       $_SESSION['ARTICLE_DELETED'] = true;
       redirect('admin/articles');

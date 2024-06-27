@@ -11,9 +11,6 @@
   $id = $url[3] ?? 0;
   
   $file_name = '../app/pages/admin/' . $section . '.php';
-  if (!file_exists($file_name)) {
-    require_once '../app/pages/admin/404.php';
-  }
 
   if ($section == 'users') {
     require_once '../app/pages/admin/users_contr.php';
@@ -24,9 +21,6 @@
   else if ($section == 'articles') {
     require_once '../app/pages/admin/articles_contr.php';
   }
-
-  
-  
 ?>
 
 <!DOCTYPE html>
@@ -125,7 +119,12 @@
 
   <!-- === MAIN CONTENT === -->
   <?php
-    require_once $file_name;
+    if (file_exists($file_name)) {
+      require_once $file_name;
+    }
+    else {
+      require_once '../app/pages/admin/404.php';
+    }
   ?>
 
 

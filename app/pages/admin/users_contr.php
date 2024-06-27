@@ -46,7 +46,7 @@ if ($action == 'add') {
     }
   
     $email_query = 'SELECT id FROM users WHERE email = :email limit 1;';
-    $is_email_in_db = db_query($pdo, $email_query, ['email' => $email]);
+    $is_email_in_db = db_query($pdo, $email_query, ['email' => $email])->fetch();
   
     if (empty($email)) {
       $errors['email'] = 'Email cannot be empty!';
@@ -71,24 +71,24 @@ if ($action == 'add') {
     if(empty($errors)) {
       
       //save new user to database
-      $data = [];
-      $data['first_name']   = $first_name;
-      $data['user_name']    = $user_name;
-      $data['email']        = $email;
-      $data['pass']         = hash_password($password);
-      $data['account_type'] = $type;
+      $arguments = [];
+      $arguments['first_name']   = $first_name;
+      $arguments['user_name']    = $user_name;
+      $arguments['email']        = $email;
+      $arguments['pass']         = hash_password($password);
+      $arguments['account_type'] = $type;
       
       if ($current_avatar) {
         //upload avatar
         move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
         
-        $data['avatar']       = $current_avatar;
+        $arguments['avatar']       = $current_avatar;
         $query = 'INSERT INTO users (avatar, first_name, user_name, email, pass, account_type) VALUES (:avatar, :first_name, :user_name, :email, :pass, :account_type);';
       }
       else {
         $query = 'INSERT INTO users (user_name, first_name, email, pass, account_type) VALUES (:user_name, :first_name, :email, :pass, :account_type);';
       }
-      db_query($pdo, $query, $data);
+      db_query($pdo, $query, $arguments);
       
       $_SESSION['USER_ADDED'] = true;
       redirect('admin/users');
@@ -98,10 +98,10 @@ if ($action == 'add') {
 //edit user
 else if ($action == 'edit') {
   $user_query = 'SELECT * FROM users WHERE id = :id LIMIT 1';
-  $user_row = db_query($pdo, $user_query, ['id' => $id]);
+  $user = db_query($pdo, $user_query, ['id' => $id])->fetch();
 
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($user_row[0]) {
+    if ($user) {
       //get signup form values
       $first_name = trim($_POST['firstname']) ?? NULL;
       $user_name = trim($_POST['username']);
@@ -115,7 +115,7 @@ else if ($action == 'edit') {
       $errors = [];
 
       //validate avatar
-      $current_avatar = $user_row[0]['avatar'];
+      $current_avatar = $user['avatar'];
       $allowed_types = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
       if (!empty($avatar['name'])) {
         if (!in_array($avatar['type'], $allowed_types)) {
@@ -143,7 +143,7 @@ else if ($action == 'edit') {
       }
     
       $email_query = 'SELECT id FROM users WHERE email = :email AND id != :id limit 1;';
-      $is_email_in_db = db_query($pdo, $email_query, ['email' => $email, 'id' => $id]);
+      $is_email_in_db = db_query($pdo, $email_query, ['email' => $email, 'id' => $id])->fetch();
     
       if (empty($email)) {
         $errors['email'] = 'Email cannot be empty!';
@@ -166,35 +166,35 @@ else if ($action == 'edit') {
         //upload new avatar and delete the old one
         if ($current_avatar != 'users/avatars/default-profile-picture.jpg') {
           move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
-          if ($user_row[0]['avatar'] != 'users/avatars/default-profile-picture.jpg' && $user_row[0]['avatar'] != $current_avatar) {
-            delete_image($user_row[0]['avatar']);
+          if ($user['avatar'] != 'users/avatars/default-profile-picture.jpg' && $user['avatar'] != $current_avatar) {
+            delete_image($user['avatar']);
           }
         }
 
         //edit user in database
-        $data =               [];
-        $data['id']           = $id;
-        $data['first_name']   = $first_name;
-        $data['user_name']    = $user_name;
-        $data['email']        = $email;
-        $data['account_type'] = $type;
-        $data['avatar']       = $current_avatar;
+        $arguments =               [];
+        $arguments['id']           = $id;
+        $arguments['first_name']   = $first_name;
+        $arguments['user_name']    = $user_name;
+        $arguments['email']        = $email;
+        $arguments['account_type'] = $type;
+        $arguments['avatar']       = $current_avatar;
         
         if (empty($password)) {
           $query = 'UPDATE users SET first_name = :first_name, user_name = :user_name, email = :email, account_type = :account_type, avatar = :avatar WHERE id = :id;';
         }
         else {
-          $data['pass'] = hash_password($password);
+          $arguments['pass'] = hash_password($password);
           $query = 'UPDATE users SET first_name = :first_name, user_name = :user_name, email = :email, pass = :pass, account_type = :account_type, avatar = :avatar WHERE id = :id;';
         }
         
-        db_query($pdo, $query, $data);
+        db_query($pdo, $query, $arguments);
 
         //update userdata in session when currently is logged in
         if ($_SESSION['USER']['id'] == $id) {
           $user_query = 'SELECT * FROM users WHERE id = :id limit 1;';
-          $found_user_row = db_query($pdo, $user_query, ['id' => $id]);
-          authenticate_user($found_user_row[0]);
+          $user = db_query($pdo, $user_query, ['id' => $id])->fetch();
+          authenticate_user($user);
         }
         
         $_SESSION['USER_EDITED'] = true;
@@ -206,7 +206,7 @@ else if ($action == 'edit') {
 //delete user
 else if ($action == 'delete') {
   $user_query = 'SELECT * FROM users WHERE id = :id LIMIT 1';
-  $user_row = db_query($pdo, $user_query, ['id' => $id]);
+  $user = db_query($pdo, $user_query, ['id' => $id])->fetch();
 
   if ($id == ADMIN_ID) {
     $_SESSION['USER_DELETE_FORBIDDEN'] = true;
@@ -215,18 +215,18 @@ else if ($action == 'delete') {
   }
 
   if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($user_row[0]) {
+    if ($user) {
       //delete avatar of user
-      if ($user_row[0]['avatar'] != 'users/avatars/default-profile-picture.jpg') {
-        delete_image($user_row[0]['avatar']);
+      if ($user['avatar'] != 'users/avatars/default-profile-picture.jpg') {
+        delete_image($user['avatar']);
       }
 
       //delete user from database
-      $data['id'] = $id;
+      $arguments['id'] = $id;
       
       $delete_query = 'DELETE FROM users WHERE id = :id LIMIT 1;';
       
-      db_query($pdo, $delete_query, $data);
+      db_query($pdo, $delete_query, $arguments);
       
       $_SESSION['USER_DELETED'] = true;
       redirect('admin/users');

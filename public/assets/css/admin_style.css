@@ -811,6 +811,18 @@ b {
   object-fit: cover;
 }
 
+/* === ERROR PAGE === */
+.error-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-page .error-page__image {
+  max-width: 40rem;
+  margin-bottom: 2rem;
+}
+
 
 /* //ANCHOR BREAKPOINTS */
 

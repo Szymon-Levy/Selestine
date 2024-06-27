@@ -5,7 +5,7 @@
                     ON articles.category_id = categories.id 
                     WHERE categories.is_active = 1 AND articles.category_id IN (SELECT id FROM categories WHERE slug = :category_slug)
                     ORDER BY create_date DESC;';
-  $found_articles = db_query($pdo, $articles_query, ['category_slug' => $category_slug]);
+  $articles = db_query($pdo, $articles_query, ['category_slug' => $category_slug])->fetchAll();
 
 ?>
 
@@ -18,14 +18,14 @@
   <!-- === BLOG === -->
   <section class="blog">
     <div class="container">
-      <?php if (!empty($found_articles)) { ?>
-        <div class="blog__title title title--h1"><?= $found_articles[0]['category_name'] ?></div>
+      <?php if ($articles) { ?>
+        <div class="blog__title title title--h1"><?= $articles[0]['category_name'] ?></div>
       <?php } ?>
       <div class="row blog__row">
         <?php 
         
-        if ($found_articles) {
-          foreach ($found_articles as $article) {
+        if ($articles) {
+          foreach ($articles as $article) {
             include '../app/pages/includes/article-card.php';
           }
         } else {

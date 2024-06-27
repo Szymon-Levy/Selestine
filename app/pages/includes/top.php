@@ -1,6 +1,6 @@
 <?php
   $categories_query = 'SELECT * FROM categories WHERE is_active = 1;';
-  $found_categories = db_query($pdo, $categories_query);
+  $categories = db_query($pdo, $categories_query)->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -89,10 +89,9 @@
         <ul class="nav__list js-nav-list">
           <li><a href="<?= ROOT ?>" class="nav__list__link <?= is_menu_item_active('home'); ?>">Home</a></li>
           <li><a href="<?= ROOT ?>/blog" class="nav__list__link <?= is_menu_item_active('blog'); ?>">Blog</a></li>
-
           
-          <?php if ( !empty($found_categories) ) { ?>
-              <?php foreach ($found_categories as $category) { ?>
+          <?php if ($categories) { ?>
+              <?php foreach ($categories as $category) { ?>
                 <li><a href="<?= ROOT ?>/category/<?= $category['slug'] ?>" class="nav__list__link <?= $url[1] == $category['slug'] ? 'active' : '' ?>"><?= $category['category_name'] ?></a></li>
               <?php } ?>
           <?php } ?>

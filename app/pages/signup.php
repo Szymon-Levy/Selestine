@@ -21,8 +21,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors['user_name'] = 'Username cannot be shorter than 6 characters and longer than 35 characters!';
   }
 
-  $email_query = 'SELECT id FROM users WHERE email = :email limit 1;';
-  $is_email_in_db = db_query($pdo, $email_query, ['email' => $email]);
+  $email_query = 'SELECT id FROM users WHERE email = :email;';
+  $is_email_in_db = db_query($pdo, $email_query, ['email' => $email])->fetch();
 
   if (empty($email)) {
     $errors['email'] = 'Email cannot be empty!';
@@ -50,13 +50,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   if(empty($errors)) {
     //save new user to database
-    $data = [];
-    $data['user_name']    = $user_name;
-    $data['email']        = $email;
-    $data['pass']         = hash_password($password);
-    $data['account_type'] = 'user';
+    $arguments = [];
+    $arguments['user_name']    = $user_name;
+    $arguments['email']        = $email;
+    $arguments['pass']         = hash_password($password);
+    $arguments['account_type'] = 'user';
     $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
-    db_query($pdo, $query, $data);
+    db_query($pdo, $query, $arguments);
     
     $_SESSION['REGISTERED'] = true;
     redirect('login');

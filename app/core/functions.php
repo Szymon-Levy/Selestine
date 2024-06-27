@@ -1,24 +1,22 @@
 <?php
 
 /**
- * Queries the database with a given query and returns found rows. Returns false if not found.
+ * Queries the database with a given query and returns found data.
  * @param object $pdo PDO object.
  * @param string $sql SQL query to execute in the database.
- * @param array $arguments Values to use in prepare statement.
- * @return array|boolean Associative array of found row/rows or false if not found.
+ * @param array $arguments Values to use in prepared statement.
+ * @return array Array of found row/rows.
  */
-function db_query (PDO $pdo, string $sql, array $arguments = [], bool $is_multiple_result = true) {
+function db_query (PDO $pdo, string $sql, array $arguments = null) {
   try {
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute($arguments);
-
-    $restult = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    if(is_array($restult) && !empty($restult)) {
-      return $restult;
+    if (!$arguments) {
+      return $pdo->query($sql);
     }
-
-    return false;
+    else {
+      $result = $pdo->prepare($sql);
+      $result->execute($arguments);
+      return $result;
+    }
   } catch (PDOException $error) {
     echo 'Query failed: ' . $error->getMessage();
   }

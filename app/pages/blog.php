@@ -11,11 +11,9 @@
                     ON articles.category_id = categories.id 
                     WHERE categories.is_active = 1 AND articles.slug = :slug
                     ORDER BY create_date DESC;';
-  $found_article = db_query($pdo, $article_query, ['slug' => $article_slug]);
+  $article = db_query($pdo, $article_query, ['slug' => $article_slug])->fetch();
 
-  if (!empty($found_article)) {
-    $article = $found_article[0];
-
+  if ($article) {
     $page_title = $article['title'];
     include '../app/pages/includes/top.php';
 
@@ -52,9 +50,9 @@ else { ?>
                         ON articles.category_id = categories.id 
                         WHERE categories.is_active = 1 
                         ORDER BY create_date DESC;';
-      $found_articles = db_query($pdo, $articles_query);
-      if ($found_articles) {
-        foreach ($found_articles as $article) {
+      $articles = db_query($pdo, $articles_query)->fetchAll();
+      if ($articles) {
+        foreach ($articles as $article) {
           include '../app/pages/includes/article-card.php';
         }
       } else {
