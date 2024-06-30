@@ -1,15 +1,12 @@
 <?php
-  $all_users_query = 'SELECT COUNT(*) as num FROM users';
-  $users_number = db_query($pdo, $all_users_query)->fetch();
-  $users_number = $users_number['num'];
+  $all_users_query = 'SELECT COUNT(*) FROM users';
+  $users_number = db_query($pdo, $all_users_query)->fetchColumn();
 
-  $all_categories_query = 'SELECT COUNT(*) as num FROM categories';
-  $categories_number = db_query($pdo, $all_categories_query)->fetch();
-  $categories_number = $categories_number['num'];
+  $all_categories_query = 'SELECT COUNT(*) FROM categories';
+  $categories_number = db_query($pdo, $all_categories_query)->fetchColumn();
 
-  $all_articles_query = 'SELECT COUNT(*) as num FROM articles';
-  $articles_number = db_query($pdo, $all_articles_query)->fetch();
-  $articles_number = $articles_number['num'];
+  $all_articles_query = 'SELECT COUNT(*) FROM articles';
+  $articles_number = db_query($pdo, $all_articles_query)->fetchColumn();
 ?>
 
 <main class="main">
