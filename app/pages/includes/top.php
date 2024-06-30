@@ -113,7 +113,7 @@
         </ul>
 
         <?php if (is_user_logged_in()) { ?>
-          <?php generate_nav_profile(); ?>
+          <?php generate_nav_profile($pdo); ?>
         <?php } ?>
 
         </div>

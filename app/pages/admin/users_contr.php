@@ -189,13 +189,6 @@ else if ($action == 'edit') {
         }
         
         db_query($pdo, $query, $arguments);
-
-        //update userdata in session when currently is logged in
-        if ($_SESSION['USER']['id'] == $id) {
-          $user_query = 'SELECT * FROM users WHERE id = :id limit 1;';
-          $user = db_query($pdo, $user_query, ['id' => $id])->fetch();
-          authenticate_user($user);
-        }
         
         $_SESSION['USER_EDITED'] = true;
         redirect('admin/users');

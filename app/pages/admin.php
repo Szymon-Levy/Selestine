@@ -2,9 +2,11 @@
   if (!is_user_logged_in()) {
     redirect('login');
   }
-  else if (!is_user_admin()) {
+  else if (!is_user_admin($pdo)) {
     redirect('');
   }
+
+  $user = get_logged_user_data($pdo);
 
   $section = $url[1] ?? 'dashboard';
   $action = $url[2] ?? 'view';
@@ -102,12 +104,12 @@
 
     <div class="sidebar__user">
       <div class="sidebar__user__image">
-        <img src="<?= get_image_path($_SESSION['USER']['avatar']); ?>" alt="">
+        <img src="<?= get_image_path($user['avatar']); ?>" alt="">
       </div>
 
       <div class="sidebar__user__info">
-        <h4><?= htmlspecialchars($_SESSION['USER']['first_name']) ?? htmlspecialchars($_SESSION['USER']['user_name']); ?></h4>
-        <span><?=htmlspecialchars($_SESSION['USER']['email']); ?></span>
+        <h4><?= htmlspecialchars($user['first_name']) ?? htmlspecialchars($user['user_name']); ?></h4>
+        <span><?=htmlspecialchars($user['email']); ?></span>
       </div>
 
       <a class="sidebar__user__logout" href="<?= ROOT ?>/logout">

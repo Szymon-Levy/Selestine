@@ -31,11 +31,21 @@ function redirect (string $page) {
 }
 
 /**
- * Login user into page.
- * @param array $db_user_row Row from the database of user to login.
+ * Returns database data of currently logged in user.
+ * @return array Array user user data from database.
  */
-function authenticate_user (array $db_user_row) {
-  $_SESSION['USER'] = $db_user_row;
+function get_logged_user_data (PDO $pdo) {
+  $arguments = ['id' => $_SESSION['USER']];
+  $user_query = 'SELECT * FROM users WHERE id = :id;';
+  return db_query($pdo, $user_query, $arguments)->fetch();
+}
+
+/**
+ * Login user into page.
+ * @param array $user_id Id of user to log in.
+ */
+function authenticate_user (int $user_id) {
+  $_SESSION['USER'] = $user_id;
 }
 
 /**
@@ -53,8 +63,8 @@ function is_user_logged_in () {
  * Checks if user is an admin.
  * @return bool True - user is admin, false - user is not admin.
  */
-function is_user_admin () {
-  if (!empty($_SESSION['USER']) && $_SESSION['USER']['account_type'] === 'admin') {
+function is_user_admin (PDO $pdo) {
+  if (!empty($_SESSION['USER']) && get_logged_user_data($pdo)['account_type'] === 'admin') {
     return true;
   }
   return false;
@@ -193,11 +203,13 @@ function generate_alert (string $message, string $type) {
 /**
  * Generates html of nav profile dropdown with links to profile, admin panel and logout.
  */
-function generate_nav_profile () {
+function generate_nav_profile (PDO $pdo) {
+  $user = get_logged_user_data($pdo);
+
   echo '<div class="nav__profile js-nav-profile">';
 
   echo  '<button class="nav__profile__button js-nav-profile-button" aria-expanded="false">';
-  echo    '<img class="nav__profile__button__avatar" src="' . get_image_path(htmlspecialchars($_SESSION['USER']['avatar'])) . '" aria-hidden="true"            alt="Profile picture">';
+  echo    '<img class="nav__profile__button__avatar" src="' . get_image_path(htmlspecialchars($user['avatar'])) . '" aria-hidden="true"            alt="Profile picture">';
   echo    '<i class="ri-arrow-down-s-line nav__profile__button__arrow js-nav-profile-button-arrow" aria-hidden="true"></i>';
   echo    '<span class="visually-hidden">Show profile options</span>';
   echo  '</button>';
@@ -205,11 +217,11 @@ function generate_nav_profile () {
   echo  '<div class="nav__profile__menu js-nav-profile-menu">';
   echo    '<div class="nav__profile__menu__greeting">';
   echo      'Hi, ';
-  echo      $_SESSION['USER']['first_name'] ? htmlspecialchars($_SESSION['USER']['first_name']) : htmlspecialchars($_SESSION['USER']['user_name']);
+  echo      $user['first_name'] ? htmlspecialchars($user['first_name']) : htmlspecialchars($user['user_name']);
   echo    '</div>';
   echo    '<ul class="nav__profile__menu__list">';
   //echo      '<li><a href="' . ROOT . '/profile-settings"><i class="ri-settings-2-fill" aria-hidden="true"></i> Profile settings</a></li>';
-  echo      is_user_admin() ? '<li><a href="' . ROOT . '/admin" target="_blank"><i class="ri-dashboard-3-fill" aria-hidden="true"></i> Admin panel</a></li>' : '';
+  echo      is_user_admin($pdo) ? '<li><a href="' . ROOT . '/admin" target="_blank"><i class="ri-dashboard-3-fill" aria-hidden="true"></i> Admin panel</a></li>' : '';
   echo      '<li><a href="' . ROOT . '/logout"><i class="ri-logout-box-r-fill" aria-hidden="true"></i> Logout</a></li>';
   echo    '</ul>';
   echo  '</div>';

@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($user && password_verify($password, $user['pass'])) {
       //login into session
-      authenticate_user($user);
+      authenticate_user($user['id']);
 
       $_SESSION['LOGGED_IN'] = true;
       if ($user['account_type'] === 'admin') {
