@@ -135,7 +135,7 @@ else if ($action == 'edit') {
       else {
         $article_slug = generate_slug($title);
       
-        $slug_query = 'SELECT id FROM articles WHERE slug = :slug AND id != id;';
+        $slug_query = 'SELECT id FROM articles WHERE slug = :slug AND id != :id;';
         $is_slug_in_db = db_query($pdo, $slug_query, ['slug' => $article_slug, 'id' => $id])->fetch();
         $slug_number = 1;
         

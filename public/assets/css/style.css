@@ -1217,6 +1217,69 @@ p {
   text-align: center;
 }
 
+/* === PROFILE PAGE === */
+.profile {
+  padding: var(--section-block-space-400) 0;
+}
+
+.profile .row {
+  display: grid;
+  align-items: start;
+  gap: var(--gap-400);
+}
+
+.profile__side-col,
+.profile__main-col {
+  padding: var(--inner-space-500) var(--inner-space-400);
+}
+
+.profile__side-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--clr-bg-light);
+}
+
+.profile__image {
+  margin-bottom: 1.6rem;
+  width: 15rem;
+  height: 15rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile__account-type {
+  margin-top: 1.4rem;
+  padding: 0 2rem;
+  line-height: 3rem;
+  background-color: var(--clr-primary);
+  color: white;
+}
+
+.profile__account-type--admin {
+  background-color: rgb(4, 151, 17);
+}
+
+.profile__main-col {
+  border: 1px solid var(--clr-line);
+}
+
+.profile__info {
+  margin-top: 1.6rem;
+}
+
+.profile__articles {
+  margin-top: 1.6rem;
+}
+
+.profile__articles__title {
+  margin-bottom: 1rem;
+}
+
+.profile__articles__item + .profile__articles__item {
+  margin-top: 1.2rem;
+}
+
 
 /* === FOOTER & BOTTOM GALLERY === */
 .bottom-gallery {
@@ -1603,6 +1666,11 @@ p {
   /* POPULAR ARTICLES */
   .popular__title {
     font-size: 4rem;
+  }
+
+  /* === PROFILE PAGE === */
+  .profile .row {
+    grid-template-columns: 30% auto;
   }
 
  }

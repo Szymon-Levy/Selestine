@@ -207,7 +207,6 @@ function generate_nav_profile (PDO $pdo) {
   $user = get_logged_user_data($pdo);
 
   echo '<div class="nav__profile js-nav-profile">';
-
   echo  '<button class="nav__profile__button js-nav-profile-button" aria-expanded="false">';
   echo    '<img class="nav__profile__button__avatar" src="' . get_image_path(htmlspecialchars($user['avatar'])) . '" aria-hidden="true"            alt="Profile picture">';
   echo    '<i class="ri-arrow-down-s-line nav__profile__button__arrow js-nav-profile-button-arrow" aria-hidden="true"></i>';
@@ -220,12 +219,11 @@ function generate_nav_profile (PDO $pdo) {
   echo      $user['first_name'] ? htmlspecialchars($user['first_name']) : htmlspecialchars($user['user_name']);
   echo    '</div>';
   echo    '<ul class="nav__profile__menu__list">';
-  //echo      '<li><a href="' . ROOT . '/profile-settings"><i class="ri-settings-2-fill" aria-hidden="true"></i> Profile settings</a></li>';
+  echo      '<li><a href="' . ROOT . '/profile-settings"><i class="ri-settings-2-fill" aria-hidden="true"></i> Profile settings</a></li>';
   echo      is_user_admin($pdo) ? '<li><a href="' . ROOT . '/admin" target="_blank"><i class="ri-dashboard-3-fill" aria-hidden="true"></i> Admin panel</a></li>' : '';
   echo      '<li><a href="' . ROOT . '/logout"><i class="ri-logout-box-r-fill" aria-hidden="true"></i> Logout</a></li>';
   echo    '</ul>';
   echo  '</div>';
 
   echo '</div>';
-
 }
