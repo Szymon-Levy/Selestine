@@ -18,6 +18,11 @@
         <?= htmlspecialchars($article['title']); ?>
       </h1>
 
+      <a href="<?= ROOT . '/profile/' . $article['user_id']; ?>" class="article__hero__content__author"> 
+        <img src="<?= get_image_path($article['avatar']); ?>" alt="<?= $article['author']; ?> avatar">
+        <?= $article['author']; ?>
+      </a>
+
       <div class="article__hero__content__visits">
         Visits: <?= $article['visits']; ?>
       </div>

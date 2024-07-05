@@ -8,9 +8,10 @@
   $home_slides = db_query($pdo, $home_slides_query)->fetchAll();
 
   //blog cards
-  $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
-                    FROM articles INNER JOIN categories 
-                    ON articles.category_id = categories.id 
+  $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug, users.user_name AS author, users.avatar
+                    FROM articles 
+                    INNER JOIN categories ON articles.category_id = categories.id 
+                    INNER JOIN users ON articles.user_id = users.id 
                     WHERE categories.is_active = 1 AND articles.is_home_slider = 0
                     ORDER BY create_date DESC LIMIT 4;';
   $main_articles = db_query($pdo, $articles_query)->fetchAll();
@@ -40,9 +41,10 @@
   $fashion_articles = db_query($pdo, $fashion_articles_query)->fetchAll();
 
   //most popular articles
-  $popular_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
-                            FROM articles INNER JOIN categories 
-                            ON articles.category_id = categories.id 
+  $popular_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug, users.user_name AS author, users.avatar 
+                            FROM articles 
+                            INNER JOIN categories ON articles.category_id = categories.id 
+                            INNER JOIN users ON articles.user_id = users.id 
                             WHERE categories.is_active = 1
                             ORDER BY visits DESC LIMIT 5;';
   $popular_articles = db_query($pdo, $popular_articles_query)->fetchAll();

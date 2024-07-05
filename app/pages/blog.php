@@ -6,9 +6,10 @@
   <!-- show article page -->
 
   <?php
-  $article_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
-                    FROM articles INNER JOIN categories 
-                    ON articles.category_id = categories.id 
+  $article_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug, users.user_name AS author, users.avatar 
+                    FROM articles 
+                    INNER JOIN categories ON articles.category_id = categories.id 
+                    INNER JOIN users ON articles.user_id = users.id 
                     WHERE categories.is_active = 1 AND articles.slug = :slug
                     ORDER BY create_date DESC;';
   $article = db_query($pdo, $article_query, ['slug' => $article_slug])->fetch();
@@ -45,9 +46,10 @@ else { ?>
   <div class="container">
     <div class="row blog__row blog__row--horizontal-view">
       <?php 
-      $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
-                        FROM articles INNER JOIN categories 
-                        ON articles.category_id = categories.id 
+      $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug, users.user_name AS author, users.avatar
+                        FROM articles 
+                        INNER JOIN categories ON articles.category_id = categories.id 
+                        INNER JOIN users ON articles.user_id = users.id 
                         WHERE categories.is_active = 1 
                         ORDER BY create_date DESC;';
       $articles = db_query($pdo, $articles_query)->fetchAll();

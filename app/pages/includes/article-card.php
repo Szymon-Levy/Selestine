@@ -1,6 +1,6 @@
 <div class="article-card js-animation-fade-from-bottom">
   <a href="<?= ROOT . '/blog/' . $article['slug']; ?>" class="article-card__image-wrapper">
-    <img src="<?= get_image_path($article['thumbnail']); ?>" alt="article thumbnail">
+    <img src="<?= get_image_path($article['thumbnail']); ?>" alt="<?= htmlspecialchars($article['title']); ?> article thumbnail">
   </a>
 
   <div class="article-card__content">
@@ -12,5 +12,10 @@
     <h3 class="article-card__content__title">
       <a href="<?= ROOT . '/blog/' . $article['slug']; ?>" class="title title--h3"><?= htmlspecialchars($article['title']); ?></a>
     </h3>
+
+    <a href="<?= ROOT . '/profile/' . $article['user_id']; ?>" class="article-card__content__author"> 
+      <img src="<?= get_image_path($article['avatar']); ?>" alt="<?= $article['author']; ?> avatar">
+      <?= $article['author']; ?>
+    </a>
   </div>
 </div>

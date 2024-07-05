@@ -9,8 +9,8 @@
   /* COLORS */
   
   --clr-primary: #000000;
-  --clr-accent: #4930a5;
-  --clr-accent-alt: #281669;
+  --clr-accent: #cb2732;
+  --clr-accent-alt: #8b3037;
   --clr-bg-light: #f8f8f8;
   --clr-black: #000;
   --clr-white: #ffffff;
@@ -419,6 +419,28 @@ p {
   background-color: var(--clr-white);
 }
 
+.article-card__content__author {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1.8rem;
+  color: var(--clr-primary);
+  font-size: var(--fs-body-300);
+  transition: color .4s;
+}
+
+.article-card__content__author img {
+  margin-right: 1.2em;
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.article-card__content__author:hover,
+.article-card__content__author:focus-visible {
+  color: var(--clr-accent);
+}
+
 .article-card__content__info {
   display: flex;
   align-items: center;
@@ -815,6 +837,27 @@ p {
 
 .article__hero__content__title {
   margin-top: var(--inner-space-400);
+}
+
+.article__hero__content__author {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1.8rem;
+  color: var(--clr-primary);
+  transition: color .4s;
+}
+
+.article__hero__content__author img {
+  margin-right: 1em;
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.article__hero__content__author:hover,
+.article__hero__content__author:focus-visible {
+  color: var(--clr-accent);
 }
 
 .article__hero__content__visits {
@@ -1607,7 +1650,7 @@ p {
   }
 
   .article__hero {
-    min-height: 45rem;
+    min-height: 50rem;
   }
 
   .article__body {
