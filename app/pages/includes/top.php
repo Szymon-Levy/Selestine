@@ -19,8 +19,9 @@
   <link rel="stylesheet" href="<?=ROOT?>/assets/css/swiper-bundle.min.css">
 
   <!-- ----- custom css -----  -->
-  <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css">
+  <link rel="stylesheet" href="<?=ROOT?>/assets/css/style.css?v=<?= filemtime(FILESYSTEM_PATH . '/assets/css/style.css'); ?>">
 
+  <!-- ----- page title -----  -->
   <title><?= isset($page_title) ? $page_title . ' - ' : '' ?> <?= APP_NAME ?> </title>
 </head>
 <body>

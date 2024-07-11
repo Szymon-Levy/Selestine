@@ -70,15 +70,15 @@
 <script src="<?=ROOT?>/assets/js/swiper-bundle.min.js"></script>
 
 <!-- ----- custom js -----  -->
-<script src="<?=ROOT?>/assets/js/script.js"></script>
+<script src="<?=ROOT?>/assets/js/script.js?v=<?= filemtime(FILESYSTEM_PATH . '/assets/js/script.js'); ?>"></script>
 
 <!-- ----- general js -----  -->
-<script src="<?=ROOT?>/assets/js/general.js"></script>
+<script src="<?=ROOT?>/assets/js/general.js?v=<?= filemtime(FILESYSTEM_PATH . '/assets/js/general.js'); ?>"></script>
 
 <!-- ----- scroll reveal js -----  -->
 <script src="<?=ROOT?>/assets/js/scrollreveal.js"></script>
 
 <!-- ----- animations js -----  -->
-<script src="<?=ROOT?>/assets/js/animations.js"></script>
+<script src="<?=ROOT?>/assets/js/animations.js?v=<?= filemtime(FILESYSTEM_PATH . '/assets/js/animations.js'); ?>"></script>
 </body>
 </html>
