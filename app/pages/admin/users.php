@@ -90,6 +90,50 @@
 
           <div class="form__row">
             <div class="form__field">
+              <label for="about" class="form__label">about user</label>
+              <textarea name="about" id="about" placeholder="Description about user"><?= isset($about) ? htmlspecialchars($about) : ''; ?></textarea>
+
+              <?php if (!empty($errors['about'])) { ?>
+                <div class="form_error"> <?= $errors['about']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="instagram" class="form__label">instagram username</label>
+              <input value="<?= $instagram ?? ''; ?>" type="text" name="instagram" id="instagram" placeholder="@">
+
+              <?php if (!empty($errors['instagram'])) { ?>
+                <div class="form_error"> <?= $errors['instagram']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="facebook" class="form__label">facebook username</label>
+              <input value="<?= $facebook ?? ''; ?>" type="text" name="facebook" id="facebook" placeholder="@">
+
+              <?php if (!empty($errors['facebook'])) { ?>
+                <div class="form_error"> <?= $errors['facebook']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="twitter" class="form__label">twitter username</label>
+              <input value="<?= $twitter ?? ''; ?>" type="text" name="twitter" id="twitter" placeholder="@">
+
+              <?php if (!empty($errors['twitter'])) { ?>
+                <div class="form_error"> <?= $errors['twitter']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
               <div class="form_checkbox">
                 <label for="type" class="form__label">account type</label>
                 <input class="form_checkbox__input" <?= !empty($type) && $type == 'admin' ? 'checked' : '' ?> type="checkbox" name="type" id="type" value="admin">
@@ -113,6 +157,7 @@
   </main>
 
 <?php }
+
 else if ($action == 'edit') { ?>
 
   <?php if ($user) { ?>
@@ -125,7 +170,7 @@ else if ($action == 'edit') { ?>
       <section class="edit-user">
         <form method="post" class="form user__form" enctype="multipart/form-data">
 
-        <div class="form__row">
+          <div class="form__row">
             <div class="form__field">
               <div class="js-form-upload-container">
                 <label for="avatar" class="form__label">upload avatar</label>
@@ -208,6 +253,50 @@ else if ($action == 'edit') { ?>
 
           <div class="form__row">
             <div class="form__field">
+              <label for="about" class="form__label">about user</label>
+              <textarea name="about" id="about" placeholder="Description about user"><?= $user['about'] ?? ''; ?></textarea>
+
+              <?php if (!empty($errors['about'])) { ?>
+                <div class="form_error"> <?= $errors['about']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="instagram" class="form__label">instagram username</label>
+              <input value="<?= $user['instagram'] ?? ''; ?>" type="text" name="instagram" id="instagram" placeholder="@">
+
+              <?php if (!empty($errors['instagram'])) { ?>
+                <div class="form_error"> <?= $errors['instagram']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="facebook" class="form__label">facebook username</label>
+              <input value="<?= $user['facebook'] ?? ''; ?>" type="text" name="facebook" id="facebook" placeholder="@">
+
+              <?php if (!empty($errors['facebook'])) { ?>
+                <div class="form_error"> <?= $errors['facebook']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
+              <label for="twitter" class="form__label">twitter username</label>
+              <input value="<?= $user['twitter'] ?? ''; ?>" type="text" name="twitter" id="twitter" placeholder="@">
+
+              <?php if (!empty($errors['twitter'])) { ?>
+                <div class="form_error"> <?= $errors['twitter']; ?> </div>
+              <?php } ?>
+            </div>
+          </div>
+
+          <div class="form__row">
+            <div class="form__field">
               <label for="type" class="form__label">account type</label>
               <div class="form_checkbox">
                 <input class="form_checkbox__input" <?= $user['account_type'] == 'admin' ? 'checked' : '' ?> type="checkbox" name="type" id="type" value="admin">
@@ -235,145 +324,147 @@ else if ($action == 'edit') { ?>
   <?php } ?>
 
 <?php }
+
 else if ($action == 'delete') { ?>
 
-<?php if ($user) { ?>
-    <main class="main">
-      <h1 class="main__title">Delete user</h1>
+  <?php if ($user) { ?>
+      <main class="main">
+        <h1 class="main__title">Delete user</h1>
 
-      <div class="main__container">
+        <div class="main__container">
 
-        <!-- === DELETE USER FORM === -->
-      <section class="delete-user">
-        <form method="post" class="form user__form">
-          <div class="form__question">Are You sure to delete this user?</div>
+          <!-- === DELETE USER FORM === -->
+        <section class="delete-user">
+          <form method="post" class="form user__form">
+            <div class="form__question">Are You sure to delete this user?</div>
 
-          <div class="form__row">
-            <div class="form__field">
-              <div class="form__label">user name</div>
-              <input disabled value="<?= htmlspecialchars($user['user_name'] ?? ''); ?>" type="text" name="username" id="username" placeholder="username">
+            <div class="form__row">
+              <div class="form__field">
+                <div class="form__label">user name</div>
+                <input disabled value="<?= htmlspecialchars($user['user_name'] ?? ''); ?>" type="text" name="username" id="username" placeholder="username">
+              </div>
             </div>
-          </div>
 
-          <div class="form__row">
-            <div class="form__field">
-              <div class="form__label">user email</div>
-              <input disabled value="<?= htmlspecialchars($user['email'] ?? ''); ?>" type="text" name="email" id="email" placeholder="email">
+            <div class="form__row">
+              <div class="form__field">
+                <div class="form__label">user email</div>
+                <input disabled value="<?= htmlspecialchars($user['email'] ?? ''); ?>" type="text" name="email" id="email" placeholder="email">
+              </div>
             </div>
-          </div>
-          
-          <div class="form__row form__row--submit form__row--buttons">
-            <button class="btn btn--primary form__submit-btn" type="submit">Delete account</button>
-            <a href="<?=ROOT?>/admin/users" class="btn btn--secondary">
-              <i class="ri-arrow-go-back-line" aria-hidden="true"></i>
-              Go back
-            </a>
-          </div>
+            
+            <div class="form__row form__row--submit form__row--buttons">
+              <button class="btn btn--primary form__submit-btn" type="submit">Delete account</button>
+              <a href="<?=ROOT?>/admin/users" class="btn btn--secondary">
+                <i class="ri-arrow-go-back-line" aria-hidden="true"></i>
+                Go back
+              </a>
+            </div>
 
-        </form>
-      </section>
+          </form>
+        </section>
 
+        </div>
+      </main>
+  <?php }
+  else { ?>
+    <?php generate_alert('User not found.', 'error'); ?>
+  <?php } ?>
+
+<?php }
+
+else { ?>
+
+  <!-- === USERS TABLE === -->
+  <main class="main">
+    <h1 class="main__title">Users</h1>
+
+    <div class="main__container">
+      <div class="buttons-container">
+        <a class="btn btn--primary" href="<?=ROOT?>/admin/users/add">
+          <i class="ri-user-add-line" aria-hidden="true"></i>
+          Add new user
+        </a>
       </div>
-    </main>
-<?php }
-else { ?>
-  <?php generate_alert('User not found.', 'error'); ?>
-<?php } ?>
 
-<?php }
-else { ?>
+      <table class="table">
+        <thead>
+          <th>Id</th>
+          <th>Avatar</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Date</th>
+          <th>Account</th>
+          <th>Actions</th>
+        </thead>
 
-<!-- === USERS TABLE === -->
-<main class="main">
-  <h1 class="main__title">Users</h1>
+        <?php
+          $all_users_query = 'SELECT * FROM users ORDER BY id ASC';
+          $users = db_query($pdo, $all_users_query)->fetchAll();
+        ?>
 
-  <div class="main__container">
-    <div class="buttons-container">
-      <a class="btn btn--primary" href="<?=ROOT?>/admin/users/add">
-        <i class="ri-user-add-line" aria-hidden="true"></i>
-        Add new user
-      </a>
-    </div>
+        <?php if (!empty($users)) { ?>
+        <tbody>
+          <?php foreach($users as $user) { ?>
 
-    <table class="table">
-      <thead>
-        <th>Id</th>
-        <th>Avatar</th>
-        <th>Username</th>
-        <th>Email</th>
-        <th>Date</th>
-        <th>Account</th>
-        <th>Actions</th>
-      </thead>
+            <tr>
+              <td data-label="Id"><?= $user['id'] ?></td>
+              <td data-label="Avatar">
+                <div class="table__avatar">
+                  <img src="<?= htmlspecialchars(get_image_path($user['avatar'])) ?>" alt="user avatar">
+                </div>
+              </td>
+              <td data-label="Username"><?= htmlspecialchars($user['user_name']) ?></td>
+              <td data-label="Email"><?= $user['email'] ?></td>
+              <td data-label="Date"><?= date('jS M, Y', strtotime($user['create_date'])) ?></td>
+              <td data-label="Account type"><span class="table__account--<?= $user['account_type'] ?>"><?= $user['account_type'] ?></span></td>
+              <td data-label="Actions">
+                <div class="table__buttons">
+                  <a class="table__buttons__button table__buttons__button--edit" href="<?=ROOT?>/admin/users/edit/<?=$user['id']?>">
+                    <i class="ri-edit-2-line" aria-hidden="true"></i>
+                    <span class="visually-hidden">Edit user</span>
+                  </a>
 
-      <?php
-        $all_users_query = 'SELECT * FROM users ORDER BY id ASC';
-        $users = db_query($pdo, $all_users_query)->fetchAll();
-      ?>
+                  <a class="table__buttons__button table__buttons__button--delete" href="<?=ROOT?>/admin/users/delete/<?=$user['id']?>">
+                    <i class="ri-delete-bin-line" aria-hidden="true"></i>
+                    <span class="visually-hidden">Delete user</span>
+                  </a>
+                </div>
+              </td>
+            </tr>
 
-      <?php if (!empty($users)) { ?>
-      <tbody>
-        <?php foreach($users as $user) { ?>
-
-          <tr>
-            <td data-label="Id"><?= $user['id'] ?></td>
-            <td data-label="Avatar">
-              <div class="table__avatar">
-                <img src="<?= htmlspecialchars(get_image_path($user['avatar'])) ?>" alt="user avatar">
-              </div>
-            </td>
-            <td data-label="Username"><?= htmlspecialchars($user['user_name']) ?></td>
-            <td data-label="Email"><?= $user['email'] ?></td>
-            <td data-label="Date"><?= date('jS M, Y', strtotime($user['create_date'])) ?></td>
-            <td data-label="Account type"><span class="table__account--<?= $user['account_type'] ?>"><?= $user['account_type'] ?></span></td>
-            <td data-label="Actions">
-              <div class="table__buttons">
-                <a class="table__buttons__button table__buttons__button--edit" href="<?=ROOT?>/admin/users/edit/<?=$user['id']?>">
-                  <i class="ri-edit-2-line" aria-hidden="true"></i>
-                  <span class="visually-hidden">Edit user</span>
-                </a>
-
-                <a class="table__buttons__button table__buttons__button--delete" href="<?=ROOT?>/admin/users/delete/<?=$user['id']?>">
-                  <i class="ri-delete-bin-line" aria-hidden="true"></i>
-                  <span class="visually-hidden">Delete user</span>
-                </a>
-              </div>
-            </td>
-          </tr>
-
+          <?php } ?>
+        </tbody>
         <?php } ?>
-      </tbody>
-      <?php } ?>
-    </table>
-  </div>
-</main>
+      </table>
+    </div>
+  </main>
 
-<?php
-  if(isset($_SESSION['USER_ADDED']) && $_SESSION['USER_ADDED'] === true) {
-    unset($_SESSION['USER_ADDED']);
-    generate_alert('New user has been successfully added.', 'success');
-  }
-?>
+  <?php
+    if(isset($_SESSION['USER_ADDED']) && $_SESSION['USER_ADDED'] === true) {
+      unset($_SESSION['USER_ADDED']);
+      generate_alert('New user has been successfully added.', 'success');
+    }
+  ?>
 
-<?php
-  if(isset($_SESSION['USER_EDITED']) && $_SESSION['USER_EDITED'] === true) {
-    unset($_SESSION['USER_EDITED']);
-    generate_alert('User data has been successfully edited.', 'success');
-  }
-?>
+  <?php
+    if(isset($_SESSION['USER_EDITED']) && $_SESSION['USER_EDITED'] === true) {
+      unset($_SESSION['USER_EDITED']);
+      generate_alert('User data has been successfully edited.', 'success');
+    }
+  ?>
 
-<?php
-  if(isset($_SESSION['USER_DELETE_FORBIDDEN']) && $_SESSION['USER_DELETE_FORBIDDEN'] === true) {
-    unset($_SESSION['USER_DELETE_FORBIDDEN']);
-    generate_alert('Admin cannot be deleted.', 'error');
-  }
-?>
+  <?php
+    if(isset($_SESSION['USER_DELETE_FORBIDDEN']) && $_SESSION['USER_DELETE_FORBIDDEN'] === true) {
+      unset($_SESSION['USER_DELETE_FORBIDDEN']);
+      generate_alert('Admin cannot be deleted.', 'error');
+    }
+  ?>
 
-<?php
-  if(isset($_SESSION['USER_DELETED']) && $_SESSION['USER_DELETED'] === true) {
-    unset($_SESSION['USER_DELETED']);
-    generate_alert('User has been successfully deleted.', 'success');
-  }
-?>
+  <?php
+    if(isset($_SESSION['USER_DELETED']) && $_SESSION['USER_DELETED'] === true) {
+      unset($_SESSION['USER_DELETED']);
+      generate_alert('User has been successfully deleted.', 'success');
+    }
+  ?>
 
 <?php } ?>

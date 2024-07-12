@@ -27,26 +27,70 @@
       <?php if ($user) { ?>
         <div class="row">
           <div class="profile__side-col">
-            <button class="profile__picture-btn js-profile-picture-btn">
-              <span class="visually-hidden">Enlarge profile picture</span>
-              <img src="<?= get_image_path($user['avatar']); ?>" alt="<?= $user['user_name'] ?> profile picture" class="profile__picture-btn__image js-profile-picture-btn-image">
-            </button>
-            <h5 class="profile__user-name title title--h5"><?= htmlspecialchars($user['user_name']); ?></h5>
-            <div class="profile__account-type profile__account-type--<?= $user['account_type']; ?>"><?= $user['account_type']; ?></div>
+            <div class="profile__avatar-box">
+              <button class="profile__picture-btn js-profile-picture-btn">
+                <span class="visually-hidden">Enlarge profile picture</span>
+                <img src="<?= get_image_path($user['avatar']); ?>" alt="<?= $user['user_name'] ?> profile picture" class="profile__picture-btn__image js-profile-picture-btn-image">
+              </button>
+              <h5 class="profile__user-name title title--h5"><?= htmlspecialchars($user['user_name']); ?></h5>
+              <div class="profile__account-type profile__account-type--<?= $user['account_type']; ?>"><?= $user['account_type']; ?></div>
+            </div>
+
+            <div class="profile__social-box">
+              <h3 class="title title--h4">Social media:</h3>
+
+              <?php if ($user['instagram'] || $user['facebook'] || $user['twitter']) { ?>
+                <ul class="profile__social-box__list">
+                  <?php if ($user['instagram']) { ?>
+                    <li>
+                      <a href="https://www.instagram.com/<?= htmlspecialchars($user['instagram']); ?>">
+                        <i class="ri-instagram-fill instagram-icon" aria-hidden="true"></i>
+                        See my Instagram
+                      </a>
+                    </li>
+                  <?php } ?>
+
+                  <?php if ($user['facebook']) { ?>
+                    <li>
+                      <a href="https://www.facebook.com/<?= htmlspecialchars($user['facebook']); ?>">
+                        <i class="ri-facebook-box-fill facebook-icon" aria-hidden="true"></i>
+                        See my Facebook
+                      </a>
+                    </li>
+                  <?php } ?>
+
+                  <?php if ($user['twitter']) { ?>
+                    <li>
+                      <a href="https://www.twitter.com/<?= htmlspecialchars($user['twitter']); ?>">
+                        <i class="ri-twitter-fill twitter-icon" aria-hidden="true"></i>
+                        See my Twitter
+                      </a>
+                    </li>
+                  <?php } ?>
+                </ul>
+              <?php } ?>
+            </div>
           </div>
 
           <div class="profile__main-col">
             <h1 class="title title--h1"><?= htmlspecialchars($user['first_name']); ?></h1>
 
             <div class="profile__info">
+              <?php if ($user['about']) { ?>
+                <div class="profile__info__item">
+                  <h5 class="profile__info__item__title title title--h5">About me:</h5>
+                  <div><?= htmlspecialchars($user['about']); ?></div>
+                </div>
+              <?php } ?>
+
               <div class="profile__info__item">
                 <h5 class="profile__info__item__title title title--h5">E-mail:</h5>
-                <p><?= htmlspecialchars($user['email']); ?></p>
+                <div><?= htmlspecialchars($user['email']); ?></div>
               </div>
 
               <div class="profile__info__item">
                 <h5 class="profile__info__item__title title title--h5">Profile visits:</h5>
-                <p><?= htmlspecialchars($user['visits']); ?></p>
+                <div><?= htmlspecialchars($user['visits']); ?></div>
               </div>
             </div>
 

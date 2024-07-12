@@ -9,6 +9,10 @@ if ($action == 'add') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $password2 = trim($_POST['retype-password']);
+    $about = trim($_POST['about']) ?? NULL;
+    $instagram = $_POST['instagram'] ? trim($_POST['instagram']) : NULL;
+    $facebook = $_POST['facebook'] ? trim($_POST['facebook']) : NULL;
+    $twitter = $_POST['twitter'] ? trim($_POST['twitter']) : NULL;
     $type = !empty($_POST['type']) ? 'admin' : 'user';
     $avatar = $_FILES['avatar'] ?? null;
   
@@ -32,7 +36,7 @@ if ($action == 'add') {
     }
   
     if (strlen($first_name) > 50) {
-      $errors['first_name'] = 'First name cannot be longer than 30 characters!';
+      $errors['first_name'] = 'First name cannot be longer than 50 characters!';
     }
 
     if (empty($user_name)) {
@@ -67,6 +71,22 @@ if ($action == 'add') {
     else if ($password !== $password2) {
       $errors['password2'] = 'Passwords do not match!';
     }
+
+    if (strlen($about) > 500) {
+      $errors['about'] = 'About text cannot be longer than 500 characters!';
+    }
+
+    if (!empty($instagram) && !preg_match('/^[a-zA-Z0-9\-\_]+$/', $instagram)) {
+      $errors['instagram'] = 'Not allowed characters used!';
+    }
+
+    if (!empty($facebook) && !preg_match('/^[a-zA-Z0-9\-\_]+$/', $facebook)) {
+      $errors['facebook'] = 'Not allowed characters used!';
+    }
+
+    if (!empty($twitter) && !preg_match('/^[a-zA-Z0-9\-\_]+$/', $twitter)) {
+      $errors['twitter'] = 'Not allowed characters used!';
+    }
   
     if(empty($errors)) {
       
@@ -76,17 +96,23 @@ if ($action == 'add') {
       $arguments['user_name']    = $user_name;
       $arguments['email']        = $email;
       $arguments['pass']         = hash_password($password);
+      $arguments['about']        = $about;
+      $arguments['instagram']    = $instagram;
+      $arguments['facebook']     = $facebook;
+      $arguments['twitter']      = $twitter;
       $arguments['account_type'] = $type;
       
       if ($current_avatar) {
         //upload avatar
         move_uploaded_file($avatar['tmp_name'], FILESYSTEM_PATH . '/assets/images/' . $uploaded_image_path);
         
-        $arguments['avatar']       = $current_avatar;
-        $query = 'INSERT INTO users (avatar, first_name, user_name, email, pass, account_type) VALUES (:avatar, :first_name, :user_name, :email, :pass, :account_type);';
+        $arguments['avatar'] = $current_avatar;
+        $query = 'INSERT INTO users (avatar, first_name, user_name, email, pass, about, instagram, facebook, twitter, account_type) 
+                  VALUES (:avatar, :first_name, :user_name, :email, :pass, :about, :instagram, :facebook, :twitter, :account_type);';
       }
       else {
-        $query = 'INSERT INTO users (user_name, first_name, email, pass, account_type) VALUES (:user_name, :first_name, :email, :pass, :account_type);';
+        $query = 'INSERT INTO users (user_name, first_name, email, pass, about, instagram, facebook, twitter, account_type) 
+                  VALUES (:user_name, :first_name, :email, :pass, :about, :instagram, :facebook, :twitter, :account_type);';
       }
       db_query($pdo, $query, $arguments);
       
@@ -108,6 +134,10 @@ else if ($action == 'edit') {
       $email = trim($_POST['email']);
       $password = trim($_POST['password']);
       $password2 = trim($_POST['retype-password']);
+      $about = trim($_POST['about']) ?? NULL;
+      $instagram = $_POST['instagram'] ? trim($_POST['instagram']) : NULL;
+      $facebook = $_POST['facebook'] ? trim($_POST['facebook']) : NULL;
+      $twitter = $_POST['twitter'] ? trim($_POST['twitter']) : NULL;
       $type = !empty($_POST['type']) ? 'admin' : 'user';
       $avatar = $_FILES['avatar'] ?? null;
     
@@ -161,6 +191,22 @@ else if ($action == 'edit') {
       else if ($password !== $password2) {
         $errors['password2'] = 'Passwords do not match!';
       }
+
+      if (strlen($about) > 500) {
+        $errors['about'] = 'About text cannot be longer than 500 characters!';
+      }
+
+      if (!empty($instagram) && !preg_match('/^[a-zA-Z0-9\-\_]+$/', $instagram)) {
+        $errors['instagram'] = 'Not allowed characters used!';
+      }
+  
+      if (!empty($facebook) && !preg_match('/^[a-zA-Z0-9\-\_]+$/', $facebook)) {
+        $errors['facebook'] = 'Not allowed characters used!';
+      }
+  
+      if (!empty($twitter) && !preg_match('/^[a-zA-Z0-9\-\_]+$/', $twitter)) {
+        $errors['twitter'] = 'Not allowed characters used!';
+      }
     
       if(empty($errors)) {
         //upload new avatar and delete the old one
@@ -177,15 +223,23 @@ else if ($action == 'edit') {
         $arguments['first_name']   = $first_name;
         $arguments['user_name']    = $user_name;
         $arguments['email']        = $email;
+        $arguments['about']        = $about;
+        $arguments['instagram']    = $instagram;
+        $arguments['facebook']     = $facebook;
+        $arguments['twitter']      = $twitter;
         $arguments['account_type'] = $type;
         $arguments['avatar']       = $current_avatar;
         
         if (empty($password)) {
-          $query = 'UPDATE users SET first_name = :first_name, user_name = :user_name, email = :email, account_type = :account_type, avatar = :avatar WHERE id = :id;';
+          $query = 'UPDATE users 
+                    SET first_name = :first_name, user_name = :user_name, email = :email, about = :about, instagram = :instagram, facebook = :facebook, twitter = :twitter, account_type = :account_type, avatar = :avatar 
+                    WHERE id = :id;';
         }
         else {
           $arguments['pass'] = hash_password($password);
-          $query = 'UPDATE users SET first_name = :first_name, user_name = :user_name, email = :email, pass = :pass, account_type = :account_type, avatar = :avatar WHERE id = :id;';
+          $query = 'UPDATE users 
+                    SET first_name = :first_name, user_name = :user_name, email = :email, about = :about, instagram = :instagram, facebook = :facebook, twitter = :twitter, pass = :pass, account_type = :account_type, avatar = :avatar 
+                    WHERE id = :id;';
         }
         
         db_query($pdo, $query, $arguments);

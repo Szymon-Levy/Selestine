@@ -14,5 +14,9 @@
     </section>
 
   </main>
+
+<?php
+  include '../app/pages/includes/bottom.php';
+?>
 </body>
 </html>

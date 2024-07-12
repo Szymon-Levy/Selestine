@@ -1222,17 +1222,15 @@ p {
   padding: var(--section-block-space-400) 0;
 }
 
-.profile .row {
+.profile .row,
+.profile__side-col {
   display: grid;
+  align-items: start;
   gap: var(--gap-400);
 }
 
-.profile__side-col,
-.profile__main-col {
+.profile__avatar-box {
   padding: var(--inner-space-500) var(--inner-space-400);
-}
-
-.profile__side-col {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1271,12 +1269,48 @@ p {
   background-color: rgb(4, 151, 17);
 }
 
-.profile__main-col {
+.profile__social-box__list {
+  margin-top: 1.2rem;
+  display: grid;
+  gap: 1.2rem;
+}
+
+.profile__social-box__list li a {
+  display: flex;
+  align-items: center;
+}
+
+.profile__social-box__list li a i {
+  margin-right: .8rem;
+  font-size: 2.2rem;
+}
+
+.instagram-icon {
+  color: #DD2A7B;
+}
+
+.facebook-icon {
+  color: #3B5998;
+}
+
+.twitter-icon {
+  color: #08a0e9;
+}
+
+.profile__main-col,
+.profile__social-box {
+  padding: var(--inner-space-500) var(--inner-space-400);
   border: 1px solid var(--clr-line);
 }
 
 .profile__info {
   margin-top: 1.6rem;
+  display: grid;
+  row-gap: 1.4rem;
+}
+
+.profile__info__item__title {
+  margin-bottom: .7rem;
 }
 
 .profile__articles {
