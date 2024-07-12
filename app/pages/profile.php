@@ -27,7 +27,10 @@
       <?php if ($user) { ?>
         <div class="row">
           <div class="profile__side-col">
-            <img src="<?= get_image_path($user['avatar']); ?>" alt="<?= $user['user_name'] ?> profile picture" class="profile__image">
+            <button class="profile__picture-btn js-profile-picture-btn">
+              <span class="visually-hidden">Enlarge profile picture</span>
+              <img src="<?= get_image_path($user['avatar']); ?>" alt="<?= $user['user_name'] ?> profile picture" class="profile__picture-btn__image js-profile-picture-btn-image">
+            </button>
             <h5 class="profile__user-name title title--h5"><?= htmlspecialchars($user['user_name']); ?></h5>
             <div class="profile__account-type profile__account-type--<?= $user['account_type']; ?>"><?= $user['account_type']; ?></div>
           </div>
@@ -71,5 +74,17 @@
       <?php } ?>
   </div>
 </section>
+
+<!-- === AVATAR ENLARGE === -->
+<?php if ($user) { ?> 
+  <div class="picture-enlarge js-picture-enlarge">
+    <button class="picture-enlarge__close js-picture-enlarge-close">
+      <span class="visually-hidden">Close popup</span>
+      <i class="ri-close-line" aria-hidden="true"></i>
+    </button>
+
+    <img src="<?= get_image_path('/users/avatars/default-profile-picture.jpg'); ?>" class="picture-enlarge__image js-picture-enlarge-image" alt="Big profile picture">
+  </div>
+<?php } ?> 
 
 <?php include '../app/pages/includes/bottom.php'; ?>

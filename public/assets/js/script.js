@@ -159,3 +159,39 @@ const swiper = new Swiper('.js-bottom-gallery-swiper', {
     }
   }
 });
+
+/* === PROFILE PAGE === */
+const $profilePictureBtn = document.querySelector('.js-profile-picture-btn')
+const $profilePictureEnlarge = document.querySelector('.js-picture-enlarge')
+
+/**
+ * Gets src of picture to enlarge.
+ * @returns {string} Src of image
+ */
+const getProfilePictureSrc = () => {
+  return $profilePictureBtn.querySelector('.js-profile-picture-btn-image').src
+}
+
+/**
+ * Opens popup with original size of profile picture.
+ */
+const openProfilePictureEnlarge = () => {
+  document.body.style.overflowY = 'hidden'
+  $profilePictureEnlarge.classList.add('active')
+  $profilePictureEnlarge.querySelector('.js-picture-enlarge-image').src = getProfilePictureSrc()
+}
+
+/**
+ * Closes profile picture popup.
+ */
+const closeProfilePictureEnlarge = () => {
+  document.body.style.overflowY = 'auto'
+  $profilePictureEnlarge.classList.remove('active')
+}
+
+if ($profilePictureBtn && $profilePictureEnlarge) {
+  const $closePopupBtn = $profilePictureEnlarge.querySelector('.js-picture-enlarge-close')
+
+  $profilePictureBtn.addEventListener('click', openProfilePictureEnlarge)
+  $closePopupBtn.addEventListener('click', closeProfilePictureEnlarge)
+}
