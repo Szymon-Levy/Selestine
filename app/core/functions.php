@@ -227,3 +227,28 @@ function generate_nav_profile (PDO $pdo) {
 
   echo '</div>';
 }
+
+/**
+ * Generates pagination element.
+ * @param int $results_number Number of all items.
+ * @param int $results_limit Limit of showing items.
+ * @param int $page Currently opened page.
+ * @param string $href Address of first page of results.
+ * @param string $char Divider in query string.
+ */
+function generate_pagination(int $results_number, int $results_limit, int $page, string $href, string $char = '?') {
+  $pages = ceil($results_number / $results_limit);
+  echo '<div class="pagination">';
+  echo '<ul class="pagination__list">';
+
+  for ($i = 1; $i <= $pages; $i++) {
+    $active_class = $i == $page ? 'active' : '';
+
+    echo '<li>';
+    echo '<a href="' . ROOT . $href . $char .'page=' . $i . '" class="' . $active_class . '">' . $i . '</a>';
+    echo '</li>';
+  }
+
+  echo '</ul>';
+  echo '</div>';
+}
