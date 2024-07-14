@@ -195,7 +195,8 @@ p {
 /* BUTTONS */
 
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
   padding: 0 3rem;
   line-height: 4rem;
   font-size: var(--fs-body-300);
@@ -204,6 +205,10 @@ p {
   font-weight: 400;
   border: 1px solid;
   transition: all .4s;
+}
+
+.btn i {
+  margin-right: .5rem;
 }
 
 .btn.btn--primary {
@@ -233,6 +238,8 @@ p {
 
 .form__row {
   margin-bottom: 1rem;
+  display: grid;
+  gap: 1rem;
 }
 
 .form__label {
@@ -252,7 +259,6 @@ p {
 
 .form input:not([type="checkbox"], [type="radio"]) {
   padding: 0 1.4rem;
-  width: 100%;
   height: 3rem;
   border: 1px solid var(--clr-border);
   background-color: var(--clr-white);
@@ -260,8 +266,15 @@ p {
 
 .form input,
 .form textarea {
+  width: 100%;
   border: 1px solid var(--clr-border);
   transition: box-shadow .2s;
+}
+
+.form textarea {
+  padding: 1.4rem;
+  width: 100% !important;
+  min-height: 12rem;
 }
 
 .form input::placeholder,
@@ -281,6 +294,16 @@ p {
   color: var(--clr-error);
 }
 
+.form__row--submit {
+  margin-bottom: 0;
+  margin-top: 2.4rem;
+}
+
+.form__row--buttons {
+  display: grid;
+  gap: 1rem;
+}
+
 /* custom checkbox & radio */
 .form_checkbox__input,
 .form_radio__input {
@@ -288,8 +311,8 @@ p {
   margin: 0 !important;
   padding: 0 !important;
   opacity: 0;
-  height: 0;
-  width: 0;
+  height: 0 !important;
+  width: 0 !important;
   pointer-events: none;
 }
 
@@ -352,6 +375,62 @@ p {
   background-size: .7em;
 }
 
+/* upload file drag & drop */
+.form__upload {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+  background-color: var(--clr-bg-light);
+  border: 2px dashed var(--clr-primary);
+  position: relative;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.form__upload:hover {
+  background-color: var(--clr-white);
+}
+
+.form__upload:focus,
+.form__upload:focus-within {
+  border-color: var(--clr-accent);
+}
+
+.form__upload__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.form__upload__text i {
+  margin-bottom: 1rem;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--clr-accent);
+}
+
+.form__upload__file-name {
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.form__upload__input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
 /* ALERTS */
 .alert {
   position: fixed;
@@ -376,6 +455,10 @@ p {
 .alert.alert--error {
   background-color: var(--clr-error-bg);
   color: var(--clr-error);
+}
+
+.alert__message {
+  margin: 0;
 }
 
 .alert__close {
@@ -1397,6 +1480,31 @@ p {
   max-height: 100%;
 }
 
+/* === PROFILE SETTINGS === */
+.profile-settings {
+  padding: var(--section-block-space-400) 0;
+}
+
+.profile-settings__form__title {
+  margin-bottom: 2rem;
+}
+
+.profile-settings__form {
+  display: grid;
+  gap: var(--gap-400);
+}
+
+.profile-settings__form__avatar-preview {
+  margin-top: 1.6rem;
+}
+
+.profile-settings__form__avatar-preview span {
+  margin-bottom: 1rem;
+  display: block;
+  font-weight: 600;
+  color: var(--clr-primary);
+}
+
 
 /* === FOOTER & BOTTOM GALLERY === */
 .bottom-gallery {
@@ -1473,6 +1581,14 @@ p {
   /* CONTAINER */
 
   --side-space: 3rem;
+  }
+
+  /* === COMPONENTS === */
+
+  /* FORMS */
+  .form__row--buttons {
+    grid-auto-flow: column;
+    justify-content: start;
   }
 
   /* === HEADER === */
@@ -1571,6 +1687,8 @@ p {
   /* FORMS */
   .form__row {
     margin-bottom: 1.4rem;
+    grid-auto-flow: column;
+    gap: 1.4rem;
   }
 
   .form input:not([type="checkbox"], [type="radio"]) {
@@ -1800,6 +1918,10 @@ p {
     grid-template-columns: 30% auto;
   }
 
+  /* === PROFILE SETTINGS === */
+  .profile-settings__form {
+    grid-template-columns: 28rem auto;
+  }
  }
 
 

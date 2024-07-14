@@ -71,12 +71,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="form__row">
-          <label for="password" class="form__label form__label--required">Password</label>
-          <input type="password" name="password" id="password" placeholder="password">
+          <div class="form__field">
+            <label for="password" class="form__label form__label--required">Password</label>
+            <input type="password" name="password" id="password" placeholder="password">
 
-          <?php if (!empty($errors['password'])) { ?>
-            <div class="form_error"> <?= $errors['password']; ?> </div>
-          <?php } ?>
+            <?php if (!empty($errors['password'])) { ?>
+              <div class="form_error"> <?= $errors['password']; ?> </div>
+            <?php } ?>
+          </div>
         </div>
 
         <div class="form__row form__row--submit">

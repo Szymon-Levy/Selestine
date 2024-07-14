@@ -80,8 +80,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </a>
 
         <div class="form__row">
-          <label for="username" class="form__label form__label--required">User name</label>
           <div class="form__field">
+            <label for="username" class="form__label form__label--required">User name</label>
             <input value="<?= $user_name ?? ''; ?>" type="text" name="username" id="username" placeholder="user name">
 
             <?php if (!empty($errors['user_name'])) { ?>
@@ -91,8 +91,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="form__row">
-          <label for="email" class="form__label form__label--required">email</label>
           <div class="form__field">
+            <label for="email" class="form__label form__label--required">email</label>
             <input value="<?= $email ?? ''; ?>" type="text" name="email" id="email" placeholder="email">
 
             <?php if (!empty($errors['email'])) { ?>
@@ -102,24 +102,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
 
         <div class="form__row">
-          <label for="password" class="form__label form__label--required">password</label>
           <div class="form__field">
-            <input type="password" name="password" id="password" placeholder="password">
+            <label for="password" class="form__label form__label--required">password</label>
+            <div class="form__field">
+              <input type="password" name="password" id="password" placeholder="password">
 
-            <?php if (!empty($errors['password'])) { ?>
-              <div class="form_error"> <?= $errors['password']; ?> </div>
-            <?php } ?>
+              <?php if (!empty($errors['password'])) { ?>
+                <div class="form_error"> <?= $errors['password']; ?> </div>
+              <?php } ?>
+            </div>
           </div>
         </div>
 
         <div class="form__row">
-          <label for="retype-password" class="form__label form__label--required">retype password</label>
           <div class="form__field">
-            <input type="password" name="retype-password" id="retype-password" placeholder="retype password">
+            <label for="retype-password" class="form__label form__label--required">retype password</label>
+            <div class="form__field">
+              <input type="password" name="retype-password" id="retype-password" placeholder="retype password">
 
-            <?php if (!empty($errors['password2'])) { ?>
-              <div class="form_error"> <?= $errors['password2']; ?> </div>
-            <?php } ?>
+              <?php if (!empty($errors['password2'])) { ?>
+                <div class="form_error"> <?= $errors['password2']; ?> </div>
+              <?php } ?>
+            </div>
           </div>
         </div>
 

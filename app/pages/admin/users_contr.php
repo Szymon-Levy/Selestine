@@ -159,7 +159,7 @@ else if ($action == 'edit') {
       }
 
       if (strlen($first_name) > 50) {
-        $errors['first_name'] = 'First name cannot be longer than 30 characters!';
+        $errors['first_name'] = 'First name cannot be longer than 50 characters!';
       }
     
       if (empty($user_name)) {
@@ -218,7 +218,7 @@ else if ($action == 'edit') {
         }
 
         //edit user in database
-        $arguments =               [];
+        $arguments                 = [];
         $arguments['id']           = $id;
         $arguments['first_name']   = $first_name;
         $arguments['user_name']    = $user_name;
