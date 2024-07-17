@@ -25,6 +25,8 @@
   --clr-success: rgb(12, 134, 12);
   --clr-error-bg: rgb(255, 200, 200);
   --clr-error: rgb(176, 28, 28);
+  --clr-warning-bg: rgb(255, 242, 208);
+  --clr-warning: rgb(208, 110, 5);
   --clr-border: #aeaeae;
   --clr-line: #e3e3e3;
 
@@ -607,6 +609,74 @@ p {
   background-color: var(--clr-accent);
   border-color: var(--clr-accent);
   color: var(--clr-white);
+}
+
+/* COMMENTS */
+.comments {
+  padding-bottom: var(--section-block-space-400);
+}
+
+.comments__counter {
+  margin-bottom: 2rem;
+  padding: 2rem 0;
+  font-weight: 600;
+  border-bottom: 1px solid var(--clr-primary);
+}
+
+.comments__login-message {
+  padding: 2rem var(--side-space);
+  background-color: var(--clr-warning-bg);
+  color: var(--clr-warning);
+  text-align: center;
+}
+
+.comments__form .form__row--submit {
+  margin-top: 0;
+}
+
+.comments__wrapper {
+  margin-top: 3rem;
+}
+
+.comments__item {
+  padding: var(--inner-space-400);
+  background-color: var(--clr-bg-light);
+}
+
+.comments__item + .comments__item {
+  margin-top: var(--inner-space-400);
+}
+
+.comments__item__info {
+  display: flex;
+  align-items: center;
+}
+
+.comments__item__info__author-avatar {
+  margin-right: 1rem;
+  flex: 0 0 4rem;
+}
+
+.comments__item__info__author-avatar img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comments__item__info__content {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.comments__item__info__date {
+  font-size: var(--fs-body-300);
+  color: var(--clr-grey);
+}
+
+.comments__item__content {
+  margin-top: 2rem;
 }
 
 /* === HEADER === */
@@ -1719,6 +1789,16 @@ p {
     line-height: 4rem;
   }
 
+  /* COMMENTS */
+  .comments__counter {
+    margin-bottom: 4rem;
+    font-size: 1.8rem;
+  }
+
+  .comments__wrapper {
+    margin-top: 5rem;
+  }
+
   /* === NAVIGATION BAR === */
   .nav {
     padding: 3rem 0;
@@ -1950,6 +2030,13 @@ p {
     --inner-space-700: 7rem;
   }
 
+  /* === COMPONENTS === */
+
+  /* COMMENTS */
+  .comments {
+    padding-bottom: 15rem;
+  }
+
   /* === HEADER === */
   .header {
     --logo-width: 325px;
@@ -1963,7 +2050,7 @@ p {
 
   /* === SINGLE ARTICLE PAGE === */
   .article {
-    padding-bottom: 15rem;
+    padding-bottom: 8rem;
   }
 
   .article__hero {

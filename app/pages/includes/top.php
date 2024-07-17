@@ -96,7 +96,6 @@
                 <li><a href="<?= ROOT ?>/category/<?= $category['slug'] ?>" class="nav__list__link <?= isset($url[1]) && $url[1] == $category['slug'] ? 'active' : '' ?>"><?= $category['category_name'] ?></a></li>
               <?php } ?>
           <?php } ?>
-          
 
           <?php if (!is_user_logged_in()) { ?>
             <li>

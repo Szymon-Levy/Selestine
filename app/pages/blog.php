@@ -14,10 +14,41 @@
   $article = db_query($pdo, $article_query, ['slug' => $article_slug])->fetch();
 
   if ($article) {
+    //add comment logic
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      $comment = trim($_POST['comment']);
+      
+      //validation
+      $errors = [];
+
+      if (empty($comment)) {
+        $errors['comment'] = 'Comment field cannot be empty!';
+      }
+      else if (strlen($comment) > 250) {
+        $errors['comment'] = 'Comment cannot be longer than 250 characters!';
+      }
+
+      //save comment into db
+      if (empty($errors)) {
+        $add_comment_query = 'INSERT INTO comments (article_id, user_id, content)
+                              VALUES (:article_id, :user_id, :content);';
+        $arguments['article_id'] = $article['id'];
+        $arguments['user_id'] = get_logged_user_data($pdo)['id'];
+        $arguments['content'] = $comment;
+        db_query($pdo, $add_comment_query, $arguments);
+
+        $comment = '';
+        $_SESSION['COMMENT_ADDED'] = true;
+        redirect('blog/' . $article['slug'] . '#comment' . $pdo->lastInsertId());
+      }
+    }
+
+    //load structure files
     $page_title = $article['title'];
     include '../app/pages/includes/top.php';
 
     include '../app/pages/includes/single-article.php';
+    include '../app/pages/includes/comments.php';
 
     //update article views column
     $add_visitor_query = 'UPDATE articles SET visits = visits + 1 WHERE id = :id';
@@ -29,6 +60,13 @@
 
     $message_block = generate_alert('Article not found.', 'error');
   }
+
+
+  if(isset($_SESSION['COMMENT_ADDED']) && $_SESSION['COMMENT_ADDED'] === true) {
+    unset($_SESSION['COMMENT_ADDED']);
+    $message_block = generate_alert('Comment has been added successfully.', 'success');
+  }
+
 
   ?>
 
