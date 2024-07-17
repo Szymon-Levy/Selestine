@@ -271,7 +271,7 @@ else if ($action == 'delete') {
       //delete user from database
       $arguments['id'] = $id;
       
-      $delete_query = 'DELETE FROM users WHERE id = :id LIMIT 1;';
+      $delete_query = 'DELETE FROM users WHERE id = :id;';
       
       db_query($pdo, $delete_query, $arguments);
       

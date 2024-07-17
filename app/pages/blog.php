@@ -15,7 +15,7 @@
 
   if ($article) {
     //add comment logic
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['addcomment'])) {
       $comment = trim($_POST['comment']);
       
       //validation
@@ -61,13 +61,20 @@
     $message_block = generate_alert('Article not found.', 'error');
   }
 
-
   if(isset($_SESSION['COMMENT_ADDED']) && $_SESSION['COMMENT_ADDED'] === true) {
     unset($_SESSION['COMMENT_ADDED']);
     $message_block = generate_alert('Comment has been added successfully.', 'success');
   }
 
+  if(isset($_SESSION['DELETE_COMMENT_ERROR_AUTHOR']) && $_SESSION['DELETE_COMMENT_ERROR_AUTHOR'] === true) {
+    unset($_SESSION['DELETE_COMMENT_ERROR_AUTHOR']);
+    $message_block = generate_alert('You are not the author of the comment.', 'error');
+  }
 
+  if(isset($_SESSION['DELETE_COMMENT_SUCCESS']) && $_SESSION['DELETE_COMMENT_SUCCESS'] === true) {
+    unset($_SESSION['DELETE_COMMENT_SUCCESS']);
+    $message_block = generate_alert('The comment has been successfully removed.', 'success');
+  }
   ?>
 
 <?php } 
@@ -119,6 +126,18 @@ else { ?>
       ?>
     </div>
   </section>
+
+  <?php
+    if(isset($_SESSION['DELETE_COMMENT_ERROR_INVALID_ID']) && $_SESSION['DELETE_COMMENT_ERROR_INVALID_ID'] === true) {
+      unset($_SESSION['DELETE_COMMENT_ERROR_INVALID_ID']);
+      $message_block = generate_alert('Invalid comment id.', 'error');
+    }
+
+    if(isset($_SESSION['DELETE_COMMENT_ERROR_NOT_FOUND']) && $_SESSION['DELETE_COMMENT_ERROR_NOT_FOUND'] === true) {
+      unset($_SESSION['DELETE_COMMENT_ERROR_NOT_FOUND']);
+      $message_block = generate_alert("Comment doesn't exist.", 'error');
+    }
+  ?>
 
 <?php } ?>
 

@@ -14,7 +14,7 @@
   }
 ?>
 
-<section class="comments">
+<section class="comments" id="comments">
   <div class="container">
     <div class="row">
       <div class="comments__counter">
@@ -37,7 +37,7 @@
           </div>
 
           <div class="form__row form__row--submit">
-            <button class="btn btn--accent form__submit-btn" type="submit">Make a comment</button>
+            <button class="btn btn--accent form__submit-btn" name="addcomment" type="submit">Make a comment</button>
           </div>
         </form>
       <?php }
@@ -66,6 +66,27 @@
                 </div>
 
                 <div class="comments__item__content"><?= htmlspecialchars($comment['content']); ?></div>
+
+                <?php if (is_user_logged_in()) { ?>
+                  <div class="comments__item__controls">
+                    <button class="comments__item__controls__btn">
+                      Reply
+                      <i class="ri-reply-line" aria-hidden="true"></i>
+                    </button>
+
+                    <button class="comments__item__controls__btn">
+                      Like
+                      <i class="ri-heart-line" aria-hidden="true"></i>
+                    </button>
+
+                    <?php if (get_logged_user_data($pdo)['id'] == $comment['author_id']) { ?>
+                      <a href="<?= ROOT ?>/delete-comment?id=<?= $comment['id'] ?>" class="comments__item__controls__btn comments__item__controls__btn--delete">
+                        Delete
+                        <i class="ri-delete-bin-line" aria-hidden="true"></i>
+                      </a>
+                    <?php } ?>
+                  </div>
+                <?php } ?>
               </div>
             </div>
           <?php } ?>

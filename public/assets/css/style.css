@@ -679,6 +679,39 @@ p {
   margin-top: 2rem;
 }
 
+.comments__item__controls {
+  margin-top: 1.6rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comments__item__controls__btn {
+  margin-left: 1.6rem;
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--fs-body-300);
+  color: var(--clr-primary);
+  transition: color .3s;
+}
+
+.comments__item__controls__btn:hover,
+.comments__item__controls__btn:focus-visible {
+  color: var(--clr-accent);
+}
+
+.comments__item__controls__btn--delete {
+  color: var(--clr-error);
+}
+
+.comments__item__controls__btn--delete:hover,
+.comments__item__controls__btn--delete:focus-visible {
+  color: var(--clr-primary);
+}
+
+.comments__item__controls__btn i {
+  margin-left: .4rem;
+}
+
 /* === HEADER === */
 .header {
   padding: 2rem 0;
