@@ -647,6 +647,24 @@ p {
   margin-top: var(--inner-space-400);
 }
 
+.comments__item__inner {
+  position: relative;
+}
+
+.comments__item__likes {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 .8rem;
+  background-color: var(--clr-accent);
+  color: var(--clr-white);
+  font-size: var(--fs-body-300);
+}
+
+.comments__item__likes i {
+  margin-right: .2rem;
+}
+
 .comments__item__info {
   display: flex;
   align-items: center;
@@ -710,6 +728,15 @@ p {
 
 .comments__item__controls__btn i {
   margin-left: .4rem;
+}
+
+.comments__item__controls__btn--like i.active {
+  color: var(--clr-accent);
+}
+
+.comments__item__controls__btn--like:hover i.active,
+.comments__item__controls__btn--like:focus-visible i.active {
+  color: var(--clr-primary);
 }
 
 /* === HEADER === */

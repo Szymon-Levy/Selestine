@@ -75,6 +75,16 @@
     unset($_SESSION['DELETE_COMMENT_SUCCESS']);
     $message_block = generate_alert('The comment has been successfully removed.', 'success');
   }
+
+  if(isset($_SESSION['ADD_LIKE_TO_COMMENT_SUCCESS']) && $_SESSION['ADD_LIKE_TO_COMMENT_SUCCESS'] === true) {
+    unset($_SESSION['ADD_LIKE_TO_COMMENT_SUCCESS']);
+    $message_block = generate_alert('You have successfully added like to the comment.', 'success');
+  }
+
+  if(isset($_SESSION['REMOVE_LIKE_FROM_COMMENT_SUCCESS']) && $_SESSION['REMOVE_LIKE_FROM_COMMENT_SUCCESS'] === true) {
+    unset($_SESSION['REMOVE_LIKE_FROM_COMMENT_SUCCESS']);
+    $message_block = generate_alert('You have successfully deleted like from the comment.', 'success');
+  }
   ?>
 
 <?php } 
@@ -136,6 +146,21 @@ else { ?>
     if(isset($_SESSION['DELETE_COMMENT_ERROR_NOT_FOUND']) && $_SESSION['DELETE_COMMENT_ERROR_NOT_FOUND'] === true) {
       unset($_SESSION['DELETE_COMMENT_ERROR_NOT_FOUND']);
       $message_block = generate_alert("Comment doesn't exist.", 'error');
+    }
+
+    if(isset($_SESSION['LIKE_COMMENT_ERROR_INVALID_ID']) && $_SESSION['LIKE_COMMENT_ERROR_INVALID_ID'] === true) {
+      unset($_SESSION['LIKE_COMMENT_ERROR_INVALID_ID']);
+      $message_block = generate_alert("Invalid comment id.", 'error');
+    }
+
+    if(isset($_SESSION['LIKE_COMMENT_ERROR_NOT_FOUND']) && $_SESSION['LIKE_COMMENT_ERROR_NOT_FOUND'] === true) {
+      unset($_SESSION['LIKE_COMMENT_ERROR_NOT_FOUND']);
+      $message_block = generate_alert("Comment doesn't exist.", 'error');
+    }
+
+    if(isset($_SESSION['LIKE_COMMENT_ERROR_NOT_LOGGED']) && $_SESSION['LIKE_COMMENT_ERROR_NOT_LOGGED'] === true) {
+      unset($_SESSION['LIKE_COMMENT_ERROR_NOT_LOGGED']);
+      $message_block = generate_alert("Only logged in users can like comments.", 'error');
     }
   ?>
 

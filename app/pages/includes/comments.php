@@ -4,13 +4,17 @@
   $comments = null;
 
   if ($comments_number > 0) {
+    $arguments['article_id'] = $article['id'];
+    $arguments['user_id'] = get_logged_user_data($pdo)['id'] ?? '';
     $comments_query = 'SELECT comments.*,
-                      users.id AS author_id, users.first_name, users.user_name, users.avatar, users.account_type
+                      users.id AS author_id, users.first_name, users.user_name, users.avatar, users.account_type, 
+                      (SELECT COUNT(*) FROM comments_likes WHERE comment_id = comments.id) AS likes,
+                      (SELECT COUNT(*) FROM comments_likes WHERE comment_id = comments.id AND user_id = :user_id) AS user_like
                       FROM comments
                       INNER JOIN users ON comments.user_id = users.id
                       WHERE article_id = :article_id
                       ORDER BY comments.create_date DESC';
-    $comments = db_query($pdo, $comments_query, [$article['id']])->fetchAll();
+    $comments = db_query($pdo, $comments_query, $arguments)->fetchAll();
   }
 ?>
 
@@ -48,10 +52,16 @@
       <?php } ?>
 
       <?php if ($comments) { ?>
+
         <div class="comments__wrapper">
           <?php foreach($comments as $comment) { ?>
             <div class="comments__item" id="comment<?= $comment['id'] ?>" data-id="comment<?= $comment['id'] ?>">
               <div class="comments__item__inner">
+                <div class="comments__item__likes">
+                  <i class="ri-heart-fill" aria-hidden="true"></i>
+                  <?= $comment['likes']; ?>
+                </div>
+
                 <div class="comments__item__info">
                   <a href="<?= ROOT ?>/profile/<?= $comment['author_id'] ?>" class="comments__item__info__author-avatar">
                     <img src="<?= get_image_path($comment['avatar']) ?>" alt="Comment's author avatar">
@@ -69,15 +79,15 @@
 
                 <?php if (is_user_logged_in()) { ?>
                   <div class="comments__item__controls">
-                    <button class="comments__item__controls__btn">
+                    <!-- <button class="comments__item__controls__btn">
                       Reply
                       <i class="ri-reply-line" aria-hidden="true"></i>
-                    </button>
+                    </button> -->
 
-                    <button class="comments__item__controls__btn">
+                    <a href="<?= ROOT ?>/like-comment?id=<?= $comment['id'] ?>" class="comments__item__controls__btn comments__item__controls__btn--like">
                       Like
-                      <i class="ri-heart-line" aria-hidden="true"></i>
-                    </button>
+                      <i class="ri-heart-<?= $comment['user_like'] ? 'fill' : 'line';?> <?= $comment['user_like'] ? 'active' : '';?>" aria-hidden="true"></i>
+                    </a>
 
                     <?php if (get_logged_user_data($pdo)['id'] == $comment['author_id']) { ?>
                       <a href="<?= ROOT ?>/delete-comment?id=<?= $comment['id'] ?>" class="comments__item__controls__btn comments__item__controls__btn--delete">
