@@ -7,6 +7,10 @@
     <div class="article-card__content__info">
       <a href="<?= ROOT . '/category/' . $article['category_slug']; ?>" class="article-card__content__info__category"> <?= $article['category_name']; ?> </a>
       <span class="article-card__content__info__date"><?= format_date($article['create_date']); ?></span>
+      <a href="<?= ROOT . '/blog/' . $article['slug'] . '#comments'; ?>" class="article-card__content__info__comments">
+        <i class="ri-chat-1-line" aria-hidden="true"></i>
+        (<?= $article['comments']; ?>)
+      </a>
     </div>
 
     <h3 class="article-card__content__title">

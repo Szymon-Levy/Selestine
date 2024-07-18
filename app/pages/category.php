@@ -12,7 +12,10 @@
   $arguments['category_slug']  = $category_slug;
   $arguments['results_limit']  = $results_limit;
   $arguments['results_offset'] = $results_offset;
-  $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug, users.user_name AS author, users.avatar 
+  $articles_query = 'SELECT articles.*, 
+                    categories.category_name, categories.slug AS category_slug, 
+                    users.user_name AS author, users.avatar,
+                    (SELECT COUNT(*) FROM comments WHERE article_id = articles.id) AS comments 
                     FROM articles 
                     INNER JOIN categories ON articles.category_id = categories.id 
                     INNER JOIN users ON articles.user_id = users.id 

@@ -1,19 +1,24 @@
 <?php
   //home slider
-  $home_slides_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
-                       FROM articles INNER JOIN categories 
-                       ON articles.category_id = categories.id 
-                       WHERE categories.is_active = 1 AND articles.is_home_slider = 1
-                       ORDER BY create_date ASC;';
+  $home_slides_query = 'SELECT articles.*, 
+                        categories.category_name, categories.slug AS category_slug,
+                        (SELECT COUNT(*) FROM comments WHERE article_id = articles.id) AS comments
+                        FROM articles INNER JOIN categories 
+                        ON articles.category_id = categories.id 
+                        WHERE categories.is_active = 1 AND articles.is_home_slider = 1
+                        ORDER BY create_date ASC;';
   $home_slides = db_query($pdo, $home_slides_query)->fetchAll();
 
   //blog cards
-  $articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug, users.user_name AS author, users.avatar
-                    FROM articles 
-                    INNER JOIN categories ON articles.category_id = categories.id 
-                    INNER JOIN users ON articles.user_id = users.id 
-                    WHERE categories.is_active = 1 AND articles.is_home_slider = 0
-                    ORDER BY create_date DESC LIMIT 4;';
+  $articles_query = 'SELECT articles.*, 
+                     categories.category_name, categories.slug AS category_slug, 
+                     users.user_name AS author, users.avatar,
+                     (SELECT COUNT(*) FROM comments WHERE article_id = articles.id) AS comments
+                     FROM articles 
+                     INNER JOIN categories ON articles.category_id = categories.id 
+                     INNER JOIN users ON articles.user_id = users.id 
+                     WHERE categories.is_active = 1 AND articles.is_home_slider = 0
+                     ORDER BY create_date DESC LIMIT 4;';
   $main_articles = db_query($pdo, $articles_query)->fetchAll();
 
   //featured articles
@@ -25,11 +30,13 @@
   $featured_articles = db_query($pdo, $featured_articles_query)->fetchAll();
 
   //daily featured
-  $daily_featured_article_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug 
-                                    FROM articles INNER JOIN categories 
-                                    ON articles.category_id = categories.id 
-                                    WHERE categories.is_active = 1 AND articles.is_daily_featured = 1
-                                    ORDER BY create_date DESC LIMIT 1;';
+  $daily_featured_article_query = 'SELECT articles.*, 
+                                   categories.category_name, categories.slug AS category_slug,
+                                   (SELECT COUNT(*) FROM comments WHERE article_id = articles.id) AS comments 
+                                   FROM articles INNER JOIN categories 
+                                   ON articles.category_id = categories.id 
+                                   WHERE categories.is_active = 1 AND articles.is_daily_featured = 1
+                                   ORDER BY create_date DESC LIMIT 1;';
   $daily_featured_article = db_query($pdo, $daily_featured_article_query)->fetch();
 
   //fashion carousel
@@ -41,12 +48,15 @@
   $fashion_articles = db_query($pdo, $fashion_articles_query)->fetchAll();
 
   //most popular articles
-  $popular_articles_query = 'SELECT articles.*, categories.category_name, categories.slug AS category_slug, users.user_name AS author, users.avatar 
-                            FROM articles 
-                            INNER JOIN categories ON articles.category_id = categories.id 
-                            INNER JOIN users ON articles.user_id = users.id 
-                            WHERE categories.is_active = 1
-                            ORDER BY visits DESC LIMIT 5;';
+  $popular_articles_query = 'SELECT articles.*, 
+                             categories.category_name, categories.slug AS category_slug, 
+                             users.user_name AS author, users.avatar,
+                             (SELECT COUNT(*) FROM comments WHERE article_id = articles.id) AS comments
+                             FROM articles 
+                             INNER JOIN categories ON articles.category_id = categories.id 
+                             INNER JOIN users ON articles.user_id = users.id 
+                             WHERE categories.is_active = 1
+                             ORDER BY visits DESC LIMIT 5;';
   $popular_articles = db_query($pdo, $popular_articles_query)->fetchAll();
 ?>
 
@@ -68,6 +78,10 @@
                 <div class="home-slider__slide__content__info">
                   <a href="<?= ROOT . '/category/' . $slide['category_slug']; ?>" class="home-slider__slide__content__info__category"> <?= $slide['category_name']; ?> </a>
                   <span class="home-slider__slide__content__info__date"><?= format_date($slide['create_date']); ?></span>
+                  <a href="<?= ROOT . '/blog/' . $slide['slug'] . '#comments'; ?>" class="home-slider__slide__content__info__comments">
+                    <i class="ri-chat-1-line" aria-hidden="true"></i>
+                    (<?= $slide['comments']; ?>)
+                  </a>
                 </div>
 
                 <h3 class="home-slider__slide__content__title title title--h2">
@@ -163,6 +177,10 @@
             <div class="daily-featured__article__content__info">
               <a href="<?= ROOT . '/category/' . $article['category_slug']; ?>" class="daily-featured__article__content__info__category"> <?= $article['category_name']; ?> </a>
               <span class="daily-featured__article__content__info__date"><?= format_date($article['create_date']); ?></span>
+              <a href="<?= ROOT . '/blog/' . $article['slug'] . '#comments'; ?>" class="article-card__content__info__comments">
+                <i class="ri-chat-1-line" aria-hidden="true"></i>
+                (<?= $article['comments']; ?>)
+              </a>
             </div>
 
             <h3 class="daily-featured__article__content__title">

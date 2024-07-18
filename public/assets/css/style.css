@@ -530,21 +530,13 @@ p {
 .article-card__content__info {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: .8rem 0;
   letter-spacing: .15em;
   line-height: 1;
-}
-
-.article-card__content__info::before {
-  content: "";
-  margin: 0 .95em;
-  width: .1em;
-  height: .8em;
-  background-color: var(--clr-border);
-}
-
-.article-card__content__info__category {
-  order: -1;
-  color: var(--clr-accent);
+  text-transform: uppercase;
+  font-size: var(--fs-body-300);
+  font-weight: 500;
 }
 
 .article-card__content__info__category:hover,
@@ -552,11 +544,17 @@ p {
   color: var(--clr-accent-alt);
 }
 
-.article-card__content__info__category,
 .article-card__content__info__date {
-  text-transform: uppercase;
-  font-size: var(--fs-body-300);
-  font-weight: 500;
+  display: inline-flex;
+}
+
+.article-card__content__info__date::before,
+.article-card__content__info__date::after {
+  content: "";
+  margin: 0 .95em;
+  width: .1em;
+  height: .8em;
+  background-color: var(--clr-border);
 }
 
 .article-card__content__title {
@@ -639,12 +637,29 @@ p {
 }
 
 .comments__item {
+  position: relative;
   padding: var(--inner-space-400);
   background-color: var(--clr-bg-light);
 }
 
 .comments__item + .comments__item {
   margin-top: var(--inner-space-400);
+}
+
+.comments__item--admin {
+  border: 2px solid var(--clr-accent);
+}
+
+.comments__item--admin::after {
+  content: 'Admin';
+  position: absolute;
+  left: var(--inner-space-400);
+  bottom: 0;
+  padding: .2rem 1rem;
+  transform: translateY(50%);
+  background-color: rgb(0, 150, 0);
+  color: var(--clr-white);
+  font-size: var(--fs-body-300);
 }
 
 .comments__item__inner {
@@ -695,6 +710,7 @@ p {
 
 .comments__item__content {
   margin-top: 2rem;
+  white-space: pre-wrap;
 }
 
 .comments__item__controls {
@@ -1202,21 +1218,13 @@ p {
 .home-slider__slide__content__info {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: .8rem 0;
   letter-spacing: .15em;
   line-height: 1;
-}
-
-.home-slider__slide__content__info::before {
-  content: "";
-  margin: 0 .95em;
-  width: .1em;
-  height: .8em;
-  background-color: var(--clr-border);
-}
-
-.home-slider__slide__content__info__category {
-  order: -1;
-  color: var(--clr-accent);
+  font-size: var(--fs-body-300);
+  font-weight: 500;
+  text-transform: uppercase;
 }
 
 .home-slider__slide__content__info__category:hover,
@@ -1224,11 +1232,21 @@ p {
   color: var(--clr-accent-alt);
 }
 
-.home-slider__slide__content__info__category,
 .home-slider__slide__content__info__date {
-  text-transform: uppercase;
-  font-size: var(--fs-body-300);
-  font-weight: 500;
+  display: inline-flex;
+}
+
+.home-slider__slide__content__info__date::before,
+.home-slider__slide__content__info__date::after {
+  content: "";
+  margin: 0 .95em;
+  width: .1em;
+  height: .8em;
+  background-color: var(--clr-border);
+}
+
+.home-slider__slide__content__info__comments {
+  display: inline-flex;
 }
 
 .home-slider__slide__content__title {
@@ -1365,21 +1383,13 @@ p {
 .daily-featured__article__content__info {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: .8rem 0;
   letter-spacing: .15em;
   line-height: 1;
-}
-
-.daily-featured__article__content__info::before {
-  content: "";
-  margin: 0 .95em;
-  width: .1em;
-  height: .8em;
-  background-color: var(--clr-border);
-}
-
-.daily-featured__article__content__info__category {
-  order: -1;
-  color: var(--clr-accent);
+  text-transform: uppercase;
+  font-size: var(--fs-body-300);
+  font-weight: 500;
 }
 
 .daily-featured__article__content__info__category:hover,
@@ -1387,11 +1397,17 @@ p {
   color: var(--clr-accent-alt);
 }
 
-.daily-featured__article__content__info__category,
 .daily-featured__article__content__info__date {
-  text-transform: uppercase;
-  font-size: var(--fs-body-300);
-  font-weight: 500;
+  display: inline-flex;
+}
+
+.daily-featured__article__content__info__date::before,
+.daily-featured__article__content__info__date::after {
+  content: "";
+  margin: 0 .95em;
+  width: .1em;
+  height: .8em;
+  background-color: var(--clr-border);
 }
 
 .daily-featured__article__content__title {

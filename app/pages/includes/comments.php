@@ -5,7 +5,7 @@
 
   if ($comments_number > 0) {
     $arguments['article_id'] = $article['id'];
-    $arguments['user_id'] = get_logged_user_data($pdo)['id'] ?? '';
+    $arguments['user_id'] = is_user_logged_in() ? get_logged_user_data($pdo)['id'] : '';
     $comments_query = 'SELECT comments.*,
                       users.id AS author_id, users.first_name, users.user_name, users.avatar, users.account_type, 
                       (SELECT COUNT(*) FROM comments_likes WHERE comment_id = comments.id) AS likes,
@@ -55,7 +55,7 @@
 
         <div class="comments__wrapper">
           <?php foreach($comments as $comment) { ?>
-            <div class="comments__item" id="comment<?= $comment['id'] ?>" data-id="comment<?= $comment['id'] ?>">
+            <div class="comments__item <?= $comment['account_type'] == 'admin' ? 'comments__item--admin' : '' ?>" id="comment<?= $comment['id'] ?>" data-id="comment<?= $comment['id'] ?>">
               <div class="comments__item__inner">
                 <div class="comments__item__likes">
                   <i class="ri-heart-fill" aria-hidden="true"></i>
