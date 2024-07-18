@@ -63,7 +63,12 @@
 
   if(isset($_SESSION['COMMENT_ADDED']) && $_SESSION['COMMENT_ADDED'] === true) {
     unset($_SESSION['COMMENT_ADDED']);
-    $message_block = generate_alert('Comment has been added successfully.', 'success');
+    $message_block = generate_alert('Comment has been successfully added.', 'success');
+  }
+
+  if(isset($_SESSION['COMMENT_EDITED']) && $_SESSION['COMMENT_EDITED'] === true) {
+    unset($_SESSION['COMMENT_EDITED']);
+    $message_block = generate_alert('Comment has been successfully modified.', 'success');
   }
 
   if(isset($_SESSION['DELETE_COMMENT_ERROR_AUTHOR']) && $_SESSION['DELETE_COMMENT_ERROR_AUTHOR'] === true) {
@@ -164,6 +169,16 @@ else { ?>
     if(isset($_SESSION['LIKE_COMMENT_ERROR_NOT_LOGGED']) && $_SESSION['LIKE_COMMENT_ERROR_NOT_LOGGED'] === true) {
       unset($_SESSION['LIKE_COMMENT_ERROR_NOT_LOGGED']);
       $message_block = generate_alert("Only logged in users can like comments.", 'error');
+    }
+
+    if(isset($_SESSION['EDIT_COMMENT_ERROR_INVALID_ID']) && $_SESSION['EDIT_COMMENT_ERROR_INVALID_ID'] === true) {
+      unset($_SESSION['EDIT_COMMENT_ERROR_INVALID_ID']);
+      $message_block = generate_alert("Invalid comment id.", 'error');
+    }
+
+    if(isset($_SESSION['EDIT_COMMENT_ERROR_NOT_FOUND']) && $_SESSION['EDIT_COMMENT_ERROR_NOT_FOUND'] === true) {
+      unset($_SESSION['EDIT_COMMENT_ERROR_NOT_FOUND']);
+      $message_block = generate_alert("Comment doesn't exist.", 'error');
     }
   ?>
 

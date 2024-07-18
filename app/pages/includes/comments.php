@@ -32,7 +32,7 @@
           <div class="form__row">
             <div class="form__field">
               <label for="comment" class="form__label">Add Your comment</label>
-              <textarea name="comment" id="comment" placeholder="Maximum 400 characters"><?= $comment ?? ''; ?></textarea>
+              <textarea name="comment" id="comment" placeholder="Maximum 250 characters"><?= $comment ?? ''; ?></textarea>
 
               <?php if (!empty($errors['comment'])) { ?>
                 <div class="form_error"> <?= $errors['comment']; ?> </div>
@@ -90,6 +90,11 @@
                     </a>
 
                     <?php if (get_logged_user_data($pdo)['id'] == $comment['author_id']) { ?>
+                      <a href="<?= ROOT ?>/edit-comment?id=<?= $comment['id'] ?>" class="comments__item__controls__btn">
+                        Edit
+                        <i class="ri-edit-line" aria-hidden="true"></i>
+                      </a>
+
                       <a href="<?= ROOT ?>/delete-comment?id=<?= $comment['id'] ?>" class="comments__item__controls__btn comments__item__controls__btn--delete">
                         Delete
                         <i class="ri-delete-bin-line" aria-hidden="true"></i>
