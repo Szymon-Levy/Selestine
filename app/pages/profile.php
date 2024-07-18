@@ -14,8 +14,21 @@
       $articles_query = 'SELECT title, slug FROM articles WHERE user_id = :user_id;';
       $articles = db_query($pdo, $articles_query, ['user_id' => $user['id']])->fetchAll();
 
+      //find written comments
+      $comments_query = 'SELECT comments.id, comments.content, 
+                         articles.slug
+                         FROM comments 
+                         INNER JOIN articles ON articles.id = article_id
+                         WHERE comments.user_id = :user_id;';
+      $comments = db_query($pdo, $comments_query, ['user_id' => $user['id']])->fetchAll();
+
       $page_title = htmlspecialchars($user['user_name']);
     }
+    else {
+      redirect('');
+    }
+  } else {
+    redirect('');
   }
   
   include '../app/pages/includes/top.php';
@@ -108,6 +121,23 @@
               <?php }
               else { ?>
                 <p>No written articles</p>
+              <?php } ?>
+            </div>
+
+            <div class="profile__articles">
+              <h3 class="profile__articles__title title title--h4">Written comments:</h3>
+              <?php if ($comments) { ?>
+                <?php foreach ($comments as $comment) { ?>
+                  <div class="profile__articles__item">
+                    <a href="<?= ROOT . '/blog/' .  $comment['slug'] . '#comment' . $comment['id'];?>" class="profile__articles__item__link">
+                      <i class="ri-chat-1-line" aria-hidden="true"></i>
+                      <?= htmlspecialchars(substr($comment['content'], 0, 80) . '...'); ?>
+                    </a>
+                  </div>
+                <?php } ?>
+              <?php }
+              else { ?>
+                <p>No written comments</p>
               <?php } ?>
             </div>
           </div>

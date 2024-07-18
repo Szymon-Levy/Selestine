@@ -270,7 +270,8 @@ p {
 .form textarea {
   width: 100%;
   border: 1px solid var(--clr-border);
-  transition: box-shadow .2s;
+  outline: none;
+  transition: box-shadow .3s;
 }
 
 .form textarea {
