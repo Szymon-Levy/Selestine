@@ -116,7 +116,7 @@ if ($action == 'add') {
       }
       db_query($pdo, $query, $arguments);
       
-      $_SESSION['USER_ADDED'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'New user has been successfully added.';
       redirect('admin/users');
     }
   }
@@ -244,7 +244,7 @@ else if ($action == 'edit') {
         
         db_query($pdo, $query, $arguments);
         
-        $_SESSION['USER_EDITED'] = true;
+        $_SESSION['MESSAGE_SUCCESS'] = 'User data has been successfully edited.';
         redirect('admin/users');
       }
     }
@@ -256,7 +256,7 @@ else if ($action == 'delete') {
   $user = db_query($pdo, $user_query, ['id' => $id])->fetch();
 
   if ($id == ADMIN_ID) {
-    $_SESSION['USER_DELETE_FORBIDDEN'] = true;
+    $_SESSION['MESSAGE_ERROR'] = 'Admin cannot be deleted.';
     redirect('admin/users');
     die();
   }
@@ -275,7 +275,7 @@ else if ($action == 'delete') {
       
       db_query($pdo, $delete_query, $arguments);
       
-      $_SESSION['USER_DELETED'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'User has been successfully deleted.';
       redirect('admin/users');
 
     }

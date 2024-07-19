@@ -39,7 +39,7 @@ if ($action == 'add') {
       $query = 'INSERT INTO categories (category_name, slug, is_active) VALUES (:category_name, :slug, :is_active);';
       db_query($pdo, $query, $arguments);
       
-      $_SESSION['CATEGORY_ADDED'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'New category has been successfully added.';
       redirect('admin/categories');
     }
   }
@@ -89,7 +89,7 @@ else if ($action == 'edit') {
         
         db_query($pdo, $query, $arguments);
         
-        $_SESSION['CATEGORY_EDITED'] = true;
+        $_SESSION['MESSAGE_SUCCESS'] = 'Category data has been successfully edited.';
         redirect('admin/categories');
       }
     }
@@ -110,7 +110,7 @@ else if ($action == 'delete') {
       
       db_query($pdo, $delete_query, $arguments);
       
-      $_SESSION['CATEGORY_DELETED'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'Category has been successfully deleted.';
       redirect('admin/categories');
 
     }

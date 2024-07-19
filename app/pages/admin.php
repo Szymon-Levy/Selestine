@@ -131,9 +131,16 @@
 
 
   <?php
-    if(isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN'] === true) {
-      unset($_SESSION['LOGGED_IN']);
-      generate_alert('You have successfully logged in.', 'success');
+    if (isset($_SESSION['MESSAGE_SUCCESS'])) {
+      $message = $_SESSION['MESSAGE_SUCCESS'];
+      unset($_SESSION['MESSAGE_SUCCESS']);
+      echo generate_alert($message, 'success');
+    }
+  
+    if (isset($_SESSION['MESSAGE_ERROR'])) {
+      $message = $_SESSION['MESSAGE_ERROR'];
+      unset($_SESSION['MESSAGE_ERROR']);
+      echo generate_alert($message, 'error');
     }
   ?>
 

@@ -439,32 +439,4 @@ else { ?>
     </div>
   </main>
 
-  <?php
-    if(isset($_SESSION['USER_ADDED']) && $_SESSION['USER_ADDED'] === true) {
-      unset($_SESSION['USER_ADDED']);
-      generate_alert('New user has been successfully added.', 'success');
-    }
-  ?>
-
-  <?php
-    if(isset($_SESSION['USER_EDITED']) && $_SESSION['USER_EDITED'] === true) {
-      unset($_SESSION['USER_EDITED']);
-      generate_alert('User data has been successfully edited.', 'success');
-    }
-  ?>
-
-  <?php
-    if(isset($_SESSION['USER_DELETE_FORBIDDEN']) && $_SESSION['USER_DELETE_FORBIDDEN'] === true) {
-      unset($_SESSION['USER_DELETE_FORBIDDEN']);
-      generate_alert('Admin cannot be deleted.', 'error');
-    }
-  ?>
-
-  <?php
-    if(isset($_SESSION['USER_DELETED']) && $_SESSION['USER_DELETED'] === true) {
-      unset($_SESSION['USER_DELETED']);
-      generate_alert('User has been successfully deleted.', 'success');
-    }
-  ?>
-
 <?php } ?>

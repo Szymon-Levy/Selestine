@@ -3,6 +3,6 @@
 if (!empty($_SESSION['USER'])) {
   unset($_SESSION['USER']);
 
-  $_SESSION['LOGGED_OUT'] = true;
+  $_SESSION['MESSAGE_SUCCESS'] = 'You have been successfully logged out.';
 }
 redirect('');

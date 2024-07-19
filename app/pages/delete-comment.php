@@ -10,23 +10,23 @@ if ($id) {
   $comment = db_query($pdo, $comment_query, [$id])->fetch();
 
   if (!$comment) {
-    $_SESSION['DELETE_COMMENT_ERROR_NOT_FOUND'] = true;
+    $_SESSION['MESSAGE_ERROR'] = "Comment doesn't exist.";
     redirect('blog');
   }
 
   if (is_user_logged_in() && get_logged_user_data($pdo)['id'] == $comment['user_id']) {
     $delete_comment_query = 'DELETE FROM comments WHERE id = :id;';
     db_query($pdo, $delete_comment_query, [$id]);
-    $_SESSION['DELETE_COMMENT_SUCCESS'] = true;
+    $_SESSION['MESSAGE_SUCCESS'] = 'The comment has been successfully removed.';
   }
   else {
-    $_SESSION['DELETE_COMMENT_ERROR_AUTHOR'] = true;
+    $_SESSION['MESSAGE_ERROR'] = 'You are not the author of the comment.';
   }
 
   //redirect to article where the comment was assigned
   redirect('blog/' . $comment['article_slug'] . '#comments');
 }
 else {
-  $_SESSION['DELETE_COMMENT_ERROR_INVALID_ID'] = true;
+  $_SESSION['MESSAGE_ERROR'] = 'Invalid comment id.';
   redirect('blog');
 }

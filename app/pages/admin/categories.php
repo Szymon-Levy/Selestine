@@ -204,25 +204,4 @@ else { ?>
   </div>
 </main>
 
-<?php
-if(isset($_SESSION['CATEGORY_ADDED']) && $_SESSION['CATEGORY_ADDED'] === true) {
-  unset($_SESSION['CATEGORY_ADDED']);
-  generate_alert('New user has been successfully added.', 'success');
-}
-?>
-
-<?php
-if(isset($_SESSION['CATEGORY_EDITED']) && $_SESSION['CATEGORY_EDITED'] === true) {
-  unset($_SESSION['CATEGORY_EDITED']);
-  generate_alert('User data has been successfully edited.', 'success');
-}
-?>
-
-<?php
-if(isset($_SESSION['CATEGORY_DELETED']) && $_SESSION['CATEGORY_DELETED'] === true) {
-  unset($_SESSION['CATEGORY_DELETED']);
-  generate_alert('User has been successfully deleted.', 'success');
-}
-?>
-
 <?php } ?>

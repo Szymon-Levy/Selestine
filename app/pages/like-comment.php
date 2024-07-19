@@ -10,7 +10,7 @@ if ($id) {
   $comment = db_query($pdo, $comment_query, [$id])->fetch();
 
   if (!$comment) {
-    $_SESSION['LIKE_COMMENT_ERROR_NOT_FOUND'] = true;
+    $_SESSION['MESSAGE_ERROR'] = "Comment doesn't exist.";
     redirect('blog');
   }
 
@@ -22,16 +22,16 @@ if ($id) {
     if (!$like) {
       $add_like_query = 'INSERT INTO comments_likes (user_id, comment_id) VALUES (:user_id, :comment_id);';
       db_query($pdo, $add_like_query, $arguments);
-      $_SESSION['ADD_LIKE_TO_COMMENT_SUCCESS'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'You have successfully added like to the comment.';
     }
     else {
       $delete_like_query = 'DELETE FROM comments_likes WHERE user_id = :user_id AND comment_id = :comment_id;';
       db_query($pdo, $delete_like_query, $arguments);
-      $_SESSION['REMOVE_LIKE_FROM_COMMENT_SUCCESS'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'You have successfully deleted like from the comment.';
     }
   }
   else {
-    $_SESSION['LIKE_COMMENT_ERROR_NOT_LOGGED'] = true;
+    $_SESSION['MESSAGE_ERROR'] = 'Only logged in users can like comments.';
     redirect('blog');
   }
 
@@ -39,6 +39,6 @@ if ($id) {
   redirect('blog/' . $comment['article_slug'] . '#comment' . $id);
 }
 else {
-  $_SESSION['LIKE_COMMENT_ERROR_INVALID_ID'] = true;
+  $_SESSION['MESSAGE_ERROR'] = 'Invalid comment id.';
   redirect('blog');
 }

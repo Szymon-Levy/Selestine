@@ -503,25 +503,4 @@ else { ?>
   </div>
 </main>
 
-<?php
-if(isset($_SESSION['ARTICLE_ADDED']) && $_SESSION['ARTICLE_ADDED'] === true) {
-  unset($_SESSION['ARTICLE_ADDED']);
-  generate_alert('New article has been successfully added.', 'success');
-}
-?>
-
-<?php
-if(isset($_SESSION['ARTICLE_EDITED']) && $_SESSION['ARTICLE_EDITED'] === true) {
-  unset($_SESSION['ARTICLE_EDITED']);
-  generate_alert('Article data has been successfully edited.', 'success');
-}
-?>
-
-<?php
-if(isset($_SESSION['ARTICLE_DELETED']) && $_SESSION['ARTICLE_DELETED'] === true) {
-  unset($_SESSION['ARTICLE_DELETED']);
-  generate_alert('Article has been successfully deleted.', 'success');
-}
-?>
-
 <?php } ?>

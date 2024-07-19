@@ -27,7 +27,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       //login into session
       authenticate_user($user['id']);
 
-      $_SESSION['LOGGED_IN'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'You have successfully logged in.';
       if ($user['account_type'] === 'admin') {
         redirect('admin');
       }
@@ -91,12 +91,5 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
   </div>
 </section>
-
-<?php
-  if(isset($_SESSION['REGISTERED']) && $_SESSION['REGISTERED'] === true) {
-    unset($_SESSION['REGISTERED']);
-    $message_block = generate_alert('Your account has been registered, you can now log in by providing the correct credentials.', 'success');
-  }
-?>
 
 <?php include '../app/pages/includes/bottom.php'; ?>

@@ -61,8 +61,17 @@
 </footer>
 
 <?php
-  if (isset($message_block)) {
-    $message_block;
+
+  if (isset($_SESSION['MESSAGE_SUCCESS'])) {
+    $message = $_SESSION['MESSAGE_SUCCESS'];
+    unset($_SESSION['MESSAGE_SUCCESS']);
+    echo generate_alert($message, 'success');
+  }
+
+  if (isset($_SESSION['MESSAGE_ERROR'])) {
+    $message = $_SESSION['MESSAGE_ERROR'];
+    unset($_SESSION['MESSAGE_ERROR']);
+    echo generate_alert($message, 'error');
   }
 ?>
 

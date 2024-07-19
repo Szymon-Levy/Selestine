@@ -99,7 +99,7 @@ if ($action == 'add') {
 
       db_query($pdo, $query, $arguments);
       
-      $_SESSION['ARTICLE_ADDED'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'New article has been successfully added.';
       redirect('admin/articles');
     }
   }
@@ -233,7 +233,7 @@ else if ($action == 'edit') {
         
         db_query($pdo, $query, $arguments);
         
-        $_SESSION['ARTICLE_EDITED'] = true;
+        $_SESSION['MESSAGE_SUCCESS'] = 'Article data has been successfully edited.';
         redirect('admin/articles');
       }
     }
@@ -262,7 +262,7 @@ else if ($action == 'delete') {
       
       db_query($pdo, $delete_query, $arguments);
       
-      $_SESSION['ARTICLE_DELETED'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'Article has been successfully deleted.';
       redirect('admin/articles');
 
     }

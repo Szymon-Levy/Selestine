@@ -120,7 +120,7 @@
       
       db_query($pdo, $query, $arguments);
       
-      $_SESSION['PROFILE_EDITED'] = true;
+      $_SESSION['MESSAGE_SUCCESS'] = 'Profile changes have been updated.';
       redirect('profile-settings');
     }
   }
@@ -271,12 +271,5 @@
     </div>
   </div>
 </section>
-
-<?php
-  if(isset($_SESSION['PROFILE_EDITED']) && $_SESSION['PROFILE_EDITED'] === true) {
-    unset($_SESSION['PROFILE_EDITED']);
-    $message_block = generate_alert('Profile changes have been updated.', 'success');
-  }
-?>
 
 <?php include '../app/pages/includes/bottom.php'; ?>

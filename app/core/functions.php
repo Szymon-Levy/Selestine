@@ -191,13 +191,15 @@ function is_menu_item_active_admin(string $href, string $section) {
  * @param string $type Type of alert (error, success, info).
  */
 function generate_alert (string $message, string $type) {
-  echo '<div class="alert alert--' . $type .' js-alert" role="alert">';
-  echo  '<p class="alert__message">' . $message . '</p>';
-  echo  '<button class="alert__close js-alert-close">';
-  echo    '<span class="visually-hidden">Close alert</span>';
-  echo    '<i aria-hidden="true" class="ri-close-line"></i>';
-  echo  '</button>';
-  echo '</div>';
+  $alert  = '';
+  $alert .= '<div class="alert alert--' . $type .' js-alert" role="alert">';
+  $alert .=  '<p class="alert__message">' . $message . '</p>';
+  $alert .=  '<button class="alert__close js-alert-close">';
+  $alert .=    '<span class="visually-hidden">Close alert</span>';
+  $alert .=    '<i aria-hidden="true" class="ri-close-line"></i>';
+  $alert .=  '</button>';
+  $alert .= '</div>';
+  return $alert;
 }
 
 /**

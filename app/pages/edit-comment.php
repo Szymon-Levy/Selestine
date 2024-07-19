@@ -10,7 +10,7 @@ if ($id) {
   $comment = db_query($pdo, $comment_query, [$id])->fetch();
 
   if (!$comment) {
-    $_SESSION['EDIT_COMMENT_ERROR_NOT_FOUND'] = true;
+    $_SESSION['MESSAGE_ERROR'] = "Comment doesn't exist.";
     redirect('blog');
   }
 
@@ -40,18 +40,18 @@ if ($id) {
                               $arguments['content'] = $content;
         db_query($pdo, $add_comment_query, $arguments);
 
-        $_SESSION['COMMENT_EDITED'] = true;
+        $_SESSION['MESSAGE_SUCCESS'] = 'Comment has been successfully modified.';
         redirect('blog/' . $comment['article_slug'] . '#comment' . $id);
       }
     }
   }
   else {
-    $_SESSION['EDIT_COMMENT_ERROR_AUTHOR'] = true;
+    $_SESSION['MESSAGE_ERROR'] = 'You are not the author of the comment.';
     redirect('blog');
   }
 }
 else {
-  $_SESSION['EDIT_COMMENT_ERROR_INVALID_ID'] = true;
+  $_SESSION['MESSAGE_ERROR'] = 'Invalid comment id.';
   redirect('blog');
 }
 

@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $query = 'INSERT INTO users (user_name, email, pass, account_type) VALUES (:user_name, :email, :pass, :account_type);';
     db_query($pdo, $query, $arguments);
     
-    $_SESSION['REGISTERED'] = true;
+    $_SESSION['MESSAGE_SUCCESS'] = 'Your account has been registered, you can now log in by providing the correct credentials.';
     redirect('login');
   }
 }

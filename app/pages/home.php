@@ -252,18 +252,4 @@
   </section>
 <?php } ?>
 
-<?php
-  if(isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN'] === true) {
-    unset($_SESSION['LOGGED_IN']);
-    $message_block = generate_alert('You have successfully logged in.', 'success');
-  }
-?>
-
-<?php
-  if(isset($_SESSION['LOGGED_OUT']) && $_SESSION['LOGGED_OUT'] === true) {
-    unset($_SESSION['LOGGED_OUT']);
-    $message_block = generate_alert('You have been successfully logged out.', 'success');
-  }
-?>
-
 <?php include '../app/pages/includes/bottom.php'; ?>
