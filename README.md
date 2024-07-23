@@ -1,10 +1,10 @@
 # Selestine Blog with Admin Panel
 
-Selestine is a female blogging website. It covers various topics including fashion, beauty, health, travel, and career advice. Custom Admin panel empowers user to easly create, publish, and manage their blog content. 
+Selestine is a female blogging website. It covers various topics including fashion, beauty, health, travel, and career advice. Custom Admin panel empowers user to easly create, publish, and manage their blog content. Users can comment on blog articles.
 
 Website available here: [ Selestine Blog](https://selestine.com.pl/)
 
-![selestine1](https://github.com/Szymon-Levy/Selestine/assets/94991990/be44da0b-82a6-4813-a65a-c40845bdcf5f)
+![selestine1](https://github.com/user-attachments/assets/44c601c6-c55b-41f2-9678-278475f73a33)
 
 ## Features
 
@@ -12,12 +12,17 @@ Website available here: [ Selestine Blog](https://selestine.com.pl/)
 
 - User registration.
 - Logging into personal account.
+- User account settings.
+- Profile pages with basic user info.
 
 **2. Blog**
 
 - Overviewing newest, most popular and featured articles. 
-- Displaying articles by their category.
-- Search for articles by title keywords.
+- Displaying articles grid with pagination.
+- Displaying articles by category.
+- Search for articles by keywords in titles.
+- Search for articles by keywords in titles.
+- Commenting articles and comment management (edit, like, delete).
 
 **3. Admin Panel**
 
@@ -37,14 +42,26 @@ Website available here: [ Selestine Blog](https://selestine.com.pl/)
 
 ## Screenshots
 
-![signup](https://github.com/Szymon-Levy/Selestine/assets/94991990/99f55b35-1692-446d-bcd9-48f537e5d5da)
+**Signup page**
 
-![featured](https://github.com/Szymon-Levy/Selestine/assets/94991990/64739ed5-741f-4526-be96-07ee6b5d4c6c)
+![signup](https://github.com/user-attachments/assets/985fc042-deec-4709-9e67-8a0c02da8d40)
 
-![bottom](https://github.com/Szymon-Levy/Selestine/assets/94991990/8217dde2-2841-4f33-8815-7264aec9a894)
+**User profile page**
+
+![profile](https://github.com/user-attachments/assets/c1516f02-e6d3-4513-ab38-51b533a4394a)
+
+**Home articles overview**
+
+![homepage-overview](https://github.com/user-attachments/assets/2615ef0a-3488-42eb-a5a8-f0b7e2d90fb2)
+
+**Article page**
+
+![article](https://github.com/user-attachments/assets/bf82c882-5d15-4b10-b746-1a95e5404cd6)
+
+**Admin dashboard**
 
 ![admin1](https://github.com/Szymon-Levy/Selestine/assets/94991990/3487e25b-ad22-43ad-bcb3-56eb5b7f1d29)
 
-![admin2](https://github.com/Szymon-Levy/Selestine/assets/94991990/f6e449b2-0bc9-42bc-aa6d-fee045800686)
+**Admin adding articles**
 
-![admin3](https://github.com/Szymon-Levy/Selestine/assets/94991990/76905420-fec7-4887-a302-1e4af59d4976)
+![admin-article](https://github.com/user-attachments/assets/686d1779-e7ad-4b61-bed4-94d7b5e56c90)
